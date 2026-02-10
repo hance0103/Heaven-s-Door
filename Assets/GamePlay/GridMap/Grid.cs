@@ -1,34 +1,50 @@
+using UnityEngine;
+
 namespace GamePlay.GridMap
 {
     public class Grid
     {
         // 그리드의 가로 세로 셀 개수
-        public int width;
-        public int height;
-        public eSystemEnum.eSellState[,] cells;
+        private readonly int _width;
+        private readonly int _height;
+        public readonly eSystemEnum.eSellState[,] Cells;
+        public readonly eSystemEnum.eNodeState[,] Nodes;
 
-        public Grid(int w, int h)
+        public Grid(int w, int h, Vector2Int startPos)
         {
-            width = w;
-            height = h;
-            cells = new eSystemEnum.eSellState[w, h];
+            _width = w;
+            _height = h;
+            Cells = new eSystemEnum.eSellState[w, h];
+            Nodes = new eSystemEnum.eNodeState[w - 1, h - 1];
             InitGrid();
+            SetInitRegion(startPos, 3, 3);
         }
 
         private void InitGrid()
         {
-            for (int i = 0; i < width; i++)
+            for (int i = 0; i < _width; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < _height; j++)
                 {
-                    if (i == 0 || i == width - 1 || j == 0 || j == height - 1)
+                    if (i == 0 || i == _width - 1 || j == 0 || j == _height - 1)
                     {
-                        cells[i, j] = eSystemEnum.eSellState.Wall;
+                        Cells[i, j] = eSystemEnum.eSellState.Wall;
                     }
                     else
                     {
-                        cells[i, j] = eSystemEnum.eSellState.Empty;
+                        Cells[i, j] = eSystemEnum.eSellState.Empty;
                     }
+                }
+            }
+        }
+
+        private void SetInitRegion(Vector2Int start, int width, int height)
+        {
+            for (int i = start.x; i < start.x + width; i++)
+            {
+                for (int j = start.y; j < start.y + height; j++)
+                {
+                    Cells[i, j] = eSystemEnum.eSellState.Filled;
                 }
             }
         }

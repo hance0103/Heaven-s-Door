@@ -6,8 +6,14 @@ namespace GamePlay
         {
             Wall,
             Empty,
-            Line,
             Filled
+        }
+
+        public enum eNodeState
+        {
+            None,
+            Moveable,
+            Drawable,
         }
     }
 }
