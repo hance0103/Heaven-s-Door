@@ -7,11 +7,12 @@ namespace GamePlay.GridMap
         public static Vector2 GridToWorld(int x, int y, Vector3 origin, int cellSize)
         {
             return origin + new Vector3(
-                (x) * cellSize / 100f,
-                (y) * cellSize / 100f,
+                x * cellSize / 100f,
+                y * cellSize / 100f,
                 0f
             );
         }
+
         public static Vector2 NodeToWorld(int x, int y, Vector3 origin, int cellSize)
         {
             return origin + new Vector3(
@@ -20,11 +21,21 @@ namespace GamePlay.GridMap
                 0f
             );
         }
-        public static Vector2Int WorldToGrid(Vector2 worldPosition)
+
+        public static Vector2Int WorldToGrid(Vector2 worldPosition, Vector3 origin, int cellSize)
         {
-            return new Vector2Int(
-                
-            );
+            var local = worldPosition - (Vector2)origin;
+            var gx = Mathf.RoundToInt(local.x * 100f / cellSize);
+            var gy = Mathf.RoundToInt(local.y * 100f / cellSize);
+            return new Vector2Int(gx, gy);
+        }
+
+        public static Vector2Int WorldToNode(Vector2 worldPosition, Vector3 origin, int cellSize)
+        {
+            var local = worldPosition - (Vector2)origin;
+            var nx = Mathf.RoundToInt(local.x * 100f / cellSize - 0.5f);
+            var ny = Mathf.RoundToInt(local.y * 100f / cellSize - 0.5f);
+            return new Vector2Int(nx, ny);
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace GamePlay
 {
-    public class SystemEnum
+    public static class SystemEnum
     {
         public enum eSellState
         {
@@ -11,17 +11,10 @@ namespace GamePlay
 
         public enum eNodeState
         {
-            None,
+            CannotMove,
             Moveable,
             Drawable,
-        }
-
-        public enum eNodeDirection
-        {
-            Up,
-            Down,
-            Right,
-            Left
+            Drawing
         }
     }
 }
