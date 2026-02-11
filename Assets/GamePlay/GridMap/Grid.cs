@@ -5,93 +5,37 @@ namespace GamePlay.GridMap
 {
     public class Grid
     {
-        private readonly int _width;
-        private readonly int _height;
-
-        public int Width => _width;
-        public int Height => _height;
+        public int Width { get; }
+        public int Height { get; }
 
         public readonly SystemEnum.eSellState[,] Cells;
-        public readonly SystemEnum.eNodeState[,] Nodes;
 
-        public Grid(int w, int h, Vector2Int startPos)
+        public Grid(int w, int h, Vector2Int startPos, Vector2Int startSize)
         {
-            _width = w;
-            _height = h;
+            Width = Mathf.Max(1, w);
+            Height = Mathf.Max(1, h);
 
-            Cells = new SystemEnum.eSellState[w, h];
-            Nodes = new SystemEnum.eNodeState[w - 1, h - 1];
+            Cells = new SystemEnum.eSellState[Width, Height];
 
-            InitGrid();
-            SetInitRegion(startPos, 3, 3);
-            RecalculateNodes();
+            for (int x = 0; x < Width; x++)
+            for (int y = 0; y < Height; y++)
+                Cells[x, y] = SystemEnum.eSellState.Empty;
+
+            FillRectClamped(startPos, startSize);
         }
 
-        private void InitGrid()
+        public bool InBoundsCell(int x, int y) => x >= 0 && y >= 0 && x < Width && y < Height;
+
+        public void FillRectClamped(Vector2Int start, Vector2Int size)
         {
-            for (var x = 0; x < _width; x++)
-            {
-                for (var y = 0; y < _height; y++)
-                {
-                    if (x == 0 || x == _width - 1 || y == 0 || y == _height - 1)
-                        Cells[x, y] = SystemEnum.eSellState.Wall;
-                    else
-                        Cells[x, y] = SystemEnum.eSellState.Empty;
-                }
-            }
-        }
+            int x0 = Mathf.Clamp(start.x, 0, Width - 1);
+            int y0 = Mathf.Clamp(start.y, 0, Height - 1);
+            int x1 = Mathf.Clamp(start.x + size.x - 1, 0, Width - 1);
+            int y1 = Mathf.Clamp(start.y + size.y - 1, 0, Height - 1);
 
-        private void SetInitRegion(Vector2Int start, int width, int height)
-        {
-            for (var x = start.x; x < start.x + width; x++)
-            {
-                for (var y = start.y; y < start.y + height; y++)
-                {
-                    Cells[x, y] = SystemEnum.eSellState.Filled;
-                }
-            }
-        }
-
-        private static bool IsCaptured(SystemEnum.eSellState s)
-        {
-            return s == SystemEnum.eSellState.Filled;
-        }
-
-        private static bool IsHardSolid(SystemEnum.eSellState s)
-        {
-            return s == SystemEnum.eSellState.Filled || s == SystemEnum.eSellState.Wall;
-        }
-
-        public void RecalculateNodes()
-        {
-            for (var x = 0; x < _width - 1; x++)
-            {
-                for (var y = 0; y < _height - 1; y++)
-                {
-                    var a = Cells[x, y];
-                    var b = Cells[x + 1, y];
-                    var c = Cells[x, y + 1];
-                    var d = Cells[x + 1, y + 1];
-
-                    var ca = IsCaptured(a);
-                    var cb = IsCaptured(b);
-                    var cc = IsCaptured(c);
-                    var cd = IsCaptured(d);
-
-                    var anyCaptured = ca || cb || cc || cd;
-                    var allCaptured = ca && cb && cc && cd;
-
-                    if (allCaptured)
-                    {
-                        Nodes[x, y] = SystemEnum.eNodeState.CannotMove;
-                        continue;
-                    }
-
-                    Nodes[x, y] = anyCaptured
-                        ? SystemEnum.eNodeState.Moveable   // “점령된 영역 경계” 노드
-                        : SystemEnum.eNodeState.Drawable;  // 그냥 빈 공간 노드
-                }
-            }
+            for (int x = x0; x <= x1; x++)
+            for (int y = y0; y <= y1; y++)
+                Cells[x, y] = SystemEnum.eSellState.Filled;
         }
     }
 }

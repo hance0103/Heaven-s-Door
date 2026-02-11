@@ -15,6 +15,10 @@ Shader "Custom/SpriteRevealMaskGrid"
 
         _InvertMask ("Invert Mask (0/1)", Range(0,1)) = 0
         _MaskedOutTransparent ("Masked-out Transparent (0/1)", Range(0,1)) = 0
+
+        _OutlineColor ("Captured Outline Color", Color) = (1,1,1,1)
+        _OutlineWorld ("Outline Thickness (World)", Float) = 0.02
+        _OutlineEnable ("Outline Enable (0/1)", Range(0,1)) = 1
     }
 
     SubShader
@@ -44,8 +48,8 @@ Shader "Custom/SpriteRevealMaskGrid"
             fixed4 _Color;
 
             sampler2D _MaskTex;
-            float4 _GridSize;       // (W, H, 0, 0)
-            float4 _Origin;         // (worldX, worldY, 0, 0)
+            float4 _GridSize;
+            float4 _Origin;
             float  _CellWorldSize;
 
             fixed4 _SilhouetteColor;
@@ -53,6 +57,10 @@ Shader "Custom/SpriteRevealMaskGrid"
 
             float  _InvertMask;
             float  _MaskedOutTransparent;
+
+            fixed4 _OutlineColor;
+            float  _OutlineWorld;
+            float  _OutlineEnable;
 
             struct appdata
             {
@@ -81,6 +89,15 @@ Shader "Custom/SpriteRevealMaskGrid"
                 return o;
             }
 
+            float SampleMask(int2 ci, float W, float H)
+            {
+                if (ci.x < 0 || ci.y < 0 || ci.x >= (int)W || ci.y >= (int)H)
+                    return 0.0;
+
+                float2 uv = (float2(ci) + 0.5) / float2(W, H);
+                return tex2D(_MaskTex, uv).r;
+            }
+
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed4 main = tex2D(_MainTex, i.uv) * i.color;
@@ -89,41 +106,52 @@ Shader "Custom/SpriteRevealMaskGrid"
                 float W = _GridSize.x;
                 float H = _GridSize.y;
 
-                // 안전장치: 세팅이 안 되면 그냥 실루엣(=마스크 0) 처리
-                if (W <= 0.5 || H <= 0.5 || _CellWorldSize <= 0.00001)
+                if (W <= 0.5 || H <= 0.5 || _CellWorldSize <= 1e-6)
                 {
                     fixed4 fallback = main;
                     fallback.rgb = lerp(main.rgb, _SilhouetteColor.rgb, _SilhouetteMul);
                     return fallback;
                 }
 
-                // world -> cell
-                float2 cell = (i.worldXY - _Origin.xy) / _CellWorldSize;
+                float2 cellF = (i.worldXY - _Origin.xy) / _CellWorldSize;
 
-                // cell -> mask uv (텍스처 픽셀 중앙을 샘플)
-                float2 maskUV = (cell + 0.5) / float2(W, H);
+                int2 ci = (int2)floor(cellF);
+                float2 f = frac(cellF);
 
-                // 범위 밖은 마스크 0(가려짐)로 취급
-                float m = 0.0;
-                if (maskUV.x >= 0.0 && maskUV.x <= 1.0 && maskUV.y >= 0.0 && maskUV.y <= 1.0)
-                {
-                    m = tex2D(_MaskTex, maskUV).r; // 0..1
-                }
-
-                // 마스크 반전 옵션
+                float m = SampleMask(ci, W, H);
                 m = lerp(m, 1.0 - m, _InvertMask);
 
-                // masked-out(=m=0)일 때의 색
                 fixed4 maskedOut = main;
-
-                // 실루엣 강도: 0이면 원본, 1이면 실루엣색
                 maskedOut.rgb = lerp(main.rgb, _SilhouetteColor.rgb, _SilhouetteMul);
-
-                // 필요하면 아예 투명
                 maskedOut = lerp(maskedOut, fixed4(0,0,0,0), _MaskedOutTransparent);
 
-                // m=0 -> maskedOut, m=1 -> main
-                return lerp(maskedOut, main, m);
+                fixed4 col = lerp(maskedOut, main, m);
+
+                if (_OutlineEnable > 0.5 && m > 0.5)
+                {
+                    float ml = SampleMask(ci + int2(-1, 0), W, H);
+                    float mr = SampleMask(ci + int2( 1, 0), W, H);
+                    float md = SampleMask(ci + int2( 0,-1), W, H);
+                    float mu = SampleMask(ci + int2( 0, 1), W, H);
+
+                    ml = lerp(ml, 1.0 - ml, _InvertMask);
+                    mr = lerp(mr, 1.0 - mr, _InvertMask);
+                    md = lerp(md, 1.0 - md, _InvertMask);
+                    mu = lerp(mu, 1.0 - mu, _InvertMask);
+
+                    float t = saturate(_OutlineWorld / _CellWorldSize);
+
+                    float o = 0.0;
+                    if (ml < 0.5 && f.x < t) o = 1.0;
+                    if (mr < 0.5 && f.x > 1.0 - t) o = 1.0;
+                    if (md < 0.5 && f.y < t) o = 1.0;
+                    if (mu < 0.5 && f.y > 1.0 - t) o = 1.0;
+
+                    col.rgb = lerp(col.rgb, _OutlineColor.rgb, o * _OutlineColor.a);
+                    col.a = max(col.a, o * _OutlineColor.a);
+                }
+
+                return col;
             }
             ENDCG
         }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using GamePlay;
@@ -9,202 +8,352 @@ namespace GamePlay.GridMap
     {
         [SerializeField] private RevealMaskController revealMask;
         [SerializeField] private SpriteRenderer spriteRenderer;
+
+        [Header("Grid")]
         [SerializeField] public int cellSize = 32;
         [SerializeField] public Vector2Int startPos = new Vector2Int(1, 1);
-        [SerializeField] private bool drawGizmos = true;
+        [SerializeField] public Vector2Int startFillSize = new Vector2Int(3, 3);
 
-        private Vector2Int _gridSize;
-        private Vector2Int _nodeSize;
-        private Vector3 _mapOrigin;
-        
+        [Header("Enemies")]
+        [SerializeField] private List<EnemyController> enemies = new List<EnemyController>();
+
         private Grid _grid;
 
-        public Vector2Int GridSize => _gridSize;
-        public Vector2Int NodeSize => _nodeSize;
-        
-        public int GridWidth => _grid.Width;
-        public int GridHeight => _grid.Height;
-        public Vector3 MapOrigin => _mapOrigin;
-        public float CellWorldSize => cellSize / 100f;
-        
+        private int _cellW;
+        private int _cellH;
+        private int _nodeW;
+        private int _nodeH;
+
+        private Vector3 _origin;
+        private float _cellWorldSize;
+
+        public int CellWidth => _cellW;
+        public int CellHeight => _cellH;
+        public int NodeWidth => _nodeW;
+        public int NodeHeight => _nodeH;
+
+        public Vector3 Origin => _origin;
+        public float CellWorldSize => _cellWorldSize;
 
         private void Awake()
         {
             var sprite = spriteRenderer.sprite;
 
-            var gridWidth = (int)sprite.rect.width / cellSize + 2;
-            var gridHeight = (int)sprite.rect.height / cellSize + 2;
+            _cellW = Mathf.Max(1, Mathf.RoundToInt(sprite.rect.width / cellSize));
+            _cellH = Mathf.Max(1, Mathf.RoundToInt(sprite.rect.height / cellSize));
 
-            _gridSize = new Vector2Int(gridWidth, gridHeight);
-            _nodeSize = new Vector2Int(gridWidth - 1, gridHeight - 1);
+            _nodeW = _cellW + 1;
+            _nodeH = _cellH + 1;
 
-            _grid = new Grid(gridWidth, gridHeight, startPos);
+            _origin = spriteRenderer.bounds.min;
 
-            _mapOrigin = spriteRenderer.bounds.min - Vector3.one * cellSize / 200f;
+            float worldW = spriteRenderer.bounds.size.x;
+            float worldH = spriteRenderer.bounds.size.y;
+
+            float sx = worldW / _cellW;
+            float sy = worldH / _cellH;
+            _cellWorldSize = (sx + sy) * 0.5f;
+
+            _grid = new Grid(_cellW, _cellH, startPos, startFillSize);
         }
 
-        
-        public SystemEnum.eSellState GetCell(int x, int y)
-        {
-            return _grid.Cells[x, y];
-        }
-        
-        public Vector2 GetGridPosition(int x, int y)
-        {
-            return GridMath.GridToWorld(x, y, _mapOrigin, cellSize);
-        }
+        public SystemEnum.eSellState GetCell(int x, int y) => _grid.Cells[x, y];
 
-        public Vector2 GetNodePosition(int x, int y)
+        public Vector2 GetCellCenterWorld(int x, int y) => GridMath.CellCenterToWorld(x, y, _origin, _cellWorldSize);
+        public Vector2 GetNodeWorld(int x, int y) => GridMath.NodeToWorld(x, y, _origin, _cellWorldSize);
+
+        public Vector2Int WorldToCell(Vector2 worldPos) => GridMath.WorldToCell(worldPos, _origin, _cellWorldSize);
+        public Vector2Int WorldToNode(Vector2 worldPos) => GridMath.WorldToNode(worldPos, _origin, _cellWorldSize);
+
+        public Vector2Int EnemyTransformToNode(EnemyController enemy)
         {
-            return GridMath.NodeToWorld(x, y, _mapOrigin, cellSize);
+            if (enemy == null) return new Vector2Int(-9999, -9999);
+            return WorldToNode(enemy.transform.position);
         }
 
-        public bool IsNodeInBounds(Vector2Int n)
+        public bool IsCellInBounds(Vector2Int c) => c.x >= 0 && c.y >= 0 && c.x < _cellW && c.y < _cellH;
+        public bool IsNodeInBounds(Vector2Int n) => n.x >= 0 && n.y >= 0 && n.x < _nodeW && n.y < _nodeH;
+
+        private bool IsFilledCell(Vector2Int c)
         {
-            return n.x >= 0 && n.y >= 0 && n.x < _nodeSize.x && n.y < _nodeSize.y;
+            if (!IsCellInBounds(c)) return false;
+            return _grid.Cells[c.x, c.y] == SystemEnum.eSellState.Filled;
         }
 
-        private static bool IsCaptured(SystemEnum.eSellState s)
+        private bool IsEmptyCell(Vector2Int c)
         {
-            return s == SystemEnum.eSellState.Filled;
+            if (!IsCellInBounds(c)) return false;
+            return _grid.Cells[c.x, c.y] == SystemEnum.eSellState.Empty;
         }
 
-        private static bool IsHardSolid(SystemEnum.eSellState s)
+        private bool IsEmptyOrOutForDraw(Vector2Int c)
         {
-            return s == SystemEnum.eSellState.Filled || s == SystemEnum.eSellState.Wall;
+            if (!IsCellInBounds(c)) return true; // 드로잉에서는 맵 밖을 "빈 공간"처럼 취급
+            return _grid.Cells[c.x, c.y] == SystemEnum.eSellState.Empty;
         }
 
-        private void GetEdgeSideCells(Vector2Int node, Vector2Int dir, out Vector2Int c1, out Vector2Int c2)
+        // nodePos -> nodePos+dir 엣지에 인접한 셀 2개
+        private void GetEdgeSideCells(Vector2Int nodePos, Vector2Int dir, out Vector2Int c1, out Vector2Int c2)
         {
-            var x = node.x;
-            var y = node.y;
+            var a = nodePos;
+            var b = nodePos + dir;
 
-            if (dir.y > 0)
+            if (a.y == b.y)
             {
-                c1 = new Vector2Int(x, y + 1);
-                c2 = new Vector2Int(x + 1, y + 1);
-                return;
-            }
-
-            if (dir.y < 0)
-            {
+                int y = a.y;
+                int x = Mathf.Min(a.x, b.x);
                 c1 = new Vector2Int(x, y);
-                c2 = new Vector2Int(x + 1, y);
+                c2 = new Vector2Int(x, y - 1);
                 return;
             }
 
-            if (dir.x > 0)
-            {
-                c1 = new Vector2Int(x + 1, y);
-                c2 = new Vector2Int(x + 1, y + 1);
-                return;
-            }
-
-            c1 = new Vector2Int(x, y);
-            c2 = new Vector2Int(x, y + 1);
+            int vx = a.x;
+            int vy = Mathf.Min(a.y, b.y);
+            c1 = new Vector2Int(vx, vy);
+            c2 = new Vector2Int(vx - 1, vy);
         }
 
-        public bool CanStartDrawEdge(Vector2Int nodePos, Vector2Int dir)
-        {
-            GetEdgeSideCells(nodePos, dir, out var ca, out var cb);
-            var a = _grid.Cells[ca.x, ca.y];
-            var b = _grid.Cells[cb.x, cb.y];
-
-            // 드로잉은 “점령(Filled)과 겹치지 않는” 엣지로만 시작
-            return a != SystemEnum.eSellState.Filled && b != SystemEnum.eSellState.Filled;
-        }
-        
-        public bool CanMoveBorder(Vector2Int nodePos, Vector2Int dir)
-        {
-            if (!IsNodeInBounds(nodePos + dir)) return false;
-
-            GetEdgeSideCells(nodePos, dir, out var ca, out var cb);
-            var a = _grid.Cells[ca.x, ca.y];
-            var b = _grid.Cells[cb.x, cb.y];
-
-            // “정확히 한쪽만 점령(Filled)”이면 경계 이동 가능
-            return IsCaptured(a) ^ IsCaptured(b);
-        }
-        public bool IsBorderNode(Vector2Int node)
+        // "Filled 경계에 닿아있는 노드" 판정 (드로잉 시작/닫힘에 사용)
+        // out-of-bounds는 Empty로 취급해서, Filled와 맞닿으면 경계로 인정
+        public bool IsCaptureBoundaryNode(Vector2Int node)
         {
             if (!IsNodeInBounds(node)) return false;
-            return _grid.Nodes[node.x, node.y] == SystemEnum.eNodeState.Moveable;
+
+            return IsCaptureBoundaryEdge(node, Vector2Int.right)
+                || IsCaptureBoundaryEdge(node, Vector2Int.left)
+                || IsCaptureBoundaryEdge(node, Vector2Int.up)
+                || IsCaptureBoundaryEdge(node, Vector2Int.down);
         }
 
-        public bool IsBothSidesPureEmpty(Vector2Int nodePos, Vector2Int dir)
+        private bool IsCaptureBoundaryEdge(Vector2Int nodePos, Vector2Int dir)
         {
-            GetEdgeSideCells(nodePos, dir, out var ca, out var cb);
-            return _grid.Cells[ca.x, ca.y] == SystemEnum.eSellState.Empty
-                   && _grid.Cells[cb.x, cb.y] == SystemEnum.eSellState.Empty;
+            var to = nodePos + dir;
+            if (!IsNodeInBounds(to)) return false;
+
+            GetEdgeSideCells(nodePos, dir, out var a, out var b);
+
+            bool sa = IsCellInBounds(a) && IsFilledCell(a);
+            bool sb = IsCellInBounds(b) && IsFilledCell(b);
+
+            bool ea = !IsCellInBounds(a) || IsEmptyCell(a);
+            bool eb = !IsCellInBounds(b) || IsEmptyCell(b);
+
+            return (sa && eb) || (sb && ea);
+        }
+        public bool CanMoveBorder(Vector2Int nodePos, Vector2Int dir)
+        {
+            var to = nodePos + dir;
+            if (!IsNodeInBounds(to)) return false;
+
+            GetEdgeSideCells(nodePos, dir, out var a, out var b);
+
+            bool aIn = IsCellInBounds(a);
+            bool bIn = IsCellInBounds(b);
+
+            bool aFilled = aIn && _grid.Cells[a.x, a.y] == SystemEnum.eSellState.Filled;
+            bool bFilled = bIn && _grid.Cells[b.x, b.y] == SystemEnum.eSellState.Filled;
+
+            // 둘 다 그리드 안이면: 한쪽만 Filled인 경계만 이동 가능
+            if (aIn && bIn)
+                return aFilled ^ bFilled;
+
+            // 한쪽만 그리드 안이면: 그 "안쪽"이 Filled일 때만(=점령 외곽 타기 금지 유지)
+            if (aIn ^ bIn)
+                return aIn ? aFilled : bFilled;
+
+            // 둘 다 밖이면 이동 불가
+            return false;
         }
 
-        public bool IsEdgeBothSidesHardSolid(Vector2Int nodePos, Vector2Int dir)
+        // 드로잉 시작: 맵 밖을 빈 공간처럼 취급해서 외곽에서도 시작 가능
+        public bool CanStartDrawEdge(Vector2Int nodePos, Vector2Int dir)
         {
-            GetEdgeSideCells(nodePos, dir, out var ca, out var cb);
-            var a = _grid.Cells[ca.x, ca.y];
-            var b = _grid.Cells[cb.x, cb.y];
-            return IsHardSolid(a) && IsHardSolid(b);
+            var to = nodePos + dir;
+            if (!IsNodeInBounds(to)) return false;
+
+            GetEdgeSideCells(nodePos, dir, out var a, out var b);
+
+            // 둘 다 맵 밖이면 의미 없는 엣지
+            if (!IsCellInBounds(a) && !IsCellInBounds(b)) return false;
+
+            return IsEmptyOrOutForDraw(a) && IsEmptyOrOutForDraw(b);
         }
+
+        // 드로잉 이동: 노드 범위 안이면 OK, 단 "양쪽이 모두 단단(=Filled 또는 맵 밖)"이면 금지
+        public bool CanMoveDrawingEdge(Vector2Int nodePos, Vector2Int dir)
+        {
+            var to = nodePos + dir;
+            if (!IsNodeInBounds(to)) return false;
+
+            GetEdgeSideCells(nodePos, dir, out var a, out var b);
+
+            bool sa = IsCellInBounds(a) ? IsFilledCell(a) : true; // 맵 밖 = 단단
+            bool sb = IsCellInBounds(b) ? IsFilledCell(b) : true;
+
+            return !(sa && sb);
+        }
+
+        public bool IsEdgeBothSidesSolid(Vector2Int nodePos, Vector2Int dir)
+        {
+            var to = nodePos + dir;
+            if (!IsNodeInBounds(to)) return true;
+
+            GetEdgeSideCells(nodePos, dir, out var a, out var b);
+
+            bool sa = IsCellInBounds(a) ? IsFilledCell(a) : true;
+            bool sb = IsCellInBounds(b) ? IsFilledCell(b) : true;
+
+            return sa && sb;
+        }
+
         private bool IsBlockedBetweenCells(int x1, int y1, int x2, int y2, HashSet<Edge> lineEdges)
         {
-            // 셀 (x1,y1) <-> (x2,y2)는 4방 인접만 들어온다고 가정
-
-            // 오른쪽 (x+1)
             if (x2 == x1 + 1 && y2 == y1)
-            {
-                // 두 셀 사이의 경계는 "수직 엣지" (노드 (x1, y1-1) -> (x1, y1))
-                var n1 = new Vector2Int(x1, y1 - 1);
-                var n2 = new Vector2Int(x1, y1);
-                return lineEdges.Contains(new Edge(n1, n2));
-            }
+                return lineEdges.Contains(new Edge(new Vector2Int(x1 + 1, y1), new Vector2Int(x1 + 1, y1 + 1)));
 
-            // 왼쪽 (x-1)
             if (x2 == x1 - 1 && y2 == y1)
-            {
-                var n1 = new Vector2Int(x2, y1 - 1);
-                var n2 = new Vector2Int(x2, y1);
-                return lineEdges.Contains(new Edge(n1, n2));
-            }
+                return lineEdges.Contains(new Edge(new Vector2Int(x1, y1), new Vector2Int(x1, y1 + 1)));
 
-            // 위쪽 (y+1)
             if (y2 == y1 + 1 && x2 == x1)
-            {
-                // 두 셀 사이의 경계는 "수평 엣지" (노드 (x1-1, y1) -> (x1, y1))
-                var n1 = new Vector2Int(x1 - 1, y1);
-                var n2 = new Vector2Int(x1, y1);
-                return lineEdges.Contains(new Edge(n1, n2));
-            }
+                return lineEdges.Contains(new Edge(new Vector2Int(x1, y1 + 1), new Vector2Int(x1 + 1, y1 + 1)));
 
-            // 아래쪽 (y-1)
             if (y2 == y1 - 1 && x2 == x1)
-            {
-                var n1 = new Vector2Int(x1 - 1, y2);
-                var n2 = new Vector2Int(x1, y2);
-                return lineEdges.Contains(new Edge(n1, n2));
-            }
+                return lineEdges.Contains(new Edge(new Vector2Int(x1, y1), new Vector2Int(x1 + 1, y1)));
 
             return false;
         }
-        public void CaptureByLine(HashSet<Edge> lineEdges)
-        {
-            var w = _grid.Width;
-            var h = _grid.Height;
 
-            var label = new int[w, h];
-            for (var x = 0; x < w; x++)
+        private void TryFloodStep(
+            int x1, int y1,
+            int x2, int y2,
+            HashSet<Edge> lineEdges,
+            bool[,] visited,
+            Queue<Vector2Int> q)
+        {
+            if (x2 < 0 || y2 < 0 || x2 >= _cellW || y2 >= _cellH) return;
+            if (visited[x2, y2]) return;
+            if (_grid.Cells[x2, y2] != SystemEnum.eSellState.Empty) return;
+            if (IsBlockedBetweenCells(x1, y1, x2, y2, lineEdges)) return;
+
+            visited[x2, y2] = true;
+            q.Enqueue(new Vector2Int(x2, y2));
+        }
+
+        private void EnqueueEnemySeedCells(Queue<Vector2Int> q, bool[,] visited)
+        {
+            void TrySeed(Vector2Int c)
             {
-                for (var y = 0; y < h; y++)
-                {
-                    label[x, y] = -1;
-                }
+                if (!IsCellInBounds(c)) return;
+                if (_grid.Cells[c.x, c.y] != SystemEnum.eSellState.Empty) return;
+                if (visited[c.x, c.y]) return;
+
+                visited[c.x, c.y] = true;
+                q.Enqueue(c);
             }
 
-            var sizes = new List<int>();
-            var q = new Queue<Vector2Int>();
-
-            int MakeComponent(int sx, int sy, int id)
+            void SeedFromNode(Vector2Int n)
             {
-                var size = 0;
+                TrySeed(new Vector2Int(n.x, n.y));
+                TrySeed(new Vector2Int(n.x - 1, n.y));
+                TrySeed(new Vector2Int(n.x, n.y - 1));
+                TrySeed(new Vector2Int(n.x - 1, n.y - 1));
+            }
+
+            if (enemies == null) return;
+
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                var e = enemies[i];
+                if (e == null) continue;
+
+                var nodes = e.CurrentNode;
+                if (nodes != null && nodes.Count > 0)
+                {
+                    for (int k = 0; k < nodes.Count; k++)
+                        SeedFromNode(nodes[k]);
+                }
+                else
+                {
+                    SeedFromNode(EnemyTransformToNode(e));
+                }
+            }
+        }
+        private void GetAdjacentCellsToEdge(Edge e, out Vector2Int c1, out Vector2Int c2)
+        {
+            var a = e.A;
+            var b = e.B;
+
+            if (a.y == b.y)
+            {
+                int y = a.y;
+                int x = Mathf.Min(a.x, b.x);
+                c1 = new Vector2Int(x, y);
+                c2 = new Vector2Int(x, y - 1);
+                return;
+            }
+
+            int vx = a.x;
+            int vy = Mathf.Min(a.y, b.y);
+            c1 = new Vector2Int(vx, vy);
+            c2 = new Vector2Int(vx - 1, vy);
+        }
+        private void MarkEnemyComponentsByLabel(bool[] compHasEnemy, int[,] label)
+        {
+            void MarkCell(Vector2Int c)
+            {
+                if (!IsCellInBounds(c)) return;
+                if (_grid.Cells[c.x, c.y] != SystemEnum.eSellState.Empty) return;
+
+                int id = label[c.x, c.y];
+                if (id >= 0 && id < compHasEnemy.Length)
+                    compHasEnemy[id] = true;
+            }
+
+            void MarkByNode(Vector2Int n)
+            {
+                MarkCell(new Vector2Int(n.x, n.y));
+                MarkCell(new Vector2Int(n.x - 1, n.y));
+                MarkCell(new Vector2Int(n.x, n.y - 1));
+                MarkCell(new Vector2Int(n.x - 1, n.y - 1));
+            }
+
+            if (enemies == null) return;
+
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                var e = enemies[i];
+                if (e == null) continue;
+
+                var nodes = e.CurrentNode;
+                if (nodes != null && nodes.Count > 0)
+                {
+                    for (int k = 0; k < nodes.Count; k++)
+                        MarkByNode(nodes[k]);
+                }
+                else
+                {
+                    MarkByNode(EnemyTransformToNode(e));
+                }
+            }
+        }
+
+        public void CaptureByLine(HashSet<Edge> lineEdges)
+        {
+            int w = _cellW;
+            int h = _cellH;
+
+            // 1) lineEdges를 "벽"으로 보고 Empty 컴포넌트 라벨링
+            var label = new int[w, h];
+            for (int x = 0; x < w; x++)
+            for (int y = 0; y < h; y++)
+                label[x, y] = -1;
+
+            var sizes = new List<int>(64);
+            var q = new Queue<Vector2Int>(1024);
+
+            int FloodComp(int sx, int sy, int id)
+            {
+                int size = 0;
                 label[sx, sy] = id;
                 q.Enqueue(new Vector2Int(sx, sy));
 
@@ -213,215 +362,265 @@ namespace GamePlay.GridMap
                     var c = q.Dequeue();
                     size++;
 
-                    var x = c.x;
-                    var y = c.y;
-
-                    TryEnqueue(x, y, x + 1, y, id);
-                    TryEnqueue(x, y, x - 1, y, id);
-                    TryEnqueue(x, y, x, y + 1, id);
-                    TryEnqueue(x, y, x, y - 1, id);
+                    TryEnq(c.x, c.y, c.x + 1, c.y);
+                    TryEnq(c.x, c.y, c.x - 1, c.y);
+                    TryEnq(c.x, c.y, c.x, c.y + 1);
+                    TryEnq(c.x, c.y, c.x, c.y - 1);
                 }
 
                 return size;
-            }
 
-            void TryEnqueue(int x1, int y1, int x2, int y2, int id)
-            {
-                if (x2 < 0 || y2 < 0 || x2 >= w || y2 >= h) return;
-                if (label[x2, y2] != -1) return;
-                if (_grid.Cells[x2, y2] != SystemEnum.eSellState.Empty) return;
-
-                if (IsBlockedBetweenCells(x1, y1, x2, y2, lineEdges)) return;
-
-                label[x2, y2] = id;
-                q.Enqueue(new Vector2Int(x2, y2));
-            }
-
-            var compId = 0;
-            for (var x = 0; x < w; x++)
-            {
-                for (var y = 0; y < h; y++)
+                void TryEnq(int x1, int y1, int x2, int y2)
                 {
-                    if (_grid.Cells[x, y] != SystemEnum.eSellState.Empty) continue;
-                    if (label[x, y] != -1) continue;
+                    if (x2 < 0 || y2 < 0 || x2 >= w || y2 >= h) return;
+                    if (label[x2, y2] != -1) return;
+                    if (_grid.Cells[x2, y2] != SystemEnum.eSellState.Empty) return;
+                    if (IsBlockedBetweenCells(x1, y1, x2, y2, lineEdges)) return;
 
-                    var size = MakeComponent(x, y, compId);
-                    sizes.Add(size);
-                    compId++;
+                    label[x2, y2] = id;
+                    q.Enqueue(new Vector2Int(x2, y2));
                 }
             }
 
-            // 선 주변(양쪽)을 정확히 컴포넌트로 수집: GetEdgeSideCells를 양방향으로 사용
-            var adjacentComps = new HashSet<int>();
+            int compId = 0;
+            for (int x = 0; x < w; x++)
+            for (int y = 0; y < h; y++)
+            {
+                if (_grid.Cells[x, y] != SystemEnum.eSellState.Empty) continue;
+                if (label[x, y] != -1) continue;
+
+                sizes.Add(FloodComp(x, y, compId));
+                compId++;
+            }
+
+            if (compId == 0) return;
+
+            // 2) 적이 속한 컴포넌트 마킹
+            var compHasEnemy = new bool[compId];
+            MarkEnemyComponentsByLabel(compHasEnemy, label);
+
+            // 3) "이번에 그린 선"에 인접한 컴포넌트만 후보로 모음
+            var adjacent = new HashSet<int>();
 
             void AddAdjCell(Vector2Int c)
             {
-                if (c.x < 0 || c.y < 0 || c.x >= w || c.y >= h) return;
+                if (!IsCellInBounds(c)) return;
                 if (_grid.Cells[c.x, c.y] != SystemEnum.eSellState.Empty) return;
 
-                var id = label[c.x, c.y];
-                if (id != -1) adjacentComps.Add(id);
+                int id = label[c.x, c.y];
+                if (id >= 0) adjacent.Add(id);
             }
 
             foreach (var e in lineEdges)
             {
-                var a = e.A;
-                var b = e.B;
-                var dir = b - a; // (1,0), (-1,0), (0,1), (0,-1)
-
-                // a 기준으로 dir 쪽(2셀) + 반대쪽(2셀) => 총 4셀을 모두 확인
-                GetEdgeSideCells(a, dir, out var s1, out var s2);
-                GetEdgeSideCells(a, -dir, out var t1, out var t2);
-
-                AddAdjCell(s1);
-                AddAdjCell(s2);
-                AddAdjCell(t1);
-                AddAdjCell(t2);
+                GetAdjacentCellsToEdge(e, out var c1, out var c2);
+                AddAdjCell(c1);
+                AddAdjCell(c2);
             }
 
-            if (adjacentComps.Count == 0)
-            {
-                _grid.RecalculateNodes();
-                return;
-            }
-            
-            //TODO 적이 없는 방향을 캡처하도록 나중에 추가할것
-            // 작은 쪽 캡처(적/퀵스 없을 때 임시 룰)
-            var target = -1;
-            var minSize = int.MaxValue;
+            if (adjacent.Count == 0) return;
 
-            foreach (var id in adjacentComps)
+            // 4) adjacent 중 "적 없는 컴포넌트"만 점령 대상으로.
+            //    여러 개면 가장 작은 것 1개만 점령 (원치 않는 '전부 점령' 방지)
+            int target = -1;
+            int best = int.MaxValue;
+
+            foreach (var id in adjacent)
             {
-                var s = sizes[id];
-                if (s < minSize)
+                if (id < 0 || id >= compId) continue;
+                if (compHasEnemy[id]) continue;
+
+                int s = sizes[id];
+                if (s < best)
                 {
-                    minSize = s;
+                    best = s;
                     target = id;
                 }
             }
 
-            
-            var totalEmpty = 0;
-            for (var i = 0; i < sizes.Count; i++)
-                totalEmpty += sizes[i];
-            
-            if (target == -1)
-            {
-                _grid.RecalculateNodes();
-                return;
-            }
-            
-            // 안전장치: 선이 실제로 영역을 나누지 못해서 Empty가 하나뿐이면 캡처하지 않음
-            if (sizes[target] == totalEmpty)
-            {
-                _grid.RecalculateNodes();
-                return;
-            }
+            // adjacent 양쪽 다 적이 있으면 점령 안 함
+            if (target == -1) return;
 
-            var changed = new List<Vector2Int>();
-            
-            for (var x = 0; x < w; x++)
+            // 5) target 컴포넌트만 Filled로 변경 + 마스크 반영
+            var changed = new List<Vector2Int>(best);
+
+            for (int x = 0; x < w; x++)
+            for (int y = 0; y < h; y++)
             {
-                for (var y = 0; y < h; y++)
+                if (label[x, y] == target)
                 {
-                    if (label[x, y] == target)
-                    {
-                        _grid.Cells[x, y] = SystemEnum.eSellState.Filled;
-                        changed.Add(new Vector2Int(x, y));
-                    }
+                    _grid.Cells[x, y] = SystemEnum.eSellState.Filled;
+                    changed.Add(new Vector2Int(x, y));
                 }
             }
-            
-            revealMask?.RevealCells(changed);
-            _grid.RecalculateNodes();
+
+            if (changed.Count > 0)
+                revealMask?.RevealCells(changed);
         }
-
-        private void TryStepCell(
-            int x1, int y1,
-            int x2, int y2,
-            bool[,] vBlock, bool[,] hBlock,
-            bool[,] visited,
-            Queue<Vector2Int> q)
-        {
-            if (x2 < 0 || y2 < 0 || x2 >= visited.GetLength(0) || y2 >= visited.GetLength(1)) return;
-            if (visited[x2, y2]) return;
-            if (_grid.Cells[x2, y2] != SystemEnum.eSellState.Empty) return;
-
-            if (x2 == x1 + 1)
-            {
-                if (vBlock[x1, y1]) return;
-            }
-            else if (x2 == x1 - 1)
-            {
-                if (vBlock[x2, y1]) return;
-            }
-            else if (y2 == y1 + 1)
-            {
-                if (hBlock[x1, y1]) return;
-            }
-            else if (y2 == y1 - 1)
-            {
-                if (hBlock[x1, y2]) return;
-            }
-
-            visited[x2, y2] = true;
-            q.Enqueue(new Vector2Int(x2, y2));
-        }
+        // public void CaptureByLine(HashSet<Edge> lineEdges)
+        // {
+        //     int w = _cellW;
+        //     int h = _cellH;
+        //
+        //     var visited = new bool[w, h];
+        //     var q = new Queue<Vector2Int>(1024);
+        //     EnqueueEnemySeedCells(q, visited);
+        //
+        //     if (q.Count > 0)
+        //     {
+        //         while (q.Count > 0)
+        //         {
+        //             var c = q.Dequeue();
+        //             int x = c.x;
+        //             int y = c.y;
+        //
+        //             TryFloodStep(x, y, x + 1, y, lineEdges, visited, q);
+        //             TryFloodStep(x, y, x - 1, y, lineEdges, visited, q);
+        //             TryFloodStep(x, y, x, y + 1, lineEdges, visited, q);
+        //             TryFloodStep(x, y, x, y - 1, lineEdges, visited, q);
+        //         }
+        //
+        //         var changed = new List<Vector2Int>(256);
+        //
+        //         for (int x = 0; x < w; x++)
+        //         for (int y = 0; y < h; y++)
+        //         {
+        //             if (_grid.Cells[x, y] != SystemEnum.eSellState.Empty) continue;
+        //             if (visited[x, y]) continue;
+        //
+        //             _grid.Cells[x, y] = SystemEnum.eSellState.Filled;
+        //             changed.Add(new Vector2Int(x, y));
+        //         }
+        //
+        //         if (changed.Count > 0)
+        //             revealMask?.RevealCells(changed);
+        //
+        //         return;
+        //     }
+        //
+        //     var label = new int[w, h];
+        //     for (int x = 0; x < w; x++)
+        //     for (int y = 0; y < h; y++)
+        //         label[x, y] = -1;
+        //
+        //     var sizes = new List<int>(64);
+        //     var cq = new Queue<Vector2Int>(1024);
+        //
+        //     int FloodComp(int sx, int sy, int id)
+        //     {
+        //         int size = 0;
+        //         label[sx, sy] = id;
+        //         cq.Enqueue(new Vector2Int(sx, sy));
+        //
+        //         while (cq.Count > 0)
+        //         {
+        //             var c = cq.Dequeue();
+        //             size++;
+        //
+        //             TryEnq(c.x, c.y, c.x + 1, c.y);
+        //             TryEnq(c.x, c.y, c.x - 1, c.y);
+        //             TryEnq(c.x, c.y, c.x, c.y + 1);
+        //             TryEnq(c.x, c.y, c.x, c.y - 1);
+        //         }
+        //
+        //         return size;
+        //
+        //         void TryEnq(int x1, int y1, int x2, int y2)
+        //         {
+        //             if (x2 < 0 || y2 < 0 || x2 >= w || y2 >= h) return;
+        //             if (label[x2, y2] != -1) return;
+        //             if (_grid.Cells[x2, y2] != SystemEnum.eSellState.Empty) return;
+        //             if (IsBlockedBetweenCells(x1, y1, x2, y2, lineEdges)) return;
+        //
+        //             label[x2, y2] = id;
+        //             cq.Enqueue(new Vector2Int(x2, y2));
+        //         }
+        //     }
+        //
+        //     int compId = 0;
+        //     for (int x = 0; x < w; x++)
+        //     for (int y = 0; y < h; y++)
+        //     {
+        //         if (_grid.Cells[x, y] != SystemEnum.eSellState.Empty) continue;
+        //         if (label[x, y] != -1) continue;
+        //
+        //         sizes.Add(FloodComp(x, y, compId));
+        //         compId++;
+        //     }
+        //
+        //     if (compId == 0) return;
+        //
+        //     var adjacent = new HashSet<int>();
+        //
+        //     void AddAdj(Vector2Int c)
+        //     {
+        //         if (!IsCellInBounds(c)) return;
+        //         if (_grid.Cells[c.x, c.y] != SystemEnum.eSellState.Empty) return;
+        //
+        //         int id = label[c.x, c.y];
+        //         if (id >= 0) adjacent.Add(id);
+        //     }
+        //
+        //     foreach (var e in lineEdges)
+        //     {
+        //         GetAdjacentCellsToEdge(e, out var c1, out var c2);
+        //         AddAdj(c1);
+        //         AddAdj(c2);
+        //     }
+        //
+        //     if (adjacent.Count == 0) return;
+        //
+        //     int target = -1;
+        //     int best = int.MaxValue;
+        //
+        //     foreach (var id in adjacent)
+        //     {
+        //         if (id < 0 || id >= compId) continue;
+        //         int s = sizes[id];
+        //         if (s < best)
+        //         {
+        //             best = s;
+        //             target = id;
+        //         }
+        //     }
+        //
+        //     if (target == -1) return;
+        //
+        //     int totalEmpty = 0;
+        //     for (int i = 0; i < sizes.Count; i++)
+        //         totalEmpty += sizes[i];
+        //
+        //     if (sizes[target] == totalEmpty) return;
+        //
+        //     var changed2 = new List<Vector2Int>(sizes[target]);
+        //
+        //     for (int x = 0; x < w; x++)
+        //     for (int y = 0; y < h; y++)
+        //     {
+        //         if (label[x, y] == target)
+        //         {
+        //             _grid.Cells[x, y] = SystemEnum.eSellState.Filled;
+        //             changed2.Add(new Vector2Int(x, y));
+        //         }
+        //     }
+        //
+        //     if (changed2.Count > 0)
+        //         revealMask?.RevealCells(changed2);
+        // }
 
         private void OnDrawGizmos()
         {
-            if (!drawGizmos) return;
-            if (_grid == null) return;
+            Gizmos.color = Color.green;
+            if (enemies == null) return;
 
-            for (var x = 0; x < _gridSize.x; x++)
+            foreach (var enemy in enemies)
             {
-                for (var y = 0; y < _gridSize.y; y++)
+                if (enemy == null || enemy.CurrentNode == null) continue;
+
+                foreach (var node in enemy.CurrentNode)
                 {
-                    var pos = GetGridPosition(x, y);
-
-                    switch (_grid.Cells[x, y])
-                    {
-                        case SystemEnum.eSellState.Empty:
-                            Gizmos.color = Color.clear;
-                            break;
-                        case SystemEnum.eSellState.Wall:
-                            Gizmos.color = new Color(1, 0, 0, 0.15f);
-                            break;
-                        case SystemEnum.eSellState.Filled:
-                            Gizmos.color = new Color(0, 0, 1, 0.15f);
-                            break;
-                        default:
-                            Gizmos.color = Color.magenta;
-                            break;
-                    }
-
-                    Gizmos.DrawCube(pos, Vector3.one * cellSize / 100f);
-                }
-            }
-
-            for (var x = 0; x < _nodeSize.x; x++)
-            {
-                for (var y = 0; y < _nodeSize.y; y++)
-                {
-                    var p = GetNodePosition(x, y);
-
-                    switch (_grid.Nodes[x, y])
-                    {
-                        case SystemEnum.eNodeState.CannotMove:
-                            Gizmos.color = Color.red;
-                            break;
-                        case SystemEnum.eNodeState.Moveable:
-                            Gizmos.color = Color.green;
-                            break;
-                        case SystemEnum.eNodeState.Drawable:
-                            Gizmos.color = Color.yellow;
-                            break;
-                        default:
-                            Gizmos.color = Color.magenta;
-                            break;
-                    }
-
-                    Gizmos.DrawSphere(p, 0.02f);
+                    var p2 = GridMath.NodeToWorld(node.x, node.y, _origin, _cellWorldSize);
+                    Gizmos.DrawSphere(new Vector3(p2.x, p2.y, 0f), _cellWorldSize * 0.15f);
                 }
             }
         }

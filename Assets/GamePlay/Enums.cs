@@ -4,7 +4,6 @@ namespace GamePlay
     {
         public enum eSellState
         {
-            Wall,
             Empty,
             Filled
         }
