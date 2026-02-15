@@ -1,0 +1,74 @@
+#Scenario_3
+
+@back Dwissan1
+@char Bilyeong pos: 50, 50 scale: 0.7
+@wait 0.5
+Bilyeong: 그래서, 어느 방향으로 가면 되는 것이냐?
+
+@hide Bilyeong
+@char Hwi pos: 50, 15 scale: 0.8
+@wait 0.5
+Hwi: 여기서 동쪽으로 삼십 리쯤만 가면 되네.
+
+@hide Hwi
+@char Bilyeong.Surprised pos: 50, 50 scale: 0.7
+Bilyeong: 삼십 리?
+
+@char Bilyeong.Angry scale: 0.7
+Bilyeong: 뭘 엎어져서 코 닿을 정도쯤인 것처럼 말하느냐?
+
+@hide Bilyeong
+@char Yoon pos: 50, 0 scale: 0.85 transition: Fadein time: 1
+@wait 1.5
+Yoon: 너는 사제한테 찰싹 붙어서는 걷지도 않는 것이, 무슨 불만이 그렇게 많니.
+
+@char Yoon transition: Fadeout time: 0.5
+@wait 1
+@char Bilyeong pos: 80, 50 scale: 0.7
+@wait 1
+Bilyeong: 지루하단 말이다! 그 먼 거리를 가는 동안 난 대체 뭘 하냔 말이냐?
+
+@char Yeon.sigh pos: 80, 15 scale: 0.85
+@hide Bilyeong
+Yeon: 도착할 때까지 그리 툴툴댈거면 잠이라도 자고 있거라.
+@char Bilyeong pos: 20, 50 scale: 0.7
+Bilyeong: 자라고? 
+Bilyeong: 네놈은 그렇게 자놓고 나한테 또 자라는 소리가 나오느냐?
+
+@char Yeon
+Yeon:그럼 계속 그리 궁상대겠다는 것이냐?
+
+@char Bilyeong
+Bilyeong: 전에는 막 연기를 타고 이리저리 다녔지 않느냐?
+Bilyeong: 삼십 리쯤은 떡 하나 삼킬 쯤이면 도착하고 그랬거늘.
+Yeon: 지금 상태로 그런 도술이 그리 쉽진 않지, 그것도 여기 모두를 함께는.
+
+@char Bilyeong.Happy
+Bilyeong: 하, 못한다는 말을 뭘 그리 돌려서 하느냐.
+Yeon: ...나 혼자라면 못 갈 것도 없을 것 같군. 
+Yeon: 먼저 갈테니 사저 옆에 붙어서 오붓하게 오도록 하거라.
+
+
+@wait 1
+@char Bilyeong.Surprised
+Bilyeong: ...!
+@wait 1.5
+@char Bilyeong.Angry
+Bilyeong: ...조금이라도 힘을 아껴야 하거늘 그게 무슨 말이냐! 
+Bilyeong: 어서 가자! 한시가 급하다!
+
+@hide Yeon
+@hide Bilyeong
+@char Yoon.Sigh pos: 50, 15 scale: 0.85 transition: Fadein time: 1
+@wait 2
+Yoon: ......
+Yoon: 내가 더 싫거든...
+
+@char Yoon transition: Fadeout time: 0.5
+@wait 1.7
+@char Seol.EyeClosed pos: 80, 15 scale: 0.85 transition: Fadein time: 1
+@wait 1.7
+Seol: ......
+@char Hwi.Sigh pos: 20, 15 scale: 0.8 transition: Fadein time: 1
+@wait 1.7
+Hwi: 하아...

@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: NovelData
+  m_EditorClassIdentifier: 
+  m_GroupName: NovelData
+  m_GUID: 9df700903fae6334880eea87db5b0e0a
+  m_SerializeEntries:
+  - m_GUID: 0456013cb81a47e4b8181503851ee357
+    m_Address: NovelScriptData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - NovelSettingData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5d4dc45aad65ed540b3ae33faa26a2e7
+    m_Address: NovelAudioData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - NovelSettingData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a27599c3b42f52647a4286a28d180d36
+    m_Address: NovelVariableData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - NovelSettingData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e02d080a38887524b8a11898b66695be
+    m_Address: NovelBackgroundData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - NovelSettingData
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e603c56af2769f74f82d79833121f093
+    m_Address: NovelCharacterData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - NovelSettingData
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 81276c7676f68ac4489721641018052a, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 64223309cf3048149a84d75b9e6551d5, type: 2}
+    - {fileID: 11400000, guid: 26e9ffbb7ead94e4c82e60aeab3c46a2, type: 2}

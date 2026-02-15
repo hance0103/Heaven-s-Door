@@ -1,0 +1,591 @@
+#Scenario_1
+
+@back BlackScreen
+
+??: ........
+??: ......라......
+??: ......나라...
+??: ...이제 그만...
+
+@hideui
+@back Dwissan1.SlideDown time: 0.5
+@wait 1.5
+@char ??.BilyeongAngry pos: 50, 50 scale 0.7 transition: fadein time: 2
+@wait 3
+??: 일어나라! 이 놈아!
+
+@hide ??
+???: ......
+
+@char ???.Yeon pos: 50, 15 scale: 0.85
+@wait 2
+???: ......
+???: ...무어냐.
+
+@hideui
+@hide ???
+@char ??.Bilyeongoriginal pos: 50, 50 scale: 0.7
+@wait 1
+@char ??.BilyeongSurprised
+@wait 1
+??: ...?! 
+??: 일어났느냐?
+
+@hide ??
+@char ???.Yeon pos: 50, 15 scale: 0.85
+???: 그래, 보다시피.
+
+@hide ???
+@char ??.Bilyeongoriginal pos: 20, 50 scale: 0.7
+??: 실로 오랜만에 깨어나서 처음 보는 풍경이라는 것이.
+??: 주인이라는 것이 땅바닥에 퍼질러 있는 꼴이라니... 
+??: 난 네가 드디어 죽은 줄 알았다.
+
+@char ???.Yeon pos: 80, 15 scale: 0.85
+???: 네가 멀쩡히 살아 떠드는 걸 보니, 아직 죽진 못한 것 같구나.
+??: 그러게 말이다, 하.
+
+@char ??.BilyeongHappy
+??: 이몸도 분명히 그 때 죽을 것이라 생각했는데 말이지.
+???: 뭐, 어떻게든 살아남은 것이겠지.
+
+@char ??.BilyeongSigh
+??: 징글징글하게도 말이지. 흥.
+???: 그래, 걱정해 주어서 고맙구나.
+
+@char ??.BilyeongAngry
+??: 허, 누가 네놈 걱정을...!
+???: 헌데 말이다, 비령아.
+
+@hide ??
+@hide ???
+몸에서 무엇인가 묘한 감각이 느껴진다.
+머릿속은 계속하여 탁하여 안개가 자욱히 낀 것만 같고, 
+몸은 물에 푹 젖기라도 한 양 축 늘어져 내 것이 아닌 것 같다.
+
+@char ???.Yeon pos: 50, 15 scale: 0.85
+???: ...흠.
+???: 몸이 아직 제 상태가 아니군.
+
+@hide ???
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: 그래, 네놈도 느낀 것이냐? 
+Bilyeong: 어째서인진 모르겠지만, 너무 이르게 봉인이 풀려버렸다.
+
+@hide Bilyeong
+@char ???.Yeon pos: 50, 15 scale: 0.85
+???: 무슨 일이라도 있었던 것이냐.
+
+@hide ???
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: 그걸 왜 나에게 묻느냐? 
+
+@char Bilyeong.Happy
+Bilyeong: 말코 같은 네놈이 술식을 얼마나 허접하게 걸었으면 수천년은 거뜬히 가야 했을 봉인이 지금 이 모양이겠느냐.
+
+@hide Bilyeong
+@hide ???
+눈 앞에서 녀석이 깐죽대며 신나서 떠드는 걸 보고 있자니 조용해질 때까지 기다릴까 싶기도 하지만, 
+그만두었다. 당장은 어찌 된 일인지를 파악하는 것이 먼저였으니.
+근처에 너저분하게 떨어져 있는 부적을 모아 술식을 살피고 있자니, 가만히 있기 심심한 것인지 불꽃을 화륵대며 알짱거린다.
+
+@char Bilyeong.Embarrassed pos: 50, 50 scale: 0.7
+Bilyeong: ...설마 화났느냐?
+
+@hide Bilyeong
+@char ???.Yeon pos: 50, 15 scale: 0.85
+???: 지금 어찌 된 것인지 살펴보고 있는 중이니, 조용히 좀 하고 떨어져 있어 보거라.
+
+@hide ???
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: ...흥.
+
+@hide Bilyeong
+@hide ???
+싫은 소리 하면서도 순순히 입을 다무는 걸 보면, 자기도 어찌 된 것인지가 내심 궁금한 것인지.
+아니면 정말 순수하게 기분이 신경쓰였던 건지.
+얼마 지나지 않아, 조용히 하라 한 것을 그새 까먹은 것인지 녀석이 다시 말을 꺼낸다.
+
+@char Bilyeong pos: 20, 50 scale: 0.7
+Bilyeong: 뭐라도 좀 찾았느냐?
+
+@char ???.Yeon pos: 80, 15 scale: 0.85
+???: 그래.
+???: 처음엔 뭔가 문제가 있는 줄 알았는데, 살펴 보니 그런 낌새 없이 잘 작동하는구나.
+Bilyeong: 그럼 뭐가 문제란 말이느냐?
+???: 누군가 의도적으로 봉인을 해제한 것 같은 느낌이다.
+???: 무엇보다 이쪽이 반응하지 않았다는 건, 술식에 어지간히 능통하다는 것인데.
+???: 누구인지 어느 정도 짐작은 간다마는...
+
+@char Bilyeong.Angry
+Bilyeong: 에잇, 뭔 말이 그렇게 기느냐? 그러니까 어떤 놈이 제멋대로 봉인을 풀고서는 도망갔다는 말을 믿으라는 것 아니느냐.
+
+@char Bilyeong
+Bilyeong: 그렇지만, 정말 그 말이 맞다면 술식에 능통한 자는 하나밖에 모르는데.
+???: 그래. 우리가 내 예상이 맞다면야...
+???: 술식을 해제할 자는 휘 사형밖에 없겠지.
+
+@char Bilyeong.Sigh
+Bilyeong: 그 놈이 갑자기 무슨 바람이 불어 네놈을 깨우냐는 게 문제지.
+???: 정말로 사형이라면, 그 이유는... 직접 물어보는 수밖에 없겠구나.
+
+@char Bilyeong
+Bilyeong: 어디 있는지 코빼기도 안 보이는 놈을 지금 무슨 수로 찾겠다고?
+???: 지금 내 힘이 온전치 않아 마음대로 나다닐 순 없으니...
+
+@char Bilyeong.Sigh
+Bilyeong: 그런 놈이 뭐가 그리 태평하느냐.
+???: 그저 기다리면 알 수 있겠지. 바로...
+???: 저쪽에 보이는 것처럼.
+
+@hide Bilyeong
+@hide ???
+멀리서부터 화려하지만, 익숙한 가면을 쓴 자가 우리를 향해 걸어오고 있다.
+그리고 제법 반가운 모습이 하나 더 있는 것 같은데.
+그리고 또 다른 한 명은, 기억에 없는 자이다.
+
+@char ????.yoonsillouette pos: 50, 15 scale: 0.85
+@wait 2
+????: 일어~~ 났구나~~ 연~~ 사~~ 제~~!
+
+@hide ????.yoonsillouette
+멀리서부터 들려오는 목소리에 비령의 불꽃 끝이 순간 흠칫한다.
+
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: 으엑, 저놈도 있는 것이냐.
+
+@hide Bilyeong
+마찬가지로 반가운지 달려오는 윤 사저를, 비령은 언짢은 듯 해 보인다마는,
+오랜만에 보는 얼굴이 내심 반갑기는 할 것이다.
+
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: 그럼 난 저기 빠져 있을 테니 알아서 이야기 나누던가 말던가 하거라.
+
+@hide Bilyeong
+...반갑기는 할 것이다.
+
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: 그래, 다들. 멀쩡히 살아 있었구나.
+
+@hide Yeon
+자세한 것은 물어보면 알 수 있을 테지.
+아마도 긴 대화가 될 것이다.
+
+#Scenario_2
+
+@back Dwissan1
+@bgm ScenarioBGM
+@char Yoon.Happy pos: 50, 15 scale: 0.85
+@wait 1
+Yoon: 이게 얼마만이야, 사제?
+
+@hide Yoon
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: 오랜만입니다, 사저.
+
+@hide Yeon
+@char Yoon pos: 20, 15 scale: 0.85 flip: true
+Yoon: 너도 오랜만이다, 비령아?
+
+@hide Yeon
+@char Bilyeong.Sigh pos: 80, 50 scale: 0.7
+Bilyeong: 흥, 퍽이나.
+Yoon: 이야, 너는 어떻게 된 것이 세월이 이리 지났는데도 성질머리가 변한 게 하나도 없니.
+
+@char Bilyeong.Angry
+Bilyeong: 내가 뭐 어떻다고 그러는... 읍!
+
+@hide Bilyeong transition: Fadeout time: 1
+@wait 2.5
+@char Yeon pos: 80, 15 scale: 0.85 transition: Fadein time: 1
+@wait 1.3
+Yeon: 예, 비령이도 반갑다고 하는군요.
+
+@hide Yeon
+@hide Yoon
+시끄럽게 조잘대는 녀석의 주둥이 부분을 콱 쥐어지고는 대신해서 말을 이어간다.
+
+@char Hwi.Sigh pos: 50, 15 scale: 0.8
+@wait 1.5
+Hwi: ...모두 한결같은 모습이구나. 
+Hwi: 다시 보게 되어 반갑네, 사제.
+
+@hide Hwi
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: ...네, 사형도 다시 보게 되어 반갑습니다.
+
+@hide Yeon
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: 그래, 궁금한 것이 많겠지?
+
+@hide Hwi
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: ...아무래도 그럴 수 밖에요.
+
+@hide Yeon
+손을 놓자 열심히 떽떽거리던 비령은, 얼마 지나지 않아 사저와 또 무슨 시비가 붙었는지 열심히 다투고 있는 것 같다. 
+그리고 이 틈에, 사형에게 궁금한 것을 묻기로 하였다.
+
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: 뭐든 물어보게. 내 아는 선에서 최대한 답해 줄 터이니.
+
+#wayChoice
+
+@hide Yeon
+@hide Hwi
+@hide Bilyeong
+@hide Yoon
+
+@choice 봉인을 푼 자는 사형이 맞습니까?
+    @goto .wayA
+@choice 제가 잠든 동안 무슨 일이 있었습니까?
+    @goto .wayB
+@choice 사형은 지금껏 어떻게 지냈던 겁니까?
+    @goto .wayC
+@choice 더 궁금한 것은 없습니다. (질문 종료)
+    @goto .wayD
+@wait
+
+#wayA
+
+@back Dwissan1
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: 아, 그래. 사제도 술식을 살펴보았나 보군.
+Hwi: 그래, 예상하였듯 내가 사제의 봉인을 풀었다네, 사매도 마찬가지고.
+Hwi: 마찬가지로, 다른 망량들의 봉인 또한 내가 풀었네. 
+Hwi: ...아니, 정확히는 풀려고 시도했었지.
+
+@hide Hwi
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: 시도했었다, 라고 하는 것은.
+
+@hide Yeon
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: 자네와 사매 말고는, 쉬이 봉인을 풀 수 있는 이들은 없었네.
+
+@hide Hwi
+@char Yeon pos: 50, 15 scale: 0.85 
+Yeon: 다른 이들을 강제로 깨우기에는 위험 부담이 컸다는 것이군요.
+
+@hide Yeon 
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: ...사제랑 대화할 때면 설명을 할 필요가 없어서 좋군. 
+Hwi: 그래, 사제 말이 맞네.
+Hwi: 사제는 강하지, 윤 사저도 마찬가지고. 
+Hwi: 다른 사제, 사매들도 물론 강하지만, 너희들만큼은 아니지. 
+Hwi: 아직 그들의 회복이 충분치 않아 강제로 이들의 봉인을 풀기에는 그 위험이 너무 컸네.
+
+@hide Hwi
+@char Yeon pos: 50, 15 scale: 0.85 
+Yeon: 그렇다면 지금 망량은 이렇게 셋뿐이라는 것이군요. 
+Yeon: 알겠습니다, 사형. 그럼...
+@goto .wayChoice
+
+#wayB
+
+@back Dwissan1
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: 그래, 사제는 모르겠군. 그 전쟁이 끝나고 나서 무슨 일이 있었는지.
+Hwi: 모두가 목숨을 바쳐가며 요괴들과 싸워 이긴 덕분에, 그것들은 한동안 잠잠했다네. 
+Hwi: 우리들은 그렇게 평화를 맞이한 것만 같았지.
+
+@hide Hwi
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: ...맞이한 것 같았다, 는 것은.
+Yeon: 그러지 못했다는 것이군요.
+
+@hide Yeon
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: ...그래, 그 말대로네. 
+Hwi: 얼마 되지 않아, 요괴들은 다시 세상에 창궐하기 시작했다네. 
+Hwi: 우리 망량들 역시 그에 맞서 세상에 나타났지만, 그 수는 요괴들에 비해서는 턱없이 모자랐어. 
+Hwi: 그에 더해 요괴들은... 이전과는 달랐네. 그들은 예전보다도 더 강하고 사나워졌지. 
+Hwi: 물론 단지 그뿐이었다면, 그렇게까지 큰 문제는 아니었을 거다.
+Hwi: 무릇 힘만을 믿고 싸우는 자를 이기는 것은 그리 어렵지 않은 일이니까. 
+Hwi: 그렇지만 그들은, ...그래.
+Hwi: 지혜를 가지기 시작했네. 이전처럼 그 힘과 수만을 믿고 덤벼드는 놈들이 아니게 되었어.
+Hwi: 요괴들은 강한 요괴들을 우두머리로 섬기고 따르기 시작했다네. 
+Hwi: 그 우두머리들 또한 그들을 통솔하고 지휘하였지.
+Hwi: 그들은 전략을 세우기 시작했네. 무리지어 사냥하고, 함정을 파며, 기습을 했어. 
+Hwi: 자신의 약점을 감추고, 강점을 내세워서 우리를 상대하였네.
+
+@char Yeon pos: 80, 15 scale: 0.85 transition: Fadein time: 1
+@wait 1.2
+Yeon: ...마치, 우리들이 그들을 상대하는 법을 보는 것 같군요.
+Hwi: 그래, 이제는 전략에서까지 대등해지려 하니, 참으로 골치아픈 일이야.
+Yeon: 그러면, 인간들은 어떻게 되었습니까? 
+Yeon: 저희가 봉인에 든 동안은 인간들이 요괴를 막아섰던 겁니까?
+Hwi: 그래, 그랬지. 하지만 그래서인지, 안타깝게도 그들은 예전만큼 우리에게 호의적이지 않네. 
+Hwi: 다시 요괴가 나타났을 때, 그들은 우리와 다시 함께 힘을 합쳐 요괴들을 막아내려 하였지.
+Hwi: 하지만 우리는 그들에게 답하지 못했네, 인간들과 함께 싸울 수 있는 망량은 남아 있지 않았기에.
+Yeon: 그것이, 인간들이 우리를 저버린 이유라는 말입니까?
+Hwi: 어쩌면 그들은, 우리가 자신들을 버렸다고 생각했을지도 모르지.
+Hwi: 그렇게 시간이 지나고, 이렇게 되었네.
+Hwi: 우리를 배신자라 생각하는 자들도 있고, 아직 좋게 봐 주는 자들도 남아 있을지는 모르지마는.
+Hwi: 대부분은, 우리를 잊었네.
+Hwi: 우리에게야 찰나이지만, 그들에게는 몇 세대에 걸친 영겁의 세월이었지. 
+Hwi: 이제 그들에게 우리들은 옛날 이야기에 나오는 등장인물에 불과하다네.
+Hwi: 이제 그들의 눈에 망량과 요괴는 겉으로는 그리 다를 바 없어졌으니.
+Hwi: 이전처럼 인간들의 도움을 받기는 그리 쉽지 않아.
+Yeon: 생각보다 상황이 더 좋지 않은 것 같이 들리는군요.
+Hwi: ...그래, 그 말대로네.
+Yeon: 알겠습니다, 사형. 그러면...
+@goto .wayChoice
+
+#wayC
+
+@back Dwissan1
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: 나는 자네들처럼 봉인에 들지 않았네. 
+Hwi: 전장에 직접 나서지 못했기에, 봉인에 들 이유가 없었으니 그런 것이지만.
+Hwi: 대신 세상을 떠돌며 여기저기에 새로 피어난 망량들을 인도하고, 인간들을 만나며 힘을 모으고 다녔네. 
+Hwi: 하지만...
+Hwi: 상황은 그리 여의치 않아, 결국 이 꼴인 것이지.
+
+@hide Hwi
+@char Bilyeong.Sigh pos: 50, 50 scale: 0.7
+Bilyeong: 잘 자던 놈들까지 억지로 깨워야 할 정도로...
+Bilyeong: 한놈 한놈이 아쉬운 상황까지 왔다는 것이겠지.
+
+@hide Bilyeong
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: 하하... 말한 그대로네.
+
+@hide Hwi
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: ...잘 알겠습니다, 사형. 그러면...
+@goto .wayChoice
+
+#wayD
+
+@back Dwissan1
+@char Yeon pos: 80, 15 scale: 0.85
+Yeon: 아니, 마지막으로 질문 하나가 더 남았습니다.
+Yeon: 옆의 이 분은, 처음 뵙는 듯 한데.
+
+@char Hwi pos: 20, 15 scale: 0.8
+Hwi: 아, 그래. 소개가 늦었군. 이쪽은 인간 분이시네.
+Hwi: 우리와 뜻이 맞아 요괴들과 맞서 싸우는 데 함께하기로 하셨지.
+
+@hide Hwi
+@hide Yeon
+@char Seol pos: 50, 15 scale: 0.85 transition: Fadein time: 1
+@wait 1.2
+@char Seol.EyeClosed
+Seol: ...설이라고 합니다. 잘 부탁드겠습니다.
+
+@char Seol transition: Fadeout time: 1
+@wait 1.2
+@char Yeon pos: 50, 15 scale: 0.85 transition: Fadein time: 1
+@wait 1.2
+Yeon: ...반갑습니다. 설 소저.
+
+@hide Yeon
+@wait 1
+@char Hwi pos: 20, 15 scale: 0.8
+@char Seol.EyeClosed pos: 80, 15 scale: 0.85
+@wait 0.5
+Hwi: 전에 의원 일을 하였고, 지금은 나와 함께 다니며 세상을 배우는 중이네. 
+Seol: ......
+
+@hide Hwi
+@hide Seol
+@hide Yeon
+우리와 뜻이 맞는다는 것은, 목숨 걸고 요괴를 막아설 각오가 되었다는 것인데.
+그저 요괴를 물리치겠다는 사명감만으로 설 수 있는 자리는 아니라고 생각한다.
+어딘가 말 못할 이유가 있기에 이 자리에 함께하는 것이겠지만...
+다짜고짜 그 까닭을 묻기엔 아직은 이를지도 모른다.
+
+@choice 사연을 묻지 않는다.
+    @goto .wayE
+@choice 사연을 물어 본다.
+    @goto .wayF
+@wait
+
+#wayE
+//@set Empathy += 1
+//@set Faith_Seol += 1
+구태여 묻는 것도 좋지는 않겠지. 
+누구나 말하고 싶지 않은 것은 하나씩 있을 것이다.
+어쩌면 언젠가, 스스로 말해 줄 날이 올지도 모르니.
+
+@goto .wayG
+
+#wayF
+//@set Empathy -= 1
+@char Seol.EyeClosed pos: 20, 15 scale: 0.85 flip: true
+Seol: 저는 그저, 별 것 아닌 재주로 아픈 사람들을 봐주는 떠돌이였을 뿐입니다.
+Seol: ...그리고 단지, 사람들의 목숨을 위협하는 요괴를 막는데 보태고자 할 뿐입니다.
+
+@char Yeon pos: 80, 15 scale: 0.85
+@wait 0.5
+Yeon: 그렇지만, 그저 그렇다기에는.
+Seol: ......
+Yeon: ...아무것도 아닙니다. 괘념치 마십시오.
+Seol: ......
+Seol: ...네.
+
+@hide Seol
+@hide Yeon
+답하는 것을 어쩐지 꺼리는 듯 하기에, 이에 대해서는 후일을 기약하기로 했다.
+
+@goto .wayG
+
+#wayG
+
+@back BlackScreen.SlideLeft time: 1
+@wait 1
+그렇게 조금의 시간이 더 지난 후.
+
+@hideui
+@back Dwissan2.SlideLeft time: 1
+@wait 1
+@char Bilyeong pos: 50, 50 scale: 0.7
+@wait 1
+Bilyeong: 그래서 정리하자면.
+
+@hide Bilyeong
+가장 먼저 말에 물꼬를 튼 것은 비령이었다.
+
+@char Bilyeong.Sigh pos: 50, 50 scale: 0.7
+Bilyeong: 잘 자고 있던 우리를 이리 깨워서는, 또 저 잡것들과 죽을 때까지 싸우라고 그러는 것이 맞느냐?
+
+@hide Bilyeong
+어쩌면 둑째로 무너뜨려 버렸을지도 모르고.
+
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: 그래, 안타깝지만 그 말 그대로다.
+Hwi: 내 불찰로 너희들을 또다시 사지로 내몰게 생겼구나.
+Hwi: 그렇지만 우리 망량들을, 그리고 인간들을 위해서라면 백 번이든 만 번이든 몇 번이고 부탁할 수 있다.
+Hwi: 내 간곡히 청하노니, 나와 함께 요괴들을 이 땅에서 몰아내는데 힘을 보태 다오.
+
+@hide Hwi
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: ...
+
+@char Bilyeong.Angry scale: 0.8
+Bilyeong: ......
+Bilyeong: ...그렇게 나오면 내가 지금 뭐가 되느냐?
+
+@hide Bilyeong
+@char Yeon pos: 80, 15 scale: 0.85
+Yeon: 사형이 그렇게까지 부탁하시는데 사제 된 도리로써 어찌 무시하겠습니까.
+
+@char Yoon pos: 20, 15 scale: 0.85 flip: true
+Yoon: 나도 그래, 뭐 쟤는 하기 싫다니까 빼놓고 우리끼리 하자고.
+
+@hide Yoon
+@hide Yeon
+@char Bilyeong.Angry pos: 50, 50 scale: 0.8
+Bilyeong: 허? 잠깐! 왜 나만 나쁜 놈이 되느냐? 
+Bilyeong: 왜 나만 이상한 놈 만드느냔 말이다!
+Bilyeong: 애초에 나만...! 그...
+Bilyeong: 으으으... 에잇! 되었다! 하면! 하면 되지 않느냐!
+
+@hide Bilyeong
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: ...다들 그리 말해주는가.
+
+@hide Hwi
+간곡하게 부탁하는, 이제는 어쩌면 그런 척일 수도 있는.
+사형도 이제 은근히 비령 놀리는데 합세한 것 같아 보인다마는.
+
+@char Bilyeong.Angry pos: 50, 50 scale: 0.8
+Bilyeong: 그 잡것들을 싸그리 태워 버리고 이번에야말로 제대로 자겠느니라!
+Bilyeong: 그때 가서 또 깨우면 그때는 누구든간에 정말로 가만히 있지 않겠다!
+
+@hide Bilyeong
+@char Yoon pos: 25, 15 scale: 0.85 flip: true
+Yoon: 쟤도 참, 솔직하면 좀 좋아?
+
+@char Yeon pos: 75, 15 scale: 0.85
+Yeon: 그러게나 말입니다.
+
+@hide Yeon
+@hide Yoon
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: ...모두, 고맙네.
+
+@hide Hwi
+@hideui
+@back BlackScreen.SlideLeft time: 1
+@wait 1.5
+그렇게, 이야기 끝에 모두의 의견이 하나로 모였다.
+
+@hideui
+@back Dwissan2.SlideLeft time: 1
+@wait 1.5
+@char Yoon pos: 50, 15 scale: 0.85
+@wait 0.5
+Yoon: 그럼 뭐부터 하면 될까? 
+Yoon: 여기저기 돌아다니면서 요괴놈들 대가리를 다 깨부수면 되는 거야?
+
+@hide Yoon
+@char Hwi pos: 50, 15 scale: 0.8
+@wait 0.5
+Hwi: ...그것도 좋을 수 있겠지마는, 사매.
+
+@hide Hwi
+어쩐지 가면 너머로 그 표정이 보인 것 같다.
+
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: 우리들이 할 것은 요괴들이 점령한 한 골짜기를 되찾는 것이네.
+Hwi: 지금은 그것들의 손에 넘어가 인간들에게는 이제 요괴곡이라 불리우지만.
+
+@hide Hwi
+@char Yeon pos: 80, 15 scale: 0.85
+@wait 0.5
+Yeon: 요괴곡이라 하면...
+
+@char Hwi pos: 20, 15 scale: 0.8
+Hwi: 한때 우리 망량들이 살아가던 곳 중 하나였지.
+Yeon: 왜 그곳을 되찾는 겁니까?
+Hwi: 원래 요괴곡은 음양의 정순한 기운이 모여 많은 망량들이 태어나는 곳이었어.
+Hwi: 지금은 요괴들이 그 기운을 뒤섞어 놓아 그 힘을 잃었고, 그것들이 계속해서 나타나고 있다네.
+Hwi: 아마 그 기운이 망량들이 태어나는 것을 막고, 대신 그것들이 나타나는 것이 아닌가 생각하고 있지.
+Hwi: ...물론, 자세한 것은 가서 확인해 봐야 알 수 있는 것이겠지만.
+
+@hide Hwi
+@hide Yeon
+@char Yoon pos: 50, 15 scale: 0.85
+Yoon: 긴 말은 필요 없네, 그럼.
+Yoon: 요괴곡을 간다, 놈들의 골통을 죄다 깨부순다, 땅을 되찾는다, 해결! 
+Yoon: 내 말이 맞아?
+
+@hide Yoon
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: ...난 사매가 부럽네, 어떻게 그렇게 요약할 수 있는 것인지.
+
+@hide Hwi
+@char Yoon pos: 50, 15 scale: 0.85
+Yoon: ......아니야?
+
+@hide Yoon
+@char Bilyeong pos 50, 50 scale: 0.7
+Bilyeong: 아니, 맞다! 네 말이 맞아. 가서 전부 태워 없애버리면 끝나는 것이지, 크하하!
+
+@hide Bilyeong
+@wait 0.8
+@char Hwi pos: 50, 15 scale: 0.8 transition: Fadein time: 1
+@wait 1.2
+Hwi: 그...
+Hwi: ......
+Hwi: 아무것도 아니네...
+
+@hide Hwi
+@char Yeon pos: 50, 15 scale: 0.85
+@wait 0.5
+Yeon: 고생 많으십니다, 사형.
+
+@hide Yeon
+@char Hwi pos: 50, 15 scale: 0.85
+@wait 0.5
+Hwi: ...아니네, 세월이 지나도 한결같으니 보기 좋구나.
+
+@hide Hwi
+......
+
+@stopbgm 
+말이 표정과 맞지 않으십니다.
+라는 말은, 그저 속으로만 삼키기로 하며.
+우리는, 그렇게 요괴곡으로 향하기로 하였다.

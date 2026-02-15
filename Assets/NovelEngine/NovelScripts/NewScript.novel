@@ -1,0 +1,25 @@
+#start
+@bgm ereb volume:50
+시이이이이이자아아아아아아아아앙아악   
+@char DonQuixote
+Jururu: 하이
+@char DonQuixote.smile
+
+@back 노드크라이
+
+@choice 선택지1 if:변수>15
+    @goto label_1
+@choice 선택지2
+    @goto label_2
+@wait
+이거 뜨면 안됨
+
+#label_1
+1번 선택지 선택함
+@goto end
+#label_2
+2번 선택지 선택함
+
+#end
+마무리 스크립트
+스크립트 끝

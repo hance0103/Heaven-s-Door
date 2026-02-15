@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d544c3bbc4d0df648b589f8f1ea32b34, type: 3}
+  m_Name: NovelVariableData
+  m_EditorClassIdentifier: 
+  novelVariableDict:
+    pairs:
+    - _key: 
+      value:
+        parameter:
+          rid: 1526937573873680391
+    keys: []
+    values: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 1526937573873680391
+      type: {class: FloatParameter, ns: novel, asm: NovelEngine}
+      data:
+        value: 0

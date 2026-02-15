@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff50281334118c448f6427bdc080812, type: 3}
+  m_Name: NovelAudioData
+  m_EditorClassIdentifier: Assembly-CSharp:novel:NovelAudioData
+  bgmDict:
+    pairs:
+    - _key: ereb
+      value: {fileID: 8300000, guid: 13bc02fb179a05d47b0b6dd2b4be10dc, type: 3}
+    - _key: Battle
+      value: {fileID: 8300000, guid: d3a56dce98182b34f9559463c94edd88, type: 3}
+    - _key: ScenarioBGM
+      value: {fileID: 8300000, guid: bfb1f39dbdb67b948b718a1e1349c40a, type: 3}
+    keys: []
+    values: []
+  sfxDict:
+    pairs: []
+    keys: []
+    values: []
+  mixer: {fileID: 24100000, guid: 204b9e9cef8e9cd43bfdd3700b6044dc, type: 2}

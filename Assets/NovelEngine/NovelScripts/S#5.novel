@@ -1,0 +1,96 @@
+#Scenario_5
+
+@back Dwissan2
+
+@char Seol.EyeClosed pos: 80, 15 scale: 0.85 transition: Fadein time: 1
+@wait 1.5
+Seol: ...제법 상등품입니다.
+
+@char Hwi pos: 20, 15 scale: 0.8 transition: Fadein time: 1
+@wait 1.5
+Hwi: 그래, 요긴히 쓸 수 있겠군.
+Hwi: 가면서 이런 것들이 보이면 좀 챙기도록 하지.
+
+@hide Hwi
+@hide Seol
+@char Bilyeong.Sigh pos: 20, 50 scale: 0.7
+Bilyeong: 안 그래도 먼 길을 풀뿌리 캐면서 가다가는 한세월이 걸릴 텐데.
+
+@char Yeon pos: 80, 15 scale: 0.85
+Yeon: 없어서 나중에 후회하는 것보다는 낫겠다고 생각하자꾸나.
+
+@hide Bilyeong
+@hide Yeon
+@char Hwi pos: 50, 15 scale: 0.8
+@wait 1
+Hwi: 찬것 더운것 가릴 수 있는 처지도 아니고 말이지.
+Hwi: 앞으로 싸우면서도 이런 일이 많을 걸세.
+Hwi: 그럴 때마다 부족한 것은 그때그때 직접 수급해야겠지.
+Hwi: 특히 요괴곡에는 급히 살던 곳을 떠난 인간들이 많기에, 잘 찾아보면 분명 도움되는 것들이 많을 것이네.
+Hwi: 워낙 알 수 없는 신묘한 곳이기에, 무슨 일이 일어나더라도 이상하지 않으니 상황에 맞게 움직여야겠지.
+Hwi: 하지만 사제라면 괜찮을 것 같네. 워낙 임기응변에 능해서야 말이지.
+
+@hide Hwi
+@wait 1
+@char Yeon pos: 50, 15 scale: 0.85 
+@wait 0.5
+Yeon: 저라고 그렇지는 않습니다만... 새겨 듣도록 하죠.
+
+@hide Yeon
+@char Bilyeong.Happy pos: 20, 50 scale: 0.7
+Bilyeong: 그래, 이놈도 그냥 눈앞까지 닥쳤으니까 하는거지, 임기응변은 무슨.
+@char Bilyeong.Sigh
+Bilyeong: 그래서 계획이라고는 요괴곡까지 가는 것밖에 없지 않느냐.
+
+@hide Bilyeong
+@char Yoon pos: 50, 15 scale: 0.85
+Yoon: ...?
+Yoon: 그거면 된 거 아냐?
+
+@hide Yoon
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: ......
+
+@hide Hwi
+@char Yeon pos: 80, 15 scale: 0.85
+Yeon: ...일단은 알 수 있는 것이 그뿐이니.
+
+@char Bilyeong pos: 20, 50 scale: 0.7
+Bilyeong: 왜, 실컷 고생해서 가면 그놈들이 나 여기있소~ 하면서 버선발로 마중이라도 나오겠느냐? 
+Bilyeong: 여기저기 싸돌아다니는 잡것들을 찾아다 일일이 족치는 것도 다 일 아니겠느냐.
+
+@hide Yeon
+@hide Bilyeong
+@char Hwi pos: 20, 15 scale: 0.8
+Hwi: 맞는 말이지. 게다가 요괴들이 요괴곡에만 있는 것도 아니니, 우리가 찾아다니는 수밖에.
+
+@char Yoon pos: 80, 15 scale: 0.85
+Yoon: 뭐, 단지 요괴곡에 좀 더 많은 것 뿐이지. 
+Yoon: 조금만 눈을 돌리면 금방 찾을 수 있다고?
+
+@hide Hwi
+@hide Yoon
+@char Yoon pos: 50, 15 scale: 0.85
+Yoon: 마을에도 있고, 뒷산에도 있고.
+Yoon: 저잣거리에도 가끔 나타난다고 하고, 집 앞마당에도 나온다는 얘기도 있고...
+Yoon: 또... 음...
+Yoon: 어...... 
+Yoon: 지금 저~쪽에도 있고...?
+
+@hide Yoon
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: ...저쪽?
+
+@hide Bilyeong
+......
+사저가 가리킨 곳 끝에는.
+우거진 나무 사이로 어렴풋이 꿈틀대는, 오랜만이지만 그럼에도 익숙한 형체가 보인다.
+
+@hideui
+@back BlackScreen.SlideLeft time: 0.5
+@wait 1.7
+@back Dwissan2.SlideLeft time: 0.5
+@wait 1.7
+@char Akui pos: 50, 50 scale: 0.7
+@wait 1
+Akui: @$%^#$#$^&&......

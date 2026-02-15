@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: NovelPlayer
+  m_EditorClassIdentifier: 
+  m_GroupName: NovelPlayer
+  m_GUID: 0bdc976f1f7905045941087a733e0120
+  m_SerializeEntries:
+  - m_GUID: 0b1b4e0a4805ff940a46c7c77e7ea440
+    m_Address: NovelPlayer
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - NovelPlayerPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0e7ce356612690f4591f4d32408099f3
+    m_Address: CharacterStandingBase
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - NovelPlayerPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b2d427cf45449540a2223e179f72a5d
+    m_Address: BackgroundBase
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - NovelPlayerPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da082d9406c7a914b95d590374ba6f54
+    m_Address: ChoiceButtonBase
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - NovelPlayerPrefabs
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 81276c7676f68ac4489721641018052a, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d2b130be3d737d0488ccc8d917404a48, type: 2}
+    - {fileID: 11400000, guid: 2b602d19ac146104db490df1d78d2485, type: 2}

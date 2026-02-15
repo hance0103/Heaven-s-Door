@@ -1,0 +1,20 @@
+@back 20
+@choice 
+    @goto 9
+@wait
+#9
+@back 21
+@choice 
+    @goto 10
+@wait
+#10
+@back 22
+@choice 
+    @goto 11
+@wait
+#11
+@back 23
+@choice 
+    @goto 12
+@wait
+#12

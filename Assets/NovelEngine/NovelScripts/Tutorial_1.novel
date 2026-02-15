@@ -1,0 +1,61 @@
+#1
+@back 1
+@choice 
+    @goto 2
+@wait
+#2
+@back 2
+@choice 
+    @goto 3
+@wait
+#3
+@back 3
+@choice 
+    @goto 4
+@wait
+#4
+@back 4
+@choice 
+    @goto 5
+@wait
+#5
+@back 5
+@choice 
+    @goto 6
+@wait
+#6
+@back 6
+@choice 
+    @goto 7
+@wait
+#7
+@back 7
+@choice 
+    @goto 8
+@wait
+#8
+@back 8
+@choice 
+    @goto 9
+@wait
+#9
+@back 9
+@choice 
+    @goto 10
+@wait
+#10
+@back 10
+@choice 
+    @goto 11
+@wait
+#11
+@back 11
+@choice 
+    @goto 12
+@wait
+#12
+@back 12
+@choice 
+    @goto 13
+@wait
+#13

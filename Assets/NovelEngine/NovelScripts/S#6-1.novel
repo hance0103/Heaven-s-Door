@@ -1,0 +1,53 @@
+#Scenario_6
+
+@back Dwissan2
+@char Bilyeong pos: 50, 50  scale: 0.7
+Bilyeong: ...허.
+Bilyeong: 아직 도착하려면 멀었건만 벌건 대낮부터 이놈들이 나도는 꼴이라니.
+
+@hide Bilyeong
+@char Hwi pos: 20, 15 scale: 0.8
+Hwi: ...그만큼 저들이 세상에 들끓고 있다는 것이지.
+
+@char Yoon pos: 80, 15 scale: 0.85
+Yoon: 내가 가서 쓸어 버릴까?
+Hwi: 그래. 부탁하지, 사매.
+Hwi: ...아니.
+Hwi: 아니면, 이번엔 사제가 나서 보는 것은 어떻겠는가?
+Hwi: 아직 깨어난 지 얼마 되지 않았으니, 가벼이 몸을 풀어 보는 것도 좋을 듯 한데.
+Hwi: 물론, 사제가 괜찮다면 말일세. 무리할 필요는 없지.
+Yoon: 괜찮겠어, 사제?
+
+@hide Hwi
+@hide Yoon
+@hideui
+
+@choice 전 괜찮습니다, 사저.
+    @goto .wayA
+@choice ...아무래도 지금 몸 상태가.
+    @goto .wayB
+@wait
+
+#wayA
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: 흥, 이놈이 아무리 약해빠지게 되었어도 그렇지 저런 잡놈 하나 못 잡을리가 있나.
+@char Bilyeong.Angry
+Bilyeong: 어서 가자! 저 망할 것을 족쳐 버릴 때다!
+
+@goto .wayChoice
+
+#wayB
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: 몸 상태가 뭐? 잔말 말고 빨리 가자꾸나.
+@char Bilyeong.Angry
+Bilyeong: 어서 가자! 저 망할 것을 족쳐 버릴 때다!
+
+@goto .wayChoice
+
+#wayChoice
+@hide Yeon
+@hide Bilyeong
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: ......
+Yeon: ...그래.
+Yeon: 가자꾸나.

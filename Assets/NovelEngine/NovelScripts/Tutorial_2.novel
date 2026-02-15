@@ -1,0 +1,36 @@
+#1
+@back 13
+@choice 
+    @goto 2
+@wait
+#2
+@back 14
+@choice 
+    @goto 3
+@wait
+#3
+@back 15
+@choice 
+    @goto 4
+@wait
+#4
+@back 16
+@choice 
+    @goto 5
+@wait
+#5
+@back 17
+@choice 
+    @goto 6
+@wait
+#6
+@back 18
+@choice 
+    @goto 7
+@wait
+#7
+@back 19
+@choice 
+    @goto 8
+@wait
+#8

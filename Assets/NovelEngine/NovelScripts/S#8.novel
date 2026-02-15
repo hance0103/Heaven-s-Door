@@ -1,0 +1,189 @@
+#Scenario_8
+
+@back Yokaigol
+@bgm ScenarioBGM
+
+@char Seol.Eyeclosed pos: 50, 15 scale: 0.85 transition: Fadein time: 0.5
+Seol: 도착했군요, 이곳입니다.
+
+@hide Seol
+@wait 0.5
+@char Bilyeong pos: 20, 50 scale: 0.7
+Bilyeong: 여기라고?
+Bilyeong: 허어, 생각보다도 훨씬... 
+
+@char Seol pos: 80, 15 scale: 0.85
+@wait 0.3
+Seol: 작다고 생각하실 수도, 낡았다고 생각하실 수도 있을 겁니다.
+Seol: 원래도 그리 큰 마을은 아니었으나, 요괴들이 자주 나타나면서 그나마 있던 사람들도 대부분 마을을 떠났습니다.
+Seol: 그나마 가끔 이곳을 가로질러 가려는 상인들이 와서 종종 묵기에 이 정도라도 유지되는 중일 겁니다.
+
+@char Bilyeong.Sigh
+Bilyeong: 허어, 보기에는 사람이 아니라 귀신이라도 살아야 할 것 같구나.
+Seol: 최근에는 실제로 귀신을 봤다는 마을 사람도 종종 나오곤 했습니다.
+
+@char Bilyeong.Embarrassed
+Bilyeong: ...농이느냐?
+
+@char Seol.EyeClosed
+Seol: ...농이었다고 생각해 주십시오.
+
+@hide Bilyeong
+@hide Seol
+@wait 1
+@char Seol pos: 50, 15 scale: 0.85 transition: Fadein time: 0.5
+Seol: 그럼, 전 마을 분들께 얘기를 드리고 올 터이니, 이곳에서 잠시 기다려 주십시오.
+
+@hide Seol
+@char Yeon pos: 80, 15 scale: 0.85
+Yeon: 따라가지 않아도 괜찮겠는가?
+
+@char Seol pos: 20, 10 scale: 0.85 flip: true
+Seol: 지금 선생님의 모습은 마을 분들에게는 아직 낮설 것입니다. 
+Seol: 괜히 모습을 비추어 그들의 불안감을 키울 필요는 없을 것 같다고 생각됩니다.
+Yeon: ...그래, 그럼 부탁하지.
+
+@char Seol.EyeClosed
+Seol: 네.
+
+@char Seol transition: Fadeout time: 0.5
+@wait 1
+@hide Yeon
+@wait 1
+@char Bilyeong pos: 20, 50 scale: 0.7
+@wait 0.5
+Bilyeong: 요괴 잡으러 기껏 와주었더니 시선이 썩 달갑잖구나.
+
+@char Yeon pos: 80, 15 scale: 0.85
+Yeon: 그들의 입장에서 보면 당연하겠지.
+Yeon: 요괴들 때문에 그들도 걱정이 이만저만이 아니지 않겠느냐.
+Yeon: 거기에 인간도 아닌 것이 마을에 들어선다고 하니, 그 시선이 이해되지 않는 것도 아니지.
+Bilyeong: 그러는 우리가 그런 요괴들을 대신 잡아 족쳐주러 행차한 것인데.
+Bilyeong: 뭐 대접까지는 아니더라도 감사 한 마디라도 바라는 것이 그리 잘못되었느냐?
+Yeon: 보상을 바라고 행하는 것이 아니지 않느냐. 하루 이틀도 아니고 말이지.
+Bilyeong: 그래서 이 낡아빠진 곳에서 귀신들 무릎이라도 베고 자야 한다는 것이렸다.
+Yeon: 그러는 네놈도 도깨비불인 것이, 뭘 귀신 가지고 호들갑이느냐.
+Yeon: 뭐, 그래. 마을에 영 활기가 돌지를 않으니, 퍽 을씨년스럽기는 하지.
+Bilyeong: 이래서야 잘 때 비바람이나 제대로 막을 수 있을런가 싶구나.
+Yeon: 당장 여기서 지낼 수 있을지부터 물어봐야 하는 것 아니느냐?
+Bilyeong: 설마 쫒아내기라도 하겠느냐.
+
+@hide Yeon
+@hide Bilyeong
+@wait 1
+@char Seol pos: 50, 15 scale: 0.85 transition: Fadein time: 0.5
+@wait 0.3
+Seol: 그건 걱정하지 않으셔도 될 것 같습니다.
+
+@hide Seol
+@char Bilyeong.Surprised pos: 20, 50 scale: 0.7
+Bilyeong: ...허! 무슨, 벌써 왔느냐? 
+Bilyeong: 그리 기척을 지우고 다가오니 귀신이 벌써 나온 줄 알았다.
+
+@char Seol.EyeClosed pos: 80, 15 scale: 0.85
+Seol: ...죄송합니다. 방금 막 마을 분과 얘기가 끝났기에 돌아왔습니다.
+
+@hide Bilyeong
+@hide Seol
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: 뭐라고 하셨느냐?
+
+@hide Yeon
+@char Seol pos: 50, 15 scale: 0.85
+Seol: 빈집은 자유롭게 이용해도 좋다고 합니다.
+Seol: 따로 무언가를 챙겨줄 형편은 되지 못하지만, 원하는 바를 이룰 수 있기를 바란다... 고 합니다.
+
+@hide Seol
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: 다행히 호의적이구나, 쫓아내더라도 할 말은 없었는데 말이지.
+
+@hide Yeon
+@char Seol.EyeClosed pos: 50, 15 scale: 0.85
+Seol: 휘 의원님이 이미 이분들과 낯이 트였기도 하고,
+Seol: 저들에게도 요괴들은 삶에 있어 큰 위협이니, 이리 돕는 것일 겁니다.
+
+@hide Seol 
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: 그렇게 요괴놈들에게 시달리면서도 용케 이곳을 떠나지 않는구나.
+
+@hide Bilyeong
+@char Seol pos: 50, 15 scale: 0.85
+Seol: ...평생 살던 곳을 떠나는 것이 그리 쉽진 않을 테니까요.
+
+@hide Seol
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: ...아니면 이곳에서 벗어나더라도 요괴로부터 도망칠 순 없다는 것이겠지.
+
+
+@hide Yeon
+@char Seol pos: 50, 15 scale: 0.85
+Seol: ......
+
+@hide Seol
+@char Yeon.EyeClosed pos: 80, 15 scale: 0.85
+Yeon: 그러면, 우리도 그들의 기대에 부응할 필요가 있겠지.
+
+@char Bilyeong pos: 20, 50 scale: 0.7
+Bilyeong: ...설마 지금 바로 가는 것이냐?
+
+@char Yeon
+Yeon: 못 갈 것도 없지. 
+Bilyeong: 짐도 풀지 않고?
+Yeon: 빈손으로 왔는데 짐은 무슨 짐이느냐.
+Bilyeong: 손은 네놈만 있느냐?
+Yeon: 넌 없지 않느냐.
+Bilyeong: 나 말고! 
+Bilyeong: 저 인간 말하는 것이다!
+
+@hide Yeon
+@hide Bilyeong
+@char Seol pos: 50, 15 scale: 0.85
+Seol: 제 걱정은 하지 않으셔도 괜찮습니다.
+
+@hide Seol
+@char Bilyeong pos: 20, 50 scale: 0.7
+Bilyeong: 망태기에 그리 바리바리 싸들고서는 괜찮다고? 
+
+@char Seol pos: 80, 15 scale: 0.85
+Seol: 이 정도면 평소 들던 것의 삼 할도 되지 않습니다.
+Bilyeong: ...평소엔 뭐 장사라도 했느냐?
+Seol: 그저 떠돌다 보니 필요한 게 많았을 뿐입니다.
+Seol: 그러면, 저도 함께 가면 되겠습니까?
+
+@hide Seol
+@hide Bilyeong
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: 아, 설 소저께서는.
+
+@hide Yeon
+
+@choice 힘을 보태 주신다면, 큰 도움이 될 것 같군요.
+    @goto .wayA
+@choice 이 곳에 남아, 사형과 사저를 기다려 주셨으면 합니다.
+    @goto .wayB
+@wait
+
+#wayA
+
+@char Seol.EyeClosed pos: 50, 15 scale: 0.85
+Seol: 네. 그럼, 동행하겠습니다.
+
+@goto .wayC
+
+#wayB
+
+@char Seol.EyeClosed pos: 50, 15 scale: 0.85
+Seol: ...네, 알겠습니다. 그러면, 이곳에서 거처를 정돈하고 있도록 하겠습니다.
+
+@char Seol
+Seol: 모쪼록 무사히 다녀오십시오.
+
+@goto .wayC
+
+#wayC
+
+@hide Seol
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: ...그럼 출발하지요.
+
+@stopbgm

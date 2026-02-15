@@ -1,0 +1,24 @@
+#Scenario_7_1
+
+@back Dwissan2
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: 하, 제법이구나.
+
+@hide Bilyeong
+@char Seol pos: 50, 15 scale: 0.85
+Seol: 방해가 되지 않았다니 다행입니다.
+
+@hide Seol
+@char Bilyeong pos: 20, 50, scale: 0.7
+Bilyeong: 한 두번 싸워 본 솜씨가 아닌데 말이야.
+
+@char Seol pos: 80, 15 scale: 0.85
+Seol: ...말씀드렸듯이, 세상을 떠돌며 제 몸 하나는 지킬 수 있게 되었습니다.
+Bilyeong: 뭐, 그놈도 그걸 알아본 것이겠지.
+Seol: ......
+Seol: ...그럴지는 모르겠습니다.
+Bilyeong: ...응?
+Seol: 아무것도 아닙니다, 계속해서 모시겠습니다.
+Seol: 이미 요괴들이 소리를 듣고 저희를 인식하였을 터이니.
+Seol: 조금 무리하더라도 서둘러 가는 것으로 하겠습니다.
+Seol: 이쪽입니다. 따라오시지요.

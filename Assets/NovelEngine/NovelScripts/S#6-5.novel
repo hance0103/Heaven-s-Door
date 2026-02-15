@@ -1,0 +1,12 @@
+#Scenario_6_5
+
+@back Dwissan3
+@char Yeon pos: 80, 15 scale: 0.85
+Yeon: ......
+Yeon: 흠, 소란을 듣고 더 몰려왔나.
+@char Bilyeong pos: 20, 50 scale: 0.7
+Bilyeong: 흥, 자기 입으로 지혜로우시다는 샌님께서 겨우 이 정도로 문제된다 하는 건 아니시겠지?
+Yeon: 또 까부는구나, 비령아.
+@char Bilyeong.Happy
+Bilyeong: 헤헹, 그러면 어쩔 테냐, 내 손을 빌리겠느냐?
+Yeon: 손도 없는 것이... 되었다, 이번에도 지켜나 보거라.

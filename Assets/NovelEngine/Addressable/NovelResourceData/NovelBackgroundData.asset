@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc7eb26e3fd72cd4b8cbdc504105aa52, type: 3}
+  m_Name: NovelBackgroundData
+  m_EditorClassIdentifier: Assembly-CSharp:novel:NovelBackgroundData
+  novelBackgroundDict:
+    pairs:
+    - _key: Dwissan1
+      value: {fileID: 2800000, guid: cbd7e2a11ec9d3b4b89580879ffa4c23, type: 3}
+    - _key: Dwissan2
+      value: {fileID: 2800000, guid: 71b2d7927aa349745a71f070b23488a2, type: 3}
+    - _key: Dwissan3
+      value: {fileID: 2800000, guid: 79cedab04725b90419a0dd0e85577be0, type: 3}
+    - _key: Dwissan4
+      value: {fileID: 2800000, guid: ed810082e9933204c8c19771558ed4ff, type: 3}
+    - _key: BlackScreen
+      value: {fileID: 2800000, guid: 13fb67ae4e1310549aa04cf3f8d7265c, type: 3}
+    - _key: Yokaigol
+      value: {fileID: 2800000, guid: 170e8391cb2fa544d844da692e06d852, type: 3}
+    keys: []
+    values: []

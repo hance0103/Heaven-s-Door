@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1169c7d91194184f9e86656db7206be, type: 3}
+  m_Name: NovelCharacterData
+  m_EditorClassIdentifier: 
+  charDict:
+    pairs:
+    - _key: Yeon
+      value: {fileID: 11400000, guid: 2125d974014461f43b37f878a9594fa1, type: 2}
+    - _key: ???
+      value: {fileID: 11400000, guid: 13912fbbe423b864b817a5612a77a0be, type: 2}
+    - _key: Bilyeong
+      value: {fileID: 11400000, guid: 997207694e5ee364ea19de81d5ad74d6, type: 2}
+    - _key: Yoon
+      value: {fileID: 11400000, guid: 3acb12d02e031704cbc08a9c048eac52, type: 2}
+    - _key: Hwi
+      value: {fileID: 11400000, guid: 91de1ba9fa9bb74498215d8c4d5ab921, type: 2}
+    - _key: ??
+      value: {fileID: 11400000, guid: 709e8fa7f3c0f1348a9b616223ea35c2, type: 2}
+    - _key: Seol
+      value: {fileID: 11400000, guid: 922c072b4ef113e47aed13df936bede4, type: 2}
+    - _key: Akui
+      value: {fileID: 11400000, guid: 4552863f3d472cc459c10ff4c217ef5b, type: 2}
+    - _key: Jeolgu
+      value: {fileID: 11400000, guid: fc4230cfec910aa4fbb75e730033595d, type: 2}
+    - _key: ????
+      value: {fileID: 11400000, guid: 196285493d295d14fbde00b5833dbfa0, type: 2}
+    keys: []
+    values: []

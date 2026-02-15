@@ -1,0 +1,233 @@
+#Scenario_7_1
+
+@back Dwissan1
+@char Yoon pos: 50, 15 scale: 0.85
+Yoon: 다친 데는 없어?
+
+@hide Yoon
+@char Yeon pos:50, 15 scale: 0.85
+Yeon: 전 멀쩡합니다, 사저.
+
+@hide Yeon
+@char Hwi pos: 50, 15 scale: 0.8
+Hwi: 볼 때마다 인상적이군, 사제가 하는 전투는.
+
+@hide Hwi
+@char Yoon pos: 50, 15 scale: 0.85
+Yoon: 그러게, 저놈들이 더 몰려왔을 때는 도와줘야 하나 싶었다니까?
+
+@hide Yoon
+@char Bilyeong pos: 20, 50 scale: 0.7
+Bilyeong: 하, 저들 따위가 이몸의 상대가 될 성 싶더냐?
+@char Yeon pos: 80, 15 scale: 0.85
+Yeon: 싸우기는 내가 했는데 왜 폼은 네가 잡느냐.
+Bilyeong: 하, 내가 손을 쓸 가치도 없는 놈들 아니냐.
+
+@hide Bilyeong
+@hide Yeon
+@char Yoon pos: 50, 15 scale: 0.85
+Yoon: 그래, 그래. 그렇겠지.
+
+@hide Yoon
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: 그런 셈 치는 듯한 그 말본새는 뭐냐?
+
+@hide Bilyeong
+@char Hwi pos:50, 15 scale: 0.8
+Hwi: ......
+Hwi: 그럼 이어서 가지.
+
+@hide Hwi
+@hideui
+@wait 1
+@back BlackScreen.SlideLeft time: 0.5
+@wait 2
+@back Dwissan3.SlideLeft time: 0.5
+@wait 1
+@char Bilyeong.Sigh pos: 80, 50 scale: 0.7 transition: Fadein time: 0.5
+@wait 1
+Bilyeong: 하... 
+Bilyeong: 이제 얼마나 남았지?
+
+@char Hwi pos: 20, 15 scale: 0.8 transition: Fadein time: 0.5
+Hwi: 이 앞의 산만 넘으면 된다네.
+
+@char Bilyeong
+Bilyeong: 오는 동안 뭐 이리도 많이 나타나는 건지, 지루할 틈도 없이 나타나서는 덤벼대니 원.
+
+@hide Hwi
+@hide Bilyeong
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: 심심하다고 노래를 부르려 하더니 잘 된 것 아니더냐?
+
+@hide Yeon
+@char Bilyeong.Sigh pos: 80, 50 scale: 0.7
+Bilyeong: 정도라는 게 있는 것이지, 정도라는 것이.
+
+@hide Bilyeong
+@char Hwi pos: 20, 15 scale: 0.8
+Hwi: 마지막으로.
+Hwi: ...흐음.
+
+@char Bilyeong.Sigh pos: 80, 50 scale: 0.7
+Bilyeong: 또 무슨 말을 하려고 그리 뜸을 들이는 것이느냐.
+Hwi: 전에 보관해 두었던 약초들을 가지러 가야 할 텐데, 
+Hwi: 여기까지 돌아가면 시간이 꽤 걸릴 듯 싶군.
+
+@char Bilyeong
+Bilyeong: 나도 가야 하느냐?
+Hwi: 생각 중이네.
+Bilyeong: 간다는 것이냐, 만다는 것이냐?
+Hwi: 그것도 생각 중이네.
+
+@char Bilyeong.Sigh
+Bilyeong: ...그리 생각만 하다 날 새겠구나.
+Hwi: ...연 사제.
+
+@hide Bilyeong
+@char Yeon pos: 80, 15 scale: 0.85 transition: Fadein time: 0.5
+Yeon: 예, 사형.
+Hwi: 설 소저와 함께 요괴곡으로 향할 수 있겠는가?
+Yeon: 둘이서 말입니까? 
+
+@hide Yeon
+@hide Hwi
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: 나까지 셋이겠지, 이것아. 나는 왜 빼느냐?
+
+@hide Bilyeong
+@char Hwi pos: 20, 15 scale: 0.8
+@char Yeon pos: 80, 15 scale: 0.85
+Hwi: 그래, 그곳은 나랑 사매만 갔다오면 충분할 것 같네만, 사제는 비령하고 먼저 요괴곡을 둘러보는 게 좋을 것 같네. 
+Hwi: 사제의 실력을 보니, 나와 사매 없이도 사제는 충분히 갈 수 있을 것 같아서 말이지.
+Hwi: 설이 길을 알고 있으니 함께 가게나.
+Yeon: 그리 말하시다면야.
+
+@hide Yeon
+@hide Hwi
+@char Seol.EyeClosed pos: 80, 15 scale: 0.85 transition: Fadein time: 0.5
+Seol: ...그러면 동행하도록 하겠습니다.
+
+@char Hwi pos: 20, 15 scale: 0.8
+Hwi: 그래, 그러면 그렇게 하지.
+
+@hideui
+@hide Seol
+@hide Hwi
+@wait 1
+@back BlackScreen.SlideLeft time: 0.5
+@wait 1.5
+@back Dwissan3.SlideLeft time: 0.5
+@wait 1.5
+@char Yoon pos: 50, 15 scale: 0.85 transition: Fadein time: 0.5
+@wait 1
+Yoon: 그럼 이따 봐, 사제!
+
+@hide Yoon
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: 살펴 가시죠.
+
+@hide Yeon
+@char Bilyeong pos: 20, 50 scale: 0.7
+Bilyeong: 가다 확 자빠지기나 해라.
+
+@char Yeon pos: 80, 15 scale: 0.85
+Yeon: ...또 언제 다투었길래 말이 그 모양이느냐.
+
+@char Bilyeong.Sigh
+Bilyeong: 허, 내가 당하는 걸 알면 네놈도 그렇게 말할 수 없을 것이니라.
+Yeon: 뿌린대로 거둔다고들 하지.
+
+@char Bilyeong.Angry
+Bilyeong: 뿌리기는 개뿔이...
+Bilyeong: 내가 당하고만 사는 것 아니더냐?
+Yeon: 흠, 당하고만 산다라.
+Yeon: 그렇다면 그 말...
+Yeon: 내가 사저에게 그대로 전해 주도록 하마.
+Yeon: 그럼 사저도 잘못을 깨닫고 더 이상 널 괴롭히지 않겠지.
+
+@char Bilyeong.Surprised
+@wait 1.5
+@char Bilyeong.Embarrassed
+Bilyeong: 그... 다시 생각해보니 내가 잘못한 것도 없지는 않은 것 같기도 하고.
+Yeon: ......
+
+@hide Bilyeong
+@hide Yeon
+@char Seol.EyeClosed pos: 50, 15 scale: 0.85 transition: Fadein time: 0.5
+Seol: ......
+Seol: 이제 출발하겠습니다. 이쪽입니다.
+
+@hide Seol
+@hideui
+@wait 1
+@back BlackScreen.SlideLeft time: 0.5
+@wait 1.5
+@back Dwissan1.SlideLeft time: 0.5
+@wait 1.5
+@char Seol pos: 80, 15 scale: 0.85
+@wait 1
+Seol: 이제 요괴곡 근처이기에, 나타나는 요괴들을 각별히 주의해주시기 바랍니다.
+Seol: 최대한 그것들이 없는 쪽으로 갈 터이나, 그럼에도 맞닥뜨리게 된다면.
+
+@char Bilyeong pos: 20, 50 scale: 0.7
+Bilyeong: 잡아달라고?
+
+@char Seol.EyeClosed
+Seol: ...함께 싸우도록 하겠습니다.
+Bilyeong: ...호오.
+
+@hide Bilyeong
+@hide Seol
+@char Yeon pos: 50, 15 scale: 0.85
+@wait 0.3
+Yeon: 싸울 줄 아느냐?
+
+@hide Yeon
+@char Seol pos: 50, 15 scale: 0.85
+@wait 0.3
+Seol: 세상을 떠돌다보니 제 몸 하나는 지킬 수 있게 되었습니다.
+
+@hide Seol
+@char Bilyeong pos: 50, 50 scale: 0.7
+Bilyeong: 하, 그리 순탄한 삶은 아니었나 보구만.
+
+@hide Bilyeong
+@char Seol.EyeClosed pos: 50, 15 scale: 0.85
+Seol: ...그럼 계속해서 안내하겠습니다. 따라와 주십...
+
+@hide Seol
+$#$@%%@$...!
+
+@char Bilyeong pos: 20, 50 scale: 0.7
+Bilyeong: 너희도 들었느냐.
+
+@char Yeon pos: 80, 15 scale: 0.85
+Yeon: ...그래.
+Yeon: 별로 좋은 소리는 아니지.
+
+@hide Bilyeong
+@hide Yeon
+@char Seol.EyeClosed pos: 50, 15 scale: 0.85
+Seol: ......
+
+@hide Seol
+@hideui
+@wait 1.5
+@char Jeolgu pos: 50, 50 scale: 0.7
+@wait 1.5
+Jeolgu: %#$$@%@%...!!!!!
+
+@hide Jeolgu
+@char Bilyeong pos: 20, 50 scale: 0.7
+Bilyeong: ......
+Bilyeong: ...함께 싸우겠다고?
+
+@char Seol.EyeClosed pos: 80, 15 scale: 0.85
+Seol: ......
+Seol: ...네.
+
+@hide Seol
+@hide Bilyeong
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: ...준비하지.

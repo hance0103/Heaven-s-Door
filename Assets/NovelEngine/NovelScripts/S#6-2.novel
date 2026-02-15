@@ -1,0 +1,28 @@
+#Scenario_6_2
+
+@back Dwissan3
+@char Bilyeong.Angry pos: 50, 50 scale: 0.7
+Bilyeong: 저것이 위쪽으로 도망간다! 
+Bilyeong: 뭐하고 있느냐? 어서 쫓아가지 않고?
+
+@hide Bilyeong
+@char Yeon pos: 25, 15 scale: 0.85
+Yeon: 보채지 말거라.
+
+@char Bilyeong.Angry2 pos: 75, 50 scale: 0.7
+Bilyeong: 당장 저놈을 쫓아 대가리를 후려버리는 거다!
+
+@hide Yeon  
+@hide Bilyeong
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: ......
+Yeon: 아니, 방금 더 좋은 수가 떠올랐다.
+
+@hide Yeon
+@char Bilyeong.Sigh pos: 50, 50 scale: 0.7
+Bilyeong: 하, 이리 간단한 걸 두고 또 무슨 잔꾀가 떠올랐다고 그러는 것이냐?
+
+@hide Bilyeong
+@char Yeon pos: 50, 15 scale: 0.85
+Yeon: 잠자코 보기나 하거라.
+Yeon: 우선은 위쪽으로 갈테니, 따라오거라.
