@@ -262,7 +262,7 @@ MonoBehaviour:
   revealMask: {fileID: 2016738423}
   spriteRenderer: {fileID: 1251685268}
   cellSize: 8
-  startPos: {x: 5, y: 5}
+  startPos: {x: 45, y: 70}
   startFillSize: {x: 3, y: 3}
   enemies:
   - {fileID: 1474665174}
