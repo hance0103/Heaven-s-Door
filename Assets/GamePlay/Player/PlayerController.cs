@@ -48,6 +48,8 @@ namespace GamePlay.Player
 
         private CancellationTokenSource _returnCts;
 
+        private bool _diagPreferX = true;
+
         private void Awake()
         {
             _playerInput = GetComponent<PlayerInput>();
@@ -125,6 +127,27 @@ namespace GamePlay.Player
             int x = _moveDir.x;
             int y = _moveDir.y;
 
+            if (x != 0 && y != 0)
+            {
+                bool moved = false;
+
+                if (_diagPreferX)
+                {
+                    moved = await TryMoveAxisFirst(x, y, preferX: true);
+                    if (!moved) moved = await TryMoveAxisFirst(x, y, preferX: false);
+                }
+                else
+                {
+                    moved = await TryMoveAxisFirst(x, y, preferX: false);
+                    if (!moved) moved = await TryMoveAxisFirst(x, y, preferX: true);
+                }
+
+                if (moved) _diagPreferX = !_diagPreferX;
+
+                _canMove = true;
+                return;
+            }
+
             if (y != 0)
             {
                 if (await TryMoveCandidate(new Vector2Int(0, y), Vector2Int.zero)) { _canMove = true; return; }
@@ -140,6 +163,32 @@ namespace GamePlay.Player
             }
 
             _canMove = true;
+        }
+
+        private async UniTask<bool> TryMoveAxisFirst(int x, int y, bool preferX)
+        {
+            if (preferX)
+            {
+                if (await TryMoveCandidate(new Vector2Int(x, 0), Vector2Int.zero)) return true;
+                if (await TryMoveCandidate(new Vector2Int(x, 0), new Vector2Int(0, 1))) return true;
+                if (await TryMoveCandidate(new Vector2Int(x, 0), new Vector2Int(0, -1))) return true;
+
+                if (await TryMoveCandidate(new Vector2Int(0, y), Vector2Int.zero)) return true;
+                if (await TryMoveCandidate(new Vector2Int(0, y), new Vector2Int(1, 0))) return true;
+                if (await TryMoveCandidate(new Vector2Int(0, y), new Vector2Int(-1, 0))) return true;
+
+                return false;
+            }
+
+            if (await TryMoveCandidate(new Vector2Int(0, y), Vector2Int.zero)) return true;
+            if (await TryMoveCandidate(new Vector2Int(0, y), new Vector2Int(1, 0))) return true;
+            if (await TryMoveCandidate(new Vector2Int(0, y), new Vector2Int(-1, 0))) return true;
+
+            if (await TryMoveCandidate(new Vector2Int(x, 0), Vector2Int.zero)) return true;
+            if (await TryMoveCandidate(new Vector2Int(x, 0), new Vector2Int(0, 1))) return true;
+            if (await TryMoveCandidate(new Vector2Int(x, 0), new Vector2Int(0, -1))) return true;
+
+            return false;
         }
 
         private bool ContainsNodeSim(Vector2Int node, Vector2Int[] extraNodes, int extraCount)
@@ -333,14 +382,6 @@ namespace GamePlay.Player
 
                     if (_drawStack.Count >= 2)
                     {
-                        var top = _drawStack.Peek();
-
-                        // top이 현재 execPos일 가능성이 높지만, 혹시 불일치하면 우선 맞춰줌
-                        if (top != execPos)
-                        {
-                            // 이 케이스가 자주 나오면 execPos/currentNode 갱신 타이밍을 다시 봐야함
-                        }
-
                         var arr = _drawStack.ToArray();
                         var prevNode = arr[1];
 
