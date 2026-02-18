@@ -166,15 +166,23 @@ namespace GamePlay.Player
             int extraNodeCount,
             Edge[] extraEdges,
             int extraEdgeCount,
-            out bool willClose)
+            out bool willClose,
+            out bool isBacktrack)
         {
             willClose = false;
+            isBacktrack = false;
 
             var to = from + step;
             if (!gridManager.IsNodeInBounds(to)) return false;
 
             if (!gridManager.CanMoveDrawingEdge(from, step)) return false;
             if (gridManager.IsEdgeBothSidesSolid(from, step)) return false;
+
+            if (extraNodeCount >= 2 && extraNodes[extraNodeCount - 1] == from && extraNodes[extraNodeCount - 2] == to)
+            {
+                isBacktrack = true;
+                return true;
+            }
 
             var e = new Edge(from, to);
             if (ContainsEdgeSim(e, extraEdges, extraEdgeCount)) return false;
@@ -212,10 +220,27 @@ namespace GamePlay.Player
 
             var simDrawStart = _drawStartNode;
 
-            var extraNodes = new Vector2Int[3];
-            var extraEdges = new Edge[2];
+            var extraNodes = new Vector2Int[8];
+            var extraEdges = new Edge[8];
             int extraNodeCount = 0;
             int extraEdgeCount = 0;
+
+            if (simMode == TraverseMode.Drawing)
+            {
+                if (_drawStack.Count >= 2)
+                {
+                    var arr = _drawStack.ToArray();
+                    var cur = arr[0];
+                    var prev = arr[1];
+
+                    extraNodes[extraNodeCount++] = prev;
+                    extraNodes[extraNodeCount++] = cur;
+                }
+                else
+                {
+                    extraNodes[extraNodeCount++] = simPos;
+                }
+            }
 
             for (int i = 0; i < stepCount; i++)
             {
@@ -239,7 +264,6 @@ namespace GamePlay.Player
 
                     if (!canStart) return false;
 
-                    // 보정으로 그리기 시작 금지(옆으로 한칸 튀는 현상 제거)
                     if (correction != Vector2Int.zero) return false;
 
                     simMode = TraverseMode.Drawing;
@@ -253,7 +277,12 @@ namespace GamePlay.Player
 
                 if (simMode == TraverseMode.Drawing)
                 {
-                    if (!CanMoveDrawingStepSim(simPos, step, simDrawStart, extraNodes, extraNodeCount, extraEdges, extraEdgeCount, out bool willClose))
+                    if (!CanMoveDrawingStepSim(
+                            simPos, step, simDrawStart,
+                            extraNodes, extraNodeCount,
+                            extraEdges, extraEdgeCount,
+                            out bool willClose,
+                            out bool isBacktrack))
                         return false;
 
                     var to = simPos + step;
@@ -263,6 +292,14 @@ namespace GamePlay.Player
                         closeIndex = i;
                         simPos = to;
                         break;
+                    }
+
+                    if (isBacktrack)
+                    {
+                        extraEdgeCount = Mathf.Max(0, extraEdgeCount - 1);
+                        extraNodeCount = Mathf.Max(1, extraNodeCount - 1);
+                        simPos = to;
+                        continue;
                     }
 
                     extraEdges[extraEdgeCount++] = new Edge(simPos, to);
@@ -292,11 +329,39 @@ namespace GamePlay.Player
 
                 if (_mode == TraverseMode.Drawing)
                 {
-                    var e = new Edge(execPos, next);
-                    _lineEdges.Add(e);
-                    _lineNodes.Add(next);
-                    _drawStack.Push(next);
-                    AddDrawPoint(next);
+                    bool didUndo = false;
+
+                    if (_drawStack.Count >= 2)
+                    {
+                        var top = _drawStack.Peek();
+
+                        // top이 현재 execPos일 가능성이 높지만, 혹시 불일치하면 우선 맞춰줌
+                        if (top != execPos)
+                        {
+                            // 이 케이스가 자주 나오면 execPos/currentNode 갱신 타이밍을 다시 봐야함
+                        }
+
+                        var arr = _drawStack.ToArray();
+                        var prevNode = arr[1];
+
+                        if (next == prevNode)
+                        {
+                            var from = _drawStack.Pop();
+                            _lineEdges.Remove(new Edge(from, next));
+                            _lineNodes.Remove(from);
+                            RemoveLastDrawPoint();
+                            didUndo = true;
+                        }
+                    }
+
+                    if (!didUndo)
+                    {
+                        var e = new Edge(execPos, next);
+                        _lineEdges.Add(e);
+                        _lineNodes.Add(next);
+                        _drawStack.Push(next);
+                        AddDrawPoint(next);
+                    }
                 }
 
                 currentNode = next;
