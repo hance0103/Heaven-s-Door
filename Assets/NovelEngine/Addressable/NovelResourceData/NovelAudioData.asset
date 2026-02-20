@@ -26,4 +26,4 @@ MonoBehaviour:
     pairs: []
     keys: []
     values: []
-  mixer: {fileID: 24100000, guid: 204b9e9cef8e9cd43bfdd3700b6044dc, type: 2}
+  mixer: {fileID: 24100000, guid: 99ef58789d6e1f94a99164a622ece9ef, type: 2}

@@ -1,79 +1,91 @@
+using System.Collections.Generic;
 using NovelEngine.Scripts;
 using UnityEngine;
 using UnityEditor;
 
 public static class SerializableDictDrawer
 {
-    public static SerializableDict<TKey, TValue> DrawSerializableDict<TKey, TValue>(
+    public static void DrawSerializableDict<TKey, TValue>(
         UnityEngine.Object hostObject,
         SerializableDict<TKey, TValue> dict,
         string label)
     {
-        if (dict == null)
-            return new SerializableDict<TKey, TValue>();
+        if (dict == null) return;
 
         EditorGUILayout.LabelField(label, EditorStyles.boldLabel);
-
         EditorGUI.indentLevel++;
-
-        int removeIndex = -1; // 삭제할 인덱스 기록용
 
         for (int i = 0; i < dict.pairs.Count; i++)
         {
             var pair = dict.pairs[i];
+
             EditorGUILayout.BeginHorizontal();
 
-            // 키 처리
             if (typeof(TKey) == typeof(string))
             {
                 string oldKey = (string)(object)pair.key;
+
                 EditorGUI.BeginChangeCheck();
                 string newKey = EditorGUILayout.DelayedTextField(oldKey);
-
                 if (EditorGUI.EndChangeCheck() && newKey != oldKey)
                 {
-                    // Undo & Dirty & Save
-                    Undo.RecordObject(hostObject, "Change Dict Key");
-
-                    dict.ChangeKey((TKey)(object)oldKey, (TKey)(object)newKey);
-                    EditorUtility.SetDirty(hostObject);
-                    AssetDatabase.SaveAssets();
+                    if (!string.IsNullOrEmpty(newKey) && !dict.ContainsKey((TKey)(object)newKey))
+                    {
+                        Undo.RecordObject(hostObject, "Change Dict Key");
+                        TryChangeKey(dict, (TKey)(object)oldKey, (TKey)(object)newKey);
+                        EditorUtility.SetDirty(hostObject);
+                        GUIUtility.ExitGUI();
+                    }
                 }
-
-
             }
-            else
+
+            EditorGUI.BeginChangeCheck();
+            var newValue = DrawValueField(pair.value);
+            if (EditorGUI.EndChangeCheck())
             {
-                //EditorGUILayout.LabelField(pair.key.ToString());
+                Undo.RecordObject(hostObject, "Change Dict Value");
+                pair.value = newValue;
+                EditorUtility.SetDirty(hostObject);
             }
 
-            // 값 처리
-            pair.value = DrawValueField(pair.value);
-
-            // 삭제 버튼
             if (GUILayout.Button("X", GUILayout.Width(20)))
             {
-                removeIndex = i;
+                Undo.RecordObject(hostObject, "Remove Dict Entry");
+                dict.pairs.RemoveAt(i);
+                EditorUtility.SetDirty(hostObject);
+                GUIUtility.ExitGUI();
             }
 
             EditorGUILayout.EndHorizontal();
         }
 
-        // 삭제 처리
-        if (removeIndex >= 0)
-        {
-            dict.pairs.RemoveAt(removeIndex);
-        }
-
-        // 새 항목 추가
         if (GUILayout.Button("+ Add New"))
         {
+            Undo.RecordObject(hostObject, "Add Dict Entry");
             dict.pairs.Add(new SerializableKeyValuePair<TKey, TValue>());
+            EditorUtility.SetDirty(hostObject);
+            GUIUtility.ExitGUI();
         }
 
         EditorGUI.indentLevel--;
+    }
 
-        return dict;
+    private static void TryChangeKey<TKey, TValue>(SerializableDict<TKey, TValue> dict, TKey oldKey, TKey newKey)
+    {
+        int index = -1;
+        for (int i = 0; i < dict.pairs.Count; i++)
+        {
+            if (EqualityComparer<TKey>.Default.Equals(dict.pairs[i].key, oldKey))
+            {
+                index = i;
+                break;
+            }
+        }
+        if (index < 0) return;
+
+        var val = dict.pairs[index].value;
+        dict.pairs.RemoveAt(index);
+        dict.pairs.Insert(index, new SerializableKeyValuePair<TKey, TValue>(newKey, val));
     }
 
     private static TValue DrawValueField<TValue>(TValue value)

@@ -215,9 +215,13 @@ namespace novel
                 currentCharacterData.headOffset = EditorGUILayout.Vector2Field("Head Offset", currentCharacterData.headOffset);
                 if (beforeHead != currentCharacterData.headOffset) EditorUtility.SetDirty(currentCharacterData);
 
-                var beforeFace = currentCharacterData.faceDict;
-                currentCharacterData.faceDict = SerializableDictDrawer.DrawSerializableDict(currentCharacterData, currentCharacterData.faceDict, "Face Expressions");
-                if (beforeFace != currentCharacterData.faceDict) EditorUtility.SetDirty(currentCharacterData);
+                EditorGUI.BeginChangeCheck();
+                SerializableDictDrawer.DrawSerializableDict(currentCharacterData, currentCharacterData.faceDict, "Face Expressions");
+                if (EditorGUI.EndChangeCheck())
+                {
+                    Undo.RecordObject(currentCharacterData, "Edit Face Expressions");
+                    EditorUtility.SetDirty(currentCharacterData);
+                }
 
                 // 캐릭터 삭제
                 GUILayout.Space(10);
