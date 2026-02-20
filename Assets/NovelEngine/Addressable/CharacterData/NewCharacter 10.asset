@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d79c3e5668ef76845badeed1bbb93a99, type: 3}
+  m_Name: NewCharacter 10
+  m_EditorClassIdentifier: 
+  characterName: Karen
+  body: {fileID: -5423640865119175647, guid: f5445b51ae8f6dd4f9f526d99b4fa165, type: 3}
+  faceDict:
+    pairs:
+    - _key: 
+      value: {fileID: 0}
+    - _key: 
+      value: {fileID: 0}
+    keys: []
+    values: []
+  headOffset: {x: 0, y: 0}
+  novelName: "\uCE74\uB80C"

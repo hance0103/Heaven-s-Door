@@ -34,5 +34,7 @@ MonoBehaviour:
       value: {fileID: 11400000, guid: fc4230cfec910aa4fbb75e730033595d, type: 2}
     - _key: ????
       value: {fileID: 11400000, guid: 196285493d295d14fbde00b5833dbfa0, type: 2}
+    - _key: Karen
+      value: {fileID: 11400000, guid: b0dd3b68dbe4d2b42b5a7dfb9e93b921, type: 2}
     keys: []
     values: []
