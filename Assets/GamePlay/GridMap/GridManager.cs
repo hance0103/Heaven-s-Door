@@ -1,6 +1,8 @@
-using System.Collections.Generic;
 using UnityEngine;
-using GamePlay;
+using System.Collections.Generic;
+using System.Linq;
+using GamePlay.Ingame;
+using Random = System.Random;
 
 namespace GamePlay.GridMap
 {
@@ -11,9 +13,16 @@ namespace GamePlay.GridMap
 
         [Header("Grid")]
         [SerializeField] public int cellSize = 32;
-        [SerializeField] public Vector2Int startPos = new Vector2Int(1, 1);
-        [SerializeField] public Vector2Int startFillSize = new Vector2Int(3, 3);
 
+        [SerializeField] private Vector2Int startPosXRange;
+        [SerializeField] private Vector2Int startPosYRange;
+
+        [SerializeField] private Vector2Int startFillSizeXRange;
+        [SerializeField] private Vector2Int startFillSizeYRange;
+        
+
+        public Vector2Int StartPos { get; set; }
+        
         [Header("Enemies")]
         [SerializeField] private List<EnemyController> enemies = new List<EnemyController>();
 
@@ -23,6 +32,9 @@ namespace GamePlay.GridMap
         private int _cellH;
         private int _nodeW;
         private int _nodeH;
+
+        private int totalCellCount;
+        private int capturedCellCount;
 
         private Vector3 _origin;
         private float _cellWorldSize;
@@ -35,6 +47,8 @@ namespace GamePlay.GridMap
         public Vector3 Origin => _origin;
         public float CellWorldSize => _cellWorldSize;
 
+        [SerializeField] private InGameManager inGameManager;
+        
         private void Awake()
         {
             var sprite = spriteRenderer.sprite;
@@ -53,8 +67,23 @@ namespace GamePlay.GridMap
             float sx = worldW / _cellW;
             float sy = worldH / _cellH;
             _cellWorldSize = (sx + sy) * 0.5f;
+            
+            var startPosX =  UnityEngine.Random.Range(startPosXRange.x, startPosXRange.y);
+            var startPosY =  UnityEngine.Random.Range(startPosYRange.x, startPosYRange.y);
+            StartPos = new Vector2Int(startPosX, startPosY);
+            
+            var startFillSizeX = UnityEngine.Random.Range(startFillSizeXRange.x,  startFillSizeXRange.y);
+            var startFillSizeY = UnityEngine.Random.Range(startFillSizeYRange.x, startFillSizeYRange.y);
+            var startFillSize = new Vector2Int(startFillSizeX, startFillSizeY);
+            
+            _grid = new Grid(_cellW, _cellH, StartPos, startFillSize);
 
-            _grid = new Grid(_cellW, _cellH, startPos, startFillSize);
+            totalCellCount = (_cellW) * (_cellH);
+        }
+
+        private void Start()
+        {
+            inGameManager.RenewPercentage(CountCapturePercentage());
         }
 
         public SystemEnum.eSellState GetCell(int x, int y) => _grid.Cells[x, y];
@@ -455,158 +484,24 @@ namespace GamePlay.GridMap
             }
 
             if (changed.Count > 0)
+            {
                 revealMask?.RevealCells(changed);
+                
+                inGameManager.RenewPercentage(CountCapturePercentage());
+                //CountCapturePercentage();
+            }
+
         }
-        // public void CaptureByLine(HashSet<Edge> lineEdges)
-        // {
-        //     int w = _cellW;
-        //     int h = _cellH;
-        //
-        //     var visited = new bool[w, h];
-        //     var q = new Queue<Vector2Int>(1024);
-        //     EnqueueEnemySeedCells(q, visited);
-        //
-        //     if (q.Count > 0)
-        //     {
-        //         while (q.Count > 0)
-        //         {
-        //             var c = q.Dequeue();
-        //             int x = c.x;
-        //             int y = c.y;
-        //
-        //             TryFloodStep(x, y, x + 1, y, lineEdges, visited, q);
-        //             TryFloodStep(x, y, x - 1, y, lineEdges, visited, q);
-        //             TryFloodStep(x, y, x, y + 1, lineEdges, visited, q);
-        //             TryFloodStep(x, y, x, y - 1, lineEdges, visited, q);
-        //         }
-        //
-        //         var changed = new List<Vector2Int>(256);
-        //
-        //         for (int x = 0; x < w; x++)
-        //         for (int y = 0; y < h; y++)
-        //         {
-        //             if (_grid.Cells[x, y] != SystemEnum.eSellState.Empty) continue;
-        //             if (visited[x, y]) continue;
-        //
-        //             _grid.Cells[x, y] = SystemEnum.eSellState.Filled;
-        //             changed.Add(new Vector2Int(x, y));
-        //         }
-        //
-        //         if (changed.Count > 0)
-        //             revealMask?.RevealCells(changed);
-        //
-        //         return;
-        //     }
-        //
-        //     var label = new int[w, h];
-        //     for (int x = 0; x < w; x++)
-        //     for (int y = 0; y < h; y++)
-        //         label[x, y] = -1;
-        //
-        //     var sizes = new List<int>(64);
-        //     var cq = new Queue<Vector2Int>(1024);
-        //
-        //     int FloodComp(int sx, int sy, int id)
-        //     {
-        //         int size = 0;
-        //         label[sx, sy] = id;
-        //         cq.Enqueue(new Vector2Int(sx, sy));
-        //
-        //         while (cq.Count > 0)
-        //         {
-        //             var c = cq.Dequeue();
-        //             size++;
-        //
-        //             TryEnq(c.x, c.y, c.x + 1, c.y);
-        //             TryEnq(c.x, c.y, c.x - 1, c.y);
-        //             TryEnq(c.x, c.y, c.x, c.y + 1);
-        //             TryEnq(c.x, c.y, c.x, c.y - 1);
-        //         }
-        //
-        //         return size;
-        //
-        //         void TryEnq(int x1, int y1, int x2, int y2)
-        //         {
-        //             if (x2 < 0 || y2 < 0 || x2 >= w || y2 >= h) return;
-        //             if (label[x2, y2] != -1) return;
-        //             if (_grid.Cells[x2, y2] != SystemEnum.eSellState.Empty) return;
-        //             if (IsBlockedBetweenCells(x1, y1, x2, y2, lineEdges)) return;
-        //
-        //             label[x2, y2] = id;
-        //             cq.Enqueue(new Vector2Int(x2, y2));
-        //         }
-        //     }
-        //
-        //     int compId = 0;
-        //     for (int x = 0; x < w; x++)
-        //     for (int y = 0; y < h; y++)
-        //     {
-        //         if (_grid.Cells[x, y] != SystemEnum.eSellState.Empty) continue;
-        //         if (label[x, y] != -1) continue;
-        //
-        //         sizes.Add(FloodComp(x, y, compId));
-        //         compId++;
-        //     }
-        //
-        //     if (compId == 0) return;
-        //
-        //     var adjacent = new HashSet<int>();
-        //
-        //     void AddAdj(Vector2Int c)
-        //     {
-        //         if (!IsCellInBounds(c)) return;
-        //         if (_grid.Cells[c.x, c.y] != SystemEnum.eSellState.Empty) return;
-        //
-        //         int id = label[c.x, c.y];
-        //         if (id >= 0) adjacent.Add(id);
-        //     }
-        //
-        //     foreach (var e in lineEdges)
-        //     {
-        //         GetAdjacentCellsToEdge(e, out var c1, out var c2);
-        //         AddAdj(c1);
-        //         AddAdj(c2);
-        //     }
-        //
-        //     if (adjacent.Count == 0) return;
-        //
-        //     int target = -1;
-        //     int best = int.MaxValue;
-        //
-        //     foreach (var id in adjacent)
-        //     {
-        //         if (id < 0 || id >= compId) continue;
-        //         int s = sizes[id];
-        //         if (s < best)
-        //         {
-        //             best = s;
-        //             target = id;
-        //         }
-        //     }
-        //
-        //     if (target == -1) return;
-        //
-        //     int totalEmpty = 0;
-        //     for (int i = 0; i < sizes.Count; i++)
-        //         totalEmpty += sizes[i];
-        //
-        //     if (sizes[target] == totalEmpty) return;
-        //
-        //     var changed2 = new List<Vector2Int>(sizes[target]);
-        //
-        //     for (int x = 0; x < w; x++)
-        //     for (int y = 0; y < h; y++)
-        //     {
-        //         if (label[x, y] == target)
-        //         {
-        //             _grid.Cells[x, y] = SystemEnum.eSellState.Filled;
-        //             changed2.Add(new Vector2Int(x, y));
-        //         }
-        //     }
-        //
-        //     if (changed2.Count > 0)
-        //         revealMask?.RevealCells(changed2);
-        // }
+        [ContextMenu("점령도 계산")]
+        public int CountCapturePercentage()
+        {
+            var count = _grid.Cells.Cast<SystemEnum.eSellState>().Count(cell => cell == SystemEnum.eSellState.Filled);
+
+            Debug.Log($"점령된 셀 개수 : {count}, 총 셀 개수 : {totalCellCount}");
+            Debug.Log($"{(count * 100)/totalCellCount}%");
+            
+            return (count * 100) / totalCellCount;
+        }
 
         private void OnDrawGizmos()
         {

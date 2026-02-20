@@ -71,7 +71,7 @@ namespace GamePlay.Player
 
         private void Start()
         {
-            currentNode = gridManager.startPos;
+            currentNode = gridManager.StartPos;
             var p2 = gridManager.GetNodeWorld(currentNode.x, currentNode.y);
             transform.position = new Vector3(p2.x, p2.y, 0f);
         }
@@ -570,6 +570,13 @@ namespace GamePlay.Player
             if (!useLineRenderer || lineRenderer == null) return;
 
             lineRenderer.positionCount = _drawPoints.Count;
+        }
+
+        public void CancelDrawing()
+        {
+            _returnRequested = false;
+            _lineEdges.Clear();
+            
         }
     }
 }
