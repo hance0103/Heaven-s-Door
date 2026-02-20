@@ -1040,10 +1040,10 @@ MonoBehaviour:
   revealMask: {fileID: 2016738423}
   spriteRenderer: {fileID: 1251685268}
   cellSize: 8
-  startPosXRange: {x: 1, y: 20}
-  startPosYRange: {x: 1, y: 40}
-  startFillSizeXRange: {x: 3, y: 10}
-  startFillSizeYRange: {x: 2, y: 5}
+  startPosXRange: {x: 20, y: 40}
+  startPosYRange: {x: 60, y: 80}
+  startFillSizeXRange: {x: 2, y: 15}
+  startFillSizeYRange: {x: 2, y: 10}
   enemies:
   - {fileID: 1474665174}
   inGameManager: {fileID: 10305982}
@@ -1966,7 +1966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  moveDelay: 0.05
+  moveDelay: 0.03
   gridManager: {fileID: 1184723986}
   useLineRenderer: 1
   lineRenderer: {fileID: 1815342242}
@@ -2389,7 +2389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1975717124
 MonoBehaviour:
   m_ObjectHideFlags: 0
