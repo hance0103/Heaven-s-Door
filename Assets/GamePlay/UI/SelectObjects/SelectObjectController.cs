@@ -8,6 +8,10 @@ namespace GamePlay.UI.SelectObjects
     {
         [SerializeField] private List<SelectObject> selectObjects = new List<SelectObject>();
         [SerializeField] private PlayerInput playerInput;
+
+        [SerializeField] private int selectedFontSize;
+        [SerializeField] private int nonselectedFontSize;
+        
         private InputAction _selectAction;
         private InputAction _decideAction;
         
@@ -22,7 +26,18 @@ namespace GamePlay.UI.SelectObjects
 
         private void Start()
         {
-            selectObjects[currentIndex].Select();
+            for (var i = 0; i < selectObjects.Count; i++)
+            {
+                if (i == 0)
+                {
+                    selectObjects[i].Select(selectedFontSize);
+                }
+                else
+                {
+                    selectObjects[i].Deselect(nonselectedFontSize);
+                }
+            }
+
         }
 
         private void OnEnable()
@@ -48,8 +63,7 @@ namespace GamePlay.UI.SelectObjects
 
         private void OnDecidePressed(InputAction.CallbackContext context)
         {
-            Debug.Log("지금거 실행");
-            //selectObjects[currentIndex].Execute();
+            selectObjects[currentIndex].Execute();
         }
 
         private void MoveSelect(float axis)
@@ -61,9 +75,9 @@ namespace GamePlay.UI.SelectObjects
                 {
                     if (currentIndex < selectObjects.Count - 1)
                     {
-                        selectObjects[currentIndex].Deselect();
+                        selectObjects[currentIndex].Deselect(nonselectedFontSize);
                         currentIndex++;
-                        selectObjects[currentIndex].Select();
+                        selectObjects[currentIndex].Select(selectedFontSize);
                     }
                 }
                 break;
@@ -71,18 +85,13 @@ namespace GamePlay.UI.SelectObjects
                 {
                     if (currentIndex > 0)
                     {
-                        selectObjects[currentIndex].Deselect();
+                        selectObjects[currentIndex].Deselect(nonselectedFontSize);
                         currentIndex--;
-                        selectObjects[currentIndex].Select();
+                        selectObjects[currentIndex].Select(selectedFontSize);
                     }
                 }
                 break;
             }
-        }
-        
-        private void Select(int index)
-        {
-            
         }
 
         private void Decide()

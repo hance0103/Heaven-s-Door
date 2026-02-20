@@ -913,7 +913,7 @@ MonoBehaviour:
   m_text: Game Over
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 88ee9324e8232914dabb032eddb87f6f, type: 2}
-  m_sharedMaterial: {fileID: -6365619921254933578, guid: 88ee9324e8232914dabb032eddb87f6f, type: 2}
+  m_sharedMaterial: {fileID: 4428998088169085586, guid: 88ee9324e8232914dabb032eddb87f6f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1455,8 +1455,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -338, y: -135}
-  m_SizeDelta: {x: 242.9424, y: 50}
+  m_AnchoredPosition: {x: -311.13037, y: -135}
+  m_SizeDelta: {x: 296.6818, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1342633261
 MonoBehaviour:
@@ -1481,7 +1481,7 @@ MonoBehaviour:
   m_text: "\uB2E4\uC2DC \uC2EC\uBB38\uD558\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f5ec3573f1e563f40ad6e22357fac7c1, type: 2}
-  m_sharedMaterial: {fileID: 5344920053605352157, guid: f5ec3573f1e563f40ad6e22357fac7c1, type: 2}
+  m_sharedMaterial: {fileID: -1043677505641253193, guid: f5ec3573f1e563f40ad6e22357fac7c1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1512,8 +1512,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -1734,8 +1734,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 364, y: -121}
-  m_SizeDelta: {x: 143.8445, y: 50}
+  m_AnchoredPosition: {x: 402.88782, y: -121}
+  m_SizeDelta: {x: 221.6203, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1463627926
 MonoBehaviour:
@@ -1760,7 +1760,7 @@ MonoBehaviour:
   m_text: "\uBA54\uC778\uC73C\uB85C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f5ec3573f1e563f40ad6e22357fac7c1, type: 2}
-  m_sharedMaterial: {fileID: 5344920053605352157, guid: f5ec3573f1e563f40ad6e22357fac7c1, type: 2}
+  m_sharedMaterial: {fileID: -1043677505641253193, guid: f5ec3573f1e563f40ad6e22357fac7c1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1791,8 +1791,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -2628,9 +2628,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1014715117}
   - {fileID: 1342633260}
   - {fileID: 1463627925}
-  - {fileID: 1014715117}
   m_Father: {fileID: 1975717127}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2692,6 +2692,8 @@ MonoBehaviour:
   - {fileID: 1342633263}
   - {fileID: 1463627928}
   playerInput: {fileID: 1963957415}
+  selectedFontSize: 40
+  nonselectedFontSize: 36
   currentIndex: 0
 --- !u!114 &1963957415
 MonoBehaviour:

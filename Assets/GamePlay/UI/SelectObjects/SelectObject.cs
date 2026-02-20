@@ -11,17 +11,20 @@ namespace GamePlay.UI.SelectObjects
         protected virtual void Awake()
         {
             text = GetComponent<TMP_Text>();
-            Deselect();
         }
 
-        public void Select()
+        public void Select(int fontSize)
         {
+            if (text == null) Debug.Log("널");
+            
             text.color = Color.yellow;
+            text.fontSize = fontSize;
         }
 
-        public void Deselect()
+        public void Deselect(int fontSize)
         {
             text.color = Color.white;
+            text.fontSize = fontSize;
         }
         
         public abstract void Execute();
