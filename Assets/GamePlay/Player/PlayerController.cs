@@ -94,6 +94,8 @@ namespace GamePlay.Player
 
         private void Update()
         {
+            
+            
             if (_mode == TraverseMode.Returning) return;
 
             RefreshMove();
@@ -121,54 +123,10 @@ namespace GamePlay.Player
             _moveDir = new Vector2Int(AxisToInt(raw.x), AxisToInt(raw.y));
         }
 
-        private async UniTask MoveApply()
-        {
-            if (_mode == TraverseMode.Returning) return;
-            if (!_canMove) return;
 
-            _canMove = false;
 
-            int x = _moveDir.x;
-            int y = _moveDir.y;
 
-            if (x != 0 && y != 0)
-            {
-                bool moved = false;
-
-                if (_diagPreferX)
-                {
-                    moved = await TryMoveAxisFirst(x, y, preferX: true);
-                    if (!moved) moved = await TryMoveAxisFirst(x, y, preferX: false);
-                }
-                else
-                {
-                    moved = await TryMoveAxisFirst(x, y, preferX: false);
-                    if (!moved) moved = await TryMoveAxisFirst(x, y, preferX: true);
-                }
-
-                if (moved) _diagPreferX = !_diagPreferX;
-
-                _canMove = true;
-                return;
-            }
-
-            if (y != 0)
-            {
-                if (await TryMoveCandidate(new Vector2Int(0, y), Vector2Int.zero)) { _canMove = true; return; }
-                if (await TryMoveCandidate(new Vector2Int(0, y), new Vector2Int(1, 0))) { _canMove = true; return; }
-                if (await TryMoveCandidate(new Vector2Int(0, y), new Vector2Int(-1, 0))) { _canMove = true; return; }
-            }
-
-            if (x != 0)
-            {
-                if (await TryMoveCandidate(new Vector2Int(x, 0), Vector2Int.zero)) { _canMove = true; return; }
-                if (await TryMoveCandidate(new Vector2Int(x, 0), new Vector2Int(0, 1))) { _canMove = true; return; }
-                if (await TryMoveCandidate(new Vector2Int(x, 0), new Vector2Int(0, -1))) { _canMove = true; return; }
-            }
-
-            _canMove = true;
-        }
-
+        #region Judge
         private async UniTask<bool> TryMoveAxisFirst(int x, int y, bool preferX)
         {
             if (preferX)
@@ -194,7 +152,6 @@ namespace GamePlay.Player
 
             return false;
         }
-
         private bool ContainsNodeSim(Vector2Int node, Vector2Int[] extraNodes, int extraCount)
         {
             if (_lineNodes.Contains(node)) return true;
@@ -210,7 +167,7 @@ namespace GamePlay.Player
                 if (extraEdges[i].Equals(e)) return true;
             return false;
         }
-
+        
         private bool CanMoveDrawingStepSim(
             Vector2Int from,
             Vector2Int step,
@@ -257,6 +214,57 @@ namespace GamePlay.Player
             }
 
             return true;
+        }
+
+        #endregion
+
+        #region Move
+        private async UniTask MoveApply()
+        {
+            if (_mode == TraverseMode.Returning) return;
+            if (!_canMove) return;
+
+            _canMove = false;
+
+            int x = _moveDir.x;
+            int y = _moveDir.y;
+
+            if (x != 0 && y != 0)
+            {
+                bool moved = false;
+
+                if (_diagPreferX)
+                {
+                    moved = await TryMoveAxisFirst(x, y, preferX: true);
+                    if (!moved) moved = await TryMoveAxisFirst(x, y, preferX: false);
+                }
+                else
+                {
+                    moved = await TryMoveAxisFirst(x, y, preferX: false);
+                    if (!moved) moved = await TryMoveAxisFirst(x, y, preferX: true);
+                }
+
+                if (moved) _diagPreferX = !_diagPreferX;
+
+                _canMove = true;
+                return;
+            }
+
+            if (y != 0)
+            {
+                if (await TryMoveCandidate(new Vector2Int(0, y), Vector2Int.zero)) { _canMove = true; return; }
+                if (await TryMoveCandidate(new Vector2Int(0, y), new Vector2Int(1, 0))) { _canMove = true; return; }
+                if (await TryMoveCandidate(new Vector2Int(0, y), new Vector2Int(-1, 0))) { _canMove = true; return; }
+            }
+
+            if (x != 0)
+            {
+                if (await TryMoveCandidate(new Vector2Int(x, 0), Vector2Int.zero)) { _canMove = true; return; }
+                if (await TryMoveCandidate(new Vector2Int(x, 0), new Vector2Int(0, 1))) { _canMove = true; return; }
+                if (await TryMoveCandidate(new Vector2Int(x, 0), new Vector2Int(0, -1))) { _canMove = true; return; }
+            }
+
+            _canMove = true;
         }
 
         private async UniTask<bool> TryMoveCandidate(Vector2Int direction, Vector2Int correction)
@@ -429,6 +437,40 @@ namespace GamePlay.Player
             return true;
         }
 
+        
+        public void MoveToNodeImmediately(Vector2Int node)
+        {
+            _ = MoveToNode(node, 0, CancellationToken.None);
+        }
+        
+        private async UniTask<bool> MoveToNode(Vector2Int to, float duration, CancellationToken token)
+        {
+            var start = transform.position;
+            var end2 = gridManager.GetNodeWorld(to.x, to.y);
+            var end = new Vector3(end2.x, end2.y, 0f);
+
+            float t = 0f;
+            while (t < 1f)
+            {
+                if (token.IsCancellationRequested)
+                {
+                    transform.position = end;
+                    return true;
+                }
+
+                t += Time.deltaTime / duration;
+                transform.position = Vector3.Lerp(start, end, t);
+                await UniTask.Yield();
+            }
+
+            transform.position = end;
+            return false;
+        }
+
+        #endregion
+
+        #region Drawing
+
         private void BeginDrawing(Vector2Int start)
         {
             _returnRequested = false;
@@ -445,7 +487,7 @@ namespace GamePlay.Player
             ClearDrawLine();
             AddDrawPoint(start);
         }
-
+        
         private void EndDrawingToBorder()
         {
             _returnRequested = false;
@@ -459,14 +501,14 @@ namespace GamePlay.Player
             DisposeReturnCts();
             ClearDrawLine();
         }
-
+        
         private void DisposeReturnCts()
         {
             _returnCts?.Cancel();
             _returnCts?.Dispose();
             _returnCts = null;
         }
-
+        
         private async UniTask ReturnToStart()
         {
             if (_mode != TraverseMode.Drawing) return;
@@ -503,52 +545,7 @@ namespace GamePlay.Player
 
             EndDrawingToBorder();
         }
-
-        public void MoveToNodeImmediately(Vector2Int node)
-        {
-            _ = MoveToNode(node, 0, CancellationToken.None);
-        }
         
-        private async UniTask<bool> MoveToNode(Vector2Int to, float duration, CancellationToken token)
-        {
-            var start = transform.position;
-            var end2 = gridManager.GetNodeWorld(to.x, to.y);
-            var end = new Vector3(end2.x, end2.y, 0f);
-
-            float t = 0f;
-            while (t < 1f)
-            {
-                if (token.IsCancellationRequested)
-                {
-                    transform.position = end;
-                    return true;
-                }
-
-                t += Time.deltaTime / duration;
-                transform.position = Vector3.Lerp(start, end, t);
-                await UniTask.Yield();
-            }
-
-            transform.position = end;
-            return false;
-        }
-
-        private void OnOccupyPressed(InputAction.CallbackContext context)
-        {
-            occupying = true;
-
-            if (_mode == TraverseMode.Returning)
-                _returnCts?.Cancel();
-        }
-
-        private void OnOccupyReleased(InputAction.CallbackContext context)
-        {
-            occupying = false;
-
-            if (_mode == TraverseMode.Drawing)
-                _returnRequested = true;
-        }
-
         private void ClearDrawLine()
         {
             _drawPoints.Clear();
@@ -597,6 +594,28 @@ namespace GamePlay.Player
             ClearDrawLine();
             
         }
+        #endregion
+        
+        #region Input
+        
+        private void OnOccupyPressed(InputAction.CallbackContext context)
+        {
+            occupying = true;
+        
+            if (_mode == TraverseMode.Returning)
+                _returnCts?.Cancel();
+        }
+        
+        private void OnOccupyReleased(InputAction.CallbackContext context)
+        {
+            occupying = false;
+        
+            if (_mode == TraverseMode.Drawing)
+                _returnRequested = true;
+        }
+
+        #endregion
+        
 
         public void SetPositionWhenRevive()
         {

@@ -14,6 +14,7 @@ namespace GamePlay.Ingame
         [SerializeField] private int life = 3;
         private bool isDying = false;
         
+        [SerializeField] private GameObject gameOverPanel;
         
         
         private void Start()
@@ -54,16 +55,9 @@ namespace GamePlay.Ingame
                 
                 if (life <= 0)
                 {
-                    GameOver();
+                    GameOver(player.gameObject);
                     return;
                 }
-
-                
-
-
-                
-
-
                 
                 player.SetPositionWhenRevive();
                 player.SetCanMove(true);
@@ -81,9 +75,10 @@ namespace GamePlay.Ingame
         }
         
         
-        private void GameOver()
+        private void GameOver(GameObject player)
         {
-            
+            player.SetActive(false);
+            gameOverPanel.SetActive(true);
         }
     }
 }

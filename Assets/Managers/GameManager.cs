@@ -1,6 +1,6 @@
 using GamePlay.Player;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     #region Singleton
@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     // instance 멤버변수는 private하게 선언
     private static GameManager _instance = null;
 
+    public static bool IsGamePlaying = false;
+    
     private void Awake()
     {
         if (null == _instance)
@@ -37,7 +39,7 @@ public class GameManager : MonoBehaviour
                 
                 
             // 없으면 새로 생성
-            var go = new GameObject("GameManager");
+            var go = new GameObject("@GameManager");
             _instance = go.AddComponent<GameManager>();
             DontDestroyOnLoad(go);
             return _instance;
@@ -48,15 +50,9 @@ public class GameManager : MonoBehaviour
     
     public PlayerController playerController;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void ReloadScene()
     {
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

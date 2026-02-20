@@ -15,5 +15,11 @@ namespace GamePlay
             Drawable,
             Drawing
         }
+
+        public enum eScenes
+        {
+            Main,
+            InGame
+        }
     }
 }
