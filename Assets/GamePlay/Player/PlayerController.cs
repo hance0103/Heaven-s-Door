@@ -27,7 +27,7 @@ namespace GamePlay.Player
         [SerializeField] private int lineSortingOrder = 50;
 
         [SerializeField] private Vector2Int currentNode;
-
+        public Vector2Int CurrentNode => currentNode;
         private PlayerInput _playerInput;
         private InputAction _moveAction;
         private InputAction _occupyAction;
@@ -36,7 +36,9 @@ namespace GamePlay.Player
         private Vector2Int _moveDir;
 
         private bool _canMove = true;
+        public bool CanMove => _canMove;
         private TraverseMode _mode = TraverseMode.Border;
+        public TraverseMode Mode => _mode;
 
         private readonly HashSet<Edge> _lineEdges = new HashSet<Edge>();
         private readonly HashSet<Vector2Int> _lineNodes = new HashSet<Vector2Int>();
@@ -52,6 +54,8 @@ namespace GamePlay.Player
 
         private void Awake()
         {
+            GameManager.Instance.playerController = this;
+            
             _playerInput = GetComponent<PlayerInput>();
             _moveAction = _playerInput.actions["Move"];
             _occupyAction = _playerInput.actions["Occupy"];
@@ -500,6 +504,11 @@ namespace GamePlay.Player
             EndDrawingToBorder();
         }
 
+        public void MoveToNodeImmediately(Vector2Int node)
+        {
+            _ = MoveToNode(node, 0, CancellationToken.None);
+        }
+        
         private async UniTask<bool> MoveToNode(Vector2Int to, float duration, CancellationToken token)
         {
             var start = transform.position;
@@ -571,12 +580,40 @@ namespace GamePlay.Player
 
             lineRenderer.positionCount = _drawPoints.Count;
         }
-
+        
+        
+        // 그리기 초기화
         public void CancelDrawing()
         {
             _returnRequested = false;
+
             _lineEdges.Clear();
+            _lineNodes.Clear();
+            _drawStack.Clear();
+
+            _mode = TraverseMode.Border;
+
+            DisposeReturnCts();
+            ClearDrawLine();
             
+        }
+
+        public void SetPositionWhenRevive()
+        {
+            var targetNode = (_mode == TraverseMode.Border) ? currentNode : _drawStartNode;
+            
+            if (_mode != TraverseMode.Border)
+                CancelDrawing();
+
+            currentNode = targetNode;
+
+            var p2 = gridManager.GetNodeWorld(targetNode.x, targetNode.y);
+            transform.position = new Vector3(p2.x, p2.y, 0f);
+        }
+        
+        public void SetCanMove(bool canMove)
+        {
+            _canMove = canMove;
         }
     }
 }

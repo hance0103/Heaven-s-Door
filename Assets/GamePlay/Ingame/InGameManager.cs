@@ -1,5 +1,7 @@
 using System;
+using Cysharp.Threading.Tasks;
 using GamePlay.GridMap;
+using GamePlay.Player;
 using TMPro;
 using UnityEngine;
 
@@ -9,12 +11,15 @@ namespace GamePlay.Ingame
     {
         [SerializeField] private TMP_Text percentageText;
         [SerializeField] private TMP_Text scoreText;
-        private int life = 3;
+        [SerializeField] private int life = 3;
+        private bool isDying = false;
         
-
+        
+        
         private void Start()
         {
             life = 3;
+            isDying = false;
         }
 
         public void RenewPercentage(int percent)
@@ -30,12 +35,49 @@ namespace GamePlay.Ingame
         }
         
         [ContextMenu("라이프 하나 깎기")]
-        public void MinusLife()
+        public async void MinusLife()
         {
-            life -= 1;
-            // 라이프 UI 오브젝트 하나 없애기
-            // 죽는 모션
-            // 부활 위치 선정
+            if (isDying) return;
+            isDying = true;
+
+            try
+            {
+                var player = GameManager.Instance.playerController;
+                if (player == null) return;
+                
+                // TODO : 죽는 모션
+                
+                life--;
+                // TODO : 라이프 깎기 (UI)
+                
+                player.SetCanMove(false);
+                
+                if (life <= 0)
+                {
+                    GameOver();
+                    return;
+                }
+
+                
+
+
+                
+
+
+                
+                player.SetPositionWhenRevive();
+                player.SetCanMove(true);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                isDying = false;
+            }
         }
         
         
