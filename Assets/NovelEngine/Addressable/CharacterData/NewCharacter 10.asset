@@ -16,8 +16,12 @@ MonoBehaviour:
   body: {fileID: -5423640865119175647, guid: f5445b51ae8f6dd4f9f526d99b4fa165, type: 3}
   faceDict:
     pairs:
-    - _key: smile
-      value: {fileID: 1874539909231415913, guid: 91b2759ee5deb9046a819fe219ff3604, type: 3}
+    - _key: sad
+      value: {fileID: 8822211401109733904, guid: a0a9917b29bbe3e4fb2111ea17eb7f62, type: 3}
+    - _key: angry
+      value: {fileID: -8385322603407699072, guid: 1e5c42da72657dd42a3d4abc26b33dcf, type: 3}
+    - _key: satisfied
+      value: {fileID: 64905082798020012, guid: cbe91f62a10eee543824eedb81ab101a, type: 3}
     keys: []
     values: []
   headOffset: {x: 0, y: 0}
