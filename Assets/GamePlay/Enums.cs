@@ -5,7 +5,8 @@ namespace GamePlay
         public enum eSellState
         {
             Empty,
-            Filled
+            Filled,
+            Wall
         }
 
         public enum eNodeState

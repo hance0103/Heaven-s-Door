@@ -61,11 +61,12 @@ namespace GamePlay.GridMap
 
             _origin = spriteRenderer.bounds.min;
 
-            float worldW = spriteRenderer.bounds.size.x;
-            float worldH = spriteRenderer.bounds.size.y;
+            var worldW = spriteRenderer.bounds.size.x;
+            var worldH = spriteRenderer.bounds.size.y;
 
-            float sx = worldW / _cellW;
-            float sy = worldH / _cellH;
+            var sx = worldW / _cellW;
+            var sy = worldH / _cellH;
+            
             _cellWorldSize = (sx + sy) * 0.5f;
             
             var startPosX =  UnityEngine.Random.Range(startPosXRange.x, startPosXRange.y);
@@ -78,7 +79,7 @@ namespace GamePlay.GridMap
             
             _grid = new Grid(_cellW, _cellH, StartPos, startFillSize);
 
-            totalCellCount = (_cellW) * (_cellH);
+            totalCellCount = Mathf.Max(0, (_cellW) * (_cellH));
         }
 
         private void Start()
@@ -487,18 +488,30 @@ namespace GamePlay.GridMap
             {
                 revealMask?.RevealCells(changed);
                 
-                inGameManager.RenewPercentage(CountCapturePercentage());
-                //CountCapturePercentage();
+                
+                // 증가량 측정
+                var increasedPercentage = CountCapturePercentage() - currentPercentage;
+                // 최종적으로 현재 점령도 적용
+                currentPercentage = CountCapturePercentage();
+                
+                // 현재 점령도 
+                inGameManager.RenewPercentage(currentPercentage);
+                inGameManager.IncreaseScore(increasedPercentage);
+                
+                
             }
 
         }
+
+        private int currentPercentage = 0;
+        
         [ContextMenu("점령도 계산")]
         public int CountCapturePercentage()
         {
-            var count = _grid.Cells.Cast<SystemEnum.eSellState>().Count(cell => cell == SystemEnum.eSellState.Filled);
-
-            Debug.Log($"점령된 셀 개수 : {count}, 총 셀 개수 : {totalCellCount}");
-            Debug.Log($"{(count * 100)/totalCellCount}%");
+            var count = _grid.Cells.Cast<SystemEnum.eSellState>().Count(cell => cell == SystemEnum.eSellState.Filled); 
+            
+            Debug.Log($"점령된 셀 개수 : {count}, 총 셀 개수 : {totalCellCount}"); 
+            Debug.Log($"{(count * 100)/totalCellCount}%"); 
             
             return (count * 100) / totalCellCount;
         }

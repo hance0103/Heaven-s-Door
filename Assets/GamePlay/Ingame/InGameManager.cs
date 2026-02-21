@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using GamePlay.GridMap;
 using GamePlay.Player;
 using TMPro;
@@ -9,30 +11,128 @@ namespace GamePlay.Ingame
 {
     public class InGameManager : MonoBehaviour
     {
+        [Header("게임 시간")]
+        [SerializeField] private int gameTime = 0;
+
+        [Header("타이머 흔들리는 각도")] 
+        [SerializeField] private float shakeAngle = 10;
+        
+        [Header("텍스트 오브젝트")]
         [SerializeField] private TMP_Text percentageText;
         [SerializeField] private TMP_Text scoreText;
-        [SerializeField] private int life = 3;
-        private bool isDying = false;
+        [SerializeField] private TMP_Text timerText;
         
+        [SerializeField] private int life = 3;
+        [SerializeField] private List<GameObject> lifeObjects = new();
+        
+        private bool isDying = false;
+        private bool isGameEnd = false;
         [SerializeField] private GameObject gameOverPanel;
         
-        
+        private int totalScore = 0;
+
+        private Timer timer;
+        private bool isTimerShakeStart = false;
+        private Tween shakeTween;
+
         private void Start()
         {
             life = 3;
+            totalScore = 0;
             isDying = false;
+            
+            RenewPercentage(0);
+            
+            timer = new Timer();
+            _ = timer.StartTimerAsync(gameTime,
+            RenewTimer,
+            GameOver);
         }
 
+
+        private void RenewTimer(float leftTime)
+        {
+            string leftTimeString;
+            
+            if (leftTime <= 10)
+            {
+                leftTimeString = leftTime.ToString("F2");
+                if (!isTimerShakeStart)
+                {
+                    isTimerShakeStart = true;
+                    StartTimerShake();
+
+                }
+            }
+            else
+            {
+                var leftTimeInt = (int)leftTime;
+                leftTimeString = leftTimeInt.ToString();
+            }
+
+            
+            timerText.text = leftTimeString;
+        }
+
+        private void StartTimerShake()
+        {
+            shakeTween?.Kill();
+            
+
+            // 시작 각도를 왼쪽으로 미리 설정
+            timerText.transform.localRotation = Quaternion.Euler(0, 0, -shakeAngle);
+
+            shakeTween = timerText.transform
+                .DOLocalRotate(
+                    new Vector3(0, 0, shakeAngle),
+                    0.1f
+                )
+                .SetEase(Ease.InOutSine)
+                .SetLoops(-1, LoopType.Yoyo);
+        }
+        
+        private void StopShake()
+        {
+            shakeTween?.Kill();
+            timerText.transform.localRotation = Quaternion.identity;
+        }
+
+        
         public void RenewPercentage(int percent)
         {
-            var percentage = percent;
-            percentageText.text = $"{percentage.ToString()}%";
+            percentageText.text = $"{percent.ToString()}%";
         }
 
-        public void RenewScore()
+        public void IncreaseScore(int increasedPercentage)
         {
+
             var score = 0;
-            scoreText.text = score.ToString();
+            
+            switch (increasedPercentage)
+            {
+                case >= 0 and < 1:
+                    // 0점 증가
+                    break;
+                case >= 1 and < 3:
+                    // 5점 증가
+                    score = 5;
+                    break;
+                case >= 3 and < 5:
+                    // 100점 증가
+                    score = 100;
+                    break;
+                case >= 5 and < 10:
+                    // 200점 증가
+                    score = 200;
+                    break;
+                default:
+                    // 450점
+                    score = 450;
+                    break;
+            }
+            
+            totalScore += score;
+            scoreText.text = totalScore.ToString();
         }
         
         [ContextMenu("라이프 하나 깎기")]
@@ -41,21 +141,23 @@ namespace GamePlay.Ingame
             if (isDying) return;
             isDying = true;
 
+            var player = GameManager.Instance.playerController;
+            
             try
             {
-                var player = GameManager.Instance.playerController;
                 if (player == null) return;
                 
                 // TODO : 죽는 모션
                 
                 life--;
                 // TODO : 라이프 깎기 (UI)
+                lifeObjects[life].SetActive(false);
                 
                 player.SetCanMove(false);
                 
                 if (life <= 0)
                 {
-                    GameOver(player.gameObject);
+                    GameOver();
                     return;
                 }
                 
@@ -74,10 +176,15 @@ namespace GamePlay.Ingame
             }
         }
         
-        
-        private void GameOver(GameObject player)
+        private void GameOver()
         {
-            player.SetActive(false);
+            if (isGameEnd) return;
+            
+            RenewTimer(0f);
+            
+            StopShake();
+            isGameEnd = true;
+            GameManager.Instance.playerController.gameObject.SetActive(false);
             gameOverPanel.SetActive(true);
         }
     }
