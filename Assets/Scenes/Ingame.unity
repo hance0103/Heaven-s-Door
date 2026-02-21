@@ -165,6 +165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameTime: 120
+  normalPercentage: 80
+  showtimePercentage: 100
   shakeAngle: 10
   percentageText: {fileID: 642435868}
   scoreText: {fileID: 1255235103}

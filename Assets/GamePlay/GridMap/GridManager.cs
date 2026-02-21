@@ -498,7 +498,6 @@ namespace GamePlay.GridMap
                 inGameManager.RenewPercentage(currentPercentage);
                 inGameManager.IncreaseScore(increasedPercentage);
                 
-                
             }
 
         }

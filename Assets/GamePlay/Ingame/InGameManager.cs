@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using GamePlay.GridMap;
-using GamePlay.Player;
 using TMPro;
 using UnityEngine;
 
@@ -14,6 +11,11 @@ namespace GamePlay.Ingame
         [Header("게임 시간")]
         [SerializeField] private int gameTime = 0;
 
+        [Header("게임 승리 조건")] 
+        [Tooltip("일반 승리")]
+        [SerializeField] private int normalPercentage = 80;
+        [Tooltip("쇼타임 승리")]
+        [SerializeField] private int showtimePercentage = 100;
         [Header("타이머 흔들리는 각도")] 
         [SerializeField] private float shakeAngle = 10;
         
@@ -101,6 +103,7 @@ namespace GamePlay.Ingame
         public void RenewPercentage(int percent)
         {
             percentageText.text = $"{percent.ToString()}%";
+            JudgeGameEnd(percent);
         }
 
         public void IncreaseScore(int increasedPercentage)
@@ -179,18 +182,48 @@ namespace GamePlay.Ingame
         private void GameOver()
         {
             if (isGameEnd) return;
-            timer.StopTimer();
-            
-            StopShake();
             isGameEnd = true;
+            
+            timer.StopTimer();
+            StopShake();
+
             GameManager.Instance.playerController.gameObject.SetActive(false);
             gameOverPanel.SetActive(true);
         }
 
-
+        private void JudgeGameEnd(int percent)
+        {
+            if (percent >= normalPercentage && percent < showtimePercentage)
+            {
+                NormalGameWin();
+            }
+            else if (percent >= showtimePercentage)
+            {
+                ShowTimeWin();
+            }
+        }
+        
+        // 게임 승리시 공통적으로 해야할 작업
         private void GameWin()
         {
+            Debug.Log("게임 승리");
             
+            if (isGameEnd) return;
+            isGameEnd = true;
+            
+            timer.StopTimer();
+            StopShake();
+            GameManager.Instance.playerController.SetCanMove(false);
+        }
+        
+        private void NormalGameWin()
+        {
+            GameWin();
+        }
+
+        private void ShowTimeWin()
+        {
+            GameWin();
         }
     }
 }

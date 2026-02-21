@@ -11,7 +11,7 @@ namespace GamePlay.Player
     {
         Border,
         Drawing,
-        Returning
+        Returning,
     }
 
     public class PlayerController : MonoBehaviour
@@ -94,8 +94,6 @@ namespace GamePlay.Player
 
         private void Update()
         {
-            
-            
             if (_mode == TraverseMode.Returning) return;
 
             RefreshMove();
