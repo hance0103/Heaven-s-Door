@@ -1,3 +1,5 @@
+using System;
+using GamePlay;
 using GamePlay.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -50,9 +52,23 @@ public class GameManager : MonoBehaviour
     
     public PlayerController playerController;
     
+    
+    // TODO : 이것들 나중에 딴데로 옮길것
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    public void LoadScene(SystemEnum.eScenes scene)
+    {
+        SceneManager.LoadScene(scene.ToString());
+    }
     
+    // TODO : 뭐 나중에 캐릭터별로 이넘으로 다루던지 바꿀거임
+    private string _novelName;
+    public string NovelName;
+    public void StartNovelScene(string novelName)
+    {
+        NovelName = novelName;
+        LoadScene(SystemEnum.eScenes.Novel);
+    }
 }

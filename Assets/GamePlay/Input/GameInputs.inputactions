@@ -240,6 +240,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Novel",
+            "id": "e3c92e78-3067-4602-8864-1319dff59c26",
+            "actions": [
+                {
+                    "name": "NextScript",
+                    "type": "Button",
+                    "id": "168d6d68-37f6-4cb1-9533-ff233520f58e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8da1fe35-a1bf-4ad0-a8e4-45ba368b77d8",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "NextScript",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b29eb5f-f2ca-4be4-a989-45bee998bc94",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "NextScript",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

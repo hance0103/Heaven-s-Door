@@ -1,30 +1,30 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GamePlay.UI.SelectObjects
 {
-    [RequireComponent(typeof(TextMeshProUGUI))]
+    [RequireComponent(typeof(Outline))]
     public abstract class SelectObject : MonoBehaviour
     {
-        private TMP_Text text;
+        private Outline outline;
 
         protected virtual void Awake()
         {
-            text = GetComponent<TMP_Text>();
+            outline = GetComponent<Outline>();
+            outline.effectColor = Color.white;
+            outline.effectDistance = new Vector2(5, -5);
         }
 
-        public void Select(int fontSize)
+        public void Select()
         {
-            if (text == null) Debug.Log("널");
-            
-            text.color = Color.yellow;
-            text.fontSize = fontSize;
+            if (outline == null) Debug.Log("널");
+            outline.effectColor = Color.yellow;
         }
 
-        public void Deselect(int fontSize)
+        public void Deselect()
         {
-            text.color = Color.white;
-            text.fontSize = fontSize;
+            outline.effectColor = Color.white;
         }
         
         public abstract void Execute();

@@ -8,8 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-// UIs.Runtime;
 using UnityEngine.AddressableAssets;
+using UnityEngine.InputSystem;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class NovelPlayer : MonoBehaviour
@@ -33,11 +33,10 @@ public class NovelPlayer : MonoBehaviour
     public GameObject ChoicePanel { get; private set; }
     
     public GameObject DialoguePanel => _dialoguePanel;
-    
-    
 
-    public event Action OnScriptEnd;
-    
+    [Header("Input")] 
+    [SerializeField] private PlayerInput playerInput;
+    private InputAction _nextScript;
     
 
     // 현재 배경화면
@@ -83,6 +82,10 @@ public class NovelPlayer : MonoBehaviour
     {
         _destroyToken = this.GetCancellationTokenOnDestroy();
         Init();
+        
+        // 인풋 관련
+        playerInput = GetComponent<PlayerInput>();
+        _nextScript = playerInput.actions["NextScript"];
     }
     private void Init()
     {
@@ -91,6 +94,22 @@ public class NovelPlayer : MonoBehaviour
         FindObjectsByType();
         LabelDict = new();
     }
+
+    private void OnEnable()
+    {
+        _nextScript.performed += OnNextLinePressed;
+    }
+
+    private void OnDisable()
+    {
+        _nextScript.performed -= OnNextLinePressed;
+    }
+
+    private void OnNextLinePressed(InputAction.CallbackContext context)
+    {
+        OnNextLineClicked();
+    }
+
     private void FindObjectsByType()
     {
         var novelObjects = GetComponentsInChildren<NovelObjects>(true);
@@ -202,13 +221,16 @@ public class NovelPlayer : MonoBehaviour
     }  
     public void EndScript()
     {
-        OnScriptEnd?.Invoke();
-        // bgm stop
+        // 여기가 스크립트 끝났을때 콜백
+        NovelManager.Instance.OnScriptEnd();
         NovelManager.Instance.Audio.StopBGM();
 
         ReleaseObjects();
         
         Addressables.ReleaseInstance(gameObject);
+        
+
+        
     }
 
     private async UniTask NextLine()

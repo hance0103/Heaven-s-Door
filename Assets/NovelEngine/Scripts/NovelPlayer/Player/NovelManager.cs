@@ -9,10 +9,6 @@ using UnityEngine.PlayerLoop;
 
 public class NovelManager : MonoBehaviour
 {
-    //// TODO 씨이이발 임시코드
-    //public bool isRewardOpen = false;
-    
-    
     public static NovelManager Instance
     {
         get => instance;
@@ -33,21 +29,8 @@ public class NovelManager : MonoBehaviour
 
     UniTask _initialization = UniTask.CompletedTask;
     static bool initStarted;
-    /// <summary>
-    /// 튜토리얼용 임시 함수
-    /// </summary>
-    /// <param name="index"></param>
-    public void PlayTutorial(int index)
-    {
-        string name = $"Tutorial_{index}";
-        Debug.Log($"PlayTutorial :  {name}");
-        PlayScript(name);
-    }
+    
 
-    //public bool firstTutoEnd = false;
-    //public bool secondTutoEnd = false;
-    //public bool thirdTutoEnd = false;
-    //public bool fourthTutoEnd = false;
     
     public static async void Init()
     {
@@ -206,56 +189,61 @@ public class NovelManager : MonoBehaviour
     /// Novel 끝나는거까지 기다리는 함수 팜.
     /// TODO : 설계한 쪽에서 검수 바람
     /// </summary>
-    public static async UniTask PlayScriptAndWait(string scriptTitle, CancellationToken ct = default)
+    // public static async UniTask PlayScriptAndWait(string scriptTitle, CancellationToken ct = default)
+    // {
+    //     if (!instance)
+    //     {
+    //         await InitAsync();
+    //     }
+    //
+    //     if (!isReady)
+    //     {
+    //         Debug.LogError("[NovelManager] Not ready yet. Call InitializeAsync() first.");
+    //         return;
+    //     }
+    //
+    //     if (!Player)
+    //         await instance.InstantiateNovelPlayerAsync();
+    //
+    //     TextAsset script = Data.script.GetScriptByTitle(scriptTitle);
+    //     if (!script)
+    //     {
+    //         Debug.LogError($"[NovelManager] Script '{scriptTitle}' not found.");
+    //         return;
+    //     }
+    //
+    //     var tcs = new UniTaskCompletionSource();
+    //
+    //     void Handler()
+    //     {
+    //         Player.OnScriptEnd -= Handler;
+    //         tcs.TrySetResult();
+    //     }
+    //
+    //     Player.OnScriptEnd += Handler;
+    //
+    //     if (ct.CanBeCanceled)
+    //     {
+    //         ct.Register(() =>
+    //         {
+    //             Player.OnScriptEnd -= Handler;
+    //             tcs.TrySetCanceled(ct);
+    //         });
+    //     }
+    //
+    //     Player.SetScript(script);
+    //     Player.Play();
+    //
+    //     await tcs.Task;
+    //     
+    // }
+    
+    public event Action OnScriptEndEvent;
+
+    public void OnScriptEnd()
     {
-        if (!instance)
-        {
-            await InitAsync();
-        }
-
-        if (!isReady)
-        {
-            Debug.LogError("[NovelManager] Not ready yet. Call InitializeAsync() first.");
-            return;
-        }
-
-        if (!Player)
-            await instance.InstantiateNovelPlayerAsync();
-
-        TextAsset script = Data.script.GetScriptByTitle(scriptTitle);
-        if (!script)
-        {
-            Debug.LogError($"[NovelManager] Script '{scriptTitle}' not found.");
-            return;
-        }
-
-        var tcs = new UniTaskCompletionSource();
-
-        void Handler()
-        {
-            Player.OnScriptEnd -= Handler;
-            tcs.TrySetResult();
-        }
-
-        Player.OnScriptEnd += Handler;
-
-        if (ct.CanBeCanceled)
-        {
-            ct.Register(() =>
-            {
-                Player.OnScriptEnd -= Handler;
-                tcs.TrySetCanceled(ct);
-            });
-        }
-
-        Player.SetScript(script);
-        Player.Play();
-
-        await tcs.Task;
-        
+        OnScriptEndEvent?.Invoke();
     }
-    
-    
     private async UniTask InstantiateNovelPlayerAsync()
     {
         await NovelPlayerGate.WaitAsync();

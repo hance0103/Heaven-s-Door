@@ -19,8 +19,16 @@ namespace GamePlay
 
         public enum eScenes
         {
-            Main,
-            InGame
+            Start,
+            Choice,
+            Ingame,
+            Novel
+        }
+
+        public enum Character
+        {
+            Karen,
+            None
         }
     }
 }

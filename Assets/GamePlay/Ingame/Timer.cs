@@ -30,7 +30,12 @@ namespace GamePlay.Ingame
                     await UniTask.Yield(PlayerLoopTiming.Update, cts.Token);
                     leftTime -= Time.deltaTime;
                 }
-
+                
+                // 마지막틱 실행
+                leftTime = 0f;
+                onTick?.Invoke(leftTime);
+                
+                // 종료
                 onComplete?.Invoke();
             }
             catch (OperationCanceledException)

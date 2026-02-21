@@ -179,13 +179,18 @@ namespace GamePlay.Ingame
         private void GameOver()
         {
             if (isGameEnd) return;
-            
-            RenewTimer(0f);
+            timer.StopTimer();
             
             StopShake();
             isGameEnd = true;
             GameManager.Instance.playerController.gameObject.SetActive(false);
             gameOverPanel.SetActive(true);
+        }
+
+
+        private void GameWin()
+        {
+            
         }
     }
 }

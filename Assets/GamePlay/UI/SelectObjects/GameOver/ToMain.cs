@@ -5,6 +5,7 @@ namespace GamePlay.UI.SelectObjects.GameOver
         public override void Execute()
         {
             // 메인 씬 로드
+            GameManager.Instance.LoadScene(SystemEnum.eScenes.Start);
         }
     }
 }

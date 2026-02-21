@@ -6,11 +6,13 @@ namespace GamePlay.UI.SelectObjects
 {
     public class SelectObjectController : MonoBehaviour
     {
+        //TODO : 나중에 행/열 추가해서 위 아래로도 이동 가능하도록 만들것
+        
         [SerializeField] private List<SelectObject> selectObjects = new List<SelectObject>();
         [SerializeField] private PlayerInput playerInput;
 
-        [SerializeField] private int selectedFontSize;
-        [SerializeField] private int nonselectedFontSize;
+        // [SerializeField] private int selectedFontSize;
+        // [SerializeField] private int nonselectedFontSize;
         
         private InputAction _selectAction;
         private InputAction _decideAction;
@@ -30,11 +32,11 @@ namespace GamePlay.UI.SelectObjects
             {
                 if (i == 0)
                 {
-                    selectObjects[i].Select(selectedFontSize);
+                    selectObjects[i].Select();
                 }
                 else
                 {
-                    selectObjects[i].Deselect(nonselectedFontSize);
+                    selectObjects[i].Deselect();
                 }
             }
 
@@ -75,9 +77,9 @@ namespace GamePlay.UI.SelectObjects
                 {
                     if (currentIndex < selectObjects.Count - 1)
                     {
-                        selectObjects[currentIndex].Deselect(nonselectedFontSize);
+                        selectObjects[currentIndex].Deselect();
                         currentIndex++;
-                        selectObjects[currentIndex].Select(selectedFontSize);
+                        selectObjects[currentIndex].Select();
                     }
                 }
                 break;
@@ -85,18 +87,13 @@ namespace GamePlay.UI.SelectObjects
                 {
                     if (currentIndex > 0)
                     {
-                        selectObjects[currentIndex].Deselect(nonselectedFontSize);
+                        selectObjects[currentIndex].Deselect();
                         currentIndex--;
-                        selectObjects[currentIndex].Select(selectedFontSize);
+                        selectObjects[currentIndex].Select();
                     }
                 }
                 break;
             }
-        }
-
-        private void Decide()
-        {
-            // 현재 인덱스 선택
         }
     }
 }
