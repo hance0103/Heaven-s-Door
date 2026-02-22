@@ -36,5 +36,11 @@ MonoBehaviour:
       value: {fileID: 11400000, guid: 196285493d295d14fbde00b5833dbfa0, type: 2}
     - _key: Karen
       value: {fileID: 11400000, guid: b0dd3b68dbe4d2b42b5a7dfb9e93b921, type: 2}
+    - _key: heaven
+      value: {fileID: 11400000, guid: a011f2bda936cf84bb614e619f7f5332, type: 2}
+    - _key: hell
+      value: {fileID: 11400000, guid: 281190651769ddd4f9c00e1f60ce51a1, type: 2}
+    - _key: NewCharacter
+      value: {fileID: 11400000, guid: 89597c1bc1a12f44c8153c3ce04fcef0, type: 2}
     keys: []
     values: []

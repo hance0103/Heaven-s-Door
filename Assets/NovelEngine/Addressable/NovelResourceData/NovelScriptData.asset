@@ -18,5 +18,7 @@ MonoBehaviour:
       value: {fileID: 2811297602134710623, guid: db5ac0f34695baa47b59d0aa7e07df77, type: 3}
     - _key: Karen_beforeText
       value: {fileID: 2811297602134710623, guid: c6ec467310131f448b7839b7352e5e58, type: 3}
+    - _key: prologue
+      value: {fileID: 2811297602134710623, guid: b8148b78ab9d6314494423aa706ed9a7, type: 3}
     keys: []
     values: []

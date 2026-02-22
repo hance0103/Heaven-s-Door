@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd1a1f03e23904f4289a992851c2de26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptName: Karen_beforeText
+  scriptName: prologue
 --- !u!1 &1228174335
 GameObject:
   m_ObjectHideFlags: 0

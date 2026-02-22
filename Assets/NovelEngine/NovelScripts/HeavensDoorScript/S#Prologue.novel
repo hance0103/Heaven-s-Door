@@ -1,0 +1,11 @@
+#karen_beforeText
+
+@back BlackScreen
+
+???: 도어, 천국의 문지기인 당신은 이제부터 인간들을 판결해야 합니다.
+???: 선악을 떠나, 당신만의 기준으로 그들의 행선지를 정해주세요
+@char heaven transition: fadeIn time: 1.5 pos: 30, 50 scale: 8
+@wait 1.5
+@char hell transition: fadeIn time: 1.5  pos: 70, 50 scale: 8
+@wait 1.5
+???: 천국과 지옥 중, 더 어울리는 곳으로.

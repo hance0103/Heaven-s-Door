@@ -483,6 +483,7 @@ MonoBehaviour:
   skipButton: {fileID: 0}
   isFinished: 0
   isChoiceOn: 0
+  playerInput: {fileID: 0}
   currentCharacterDict:
     pairs: []
     keys: []
@@ -842,8 +843,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282825210
-  m_fontColor: {r: 0.98039216, g: 0.7257243, b: 0.27450985, a: 1}
+    rgba: 4283575199
+  m_fontColor: {r: 0.62352943, g: 0.16862746, b: 0.32156864, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
