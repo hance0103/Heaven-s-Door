@@ -16,6 +16,10 @@ MonoBehaviour:
   - name: 0
     name_KOR: "\uC720\uC7AC\uC601"
     info: "\uC0AC\uD615"
+    judge: 0
+    percentage: 0
   - name: 1
     name_KOR: "\uCE74\uB80C"
-    info: "\uCE74\uB80C \uC124\uBA85"
+    info: "\uD788\uD788\uC5C9\uB369\uC774\\n \uC88B\uC544"
+    judge: 0
+    percentage: 0
