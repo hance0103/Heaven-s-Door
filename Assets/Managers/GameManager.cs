@@ -1,6 +1,8 @@
 using System;
 using Cysharp.Threading.Tasks;
 using GamePlay;
+using GamePlay.GridMap;
+using GamePlay.Ingame;
 using GamePlay.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -61,6 +63,15 @@ namespace Managers
 
         #region Ingame
         public PlayerController playerController;
+        public SystemEnum.Character currentCharacter;
+        public SystemEnum.NovelScriptType scriptType;
+        
+        
+        #endregion
+
+        #region GameSetting
+        
+        // 이건 나중에 세팅 데이터 이런거로 뺼거임
         public SystemEnum.Language language = SystemEnum.Language.KOR;
 
         #endregion
@@ -76,8 +87,15 @@ namespace Managers
                 Data.Init(),
                 Scene.Init()
             );
-            Debug.Log("모든 매니저 초기화 완료");
         }
 
+        public InGameManager inGameManager;
+        public GridManager gridManager;
+        public void OnStageEnd()
+        {
+            inGameManager = null;
+            gridManager = null;
+            playerController = null;
+        }
     }
 }

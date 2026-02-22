@@ -30,6 +30,9 @@ namespace GamePlay.UI.SelectObjects.Controller
             
             var characterObject = (CharacterChoiceObject)selectObjects[0];
             SettingCharacterInfoUI(characterObject.Character);
+            
+            
+            
         }
 
         protected override void OnEnable()
@@ -60,10 +63,11 @@ namespace GamePlay.UI.SelectObjects.Controller
 
         protected override void OnDecidePressed(InputAction.CallbackContext context)
         {
+            var choice = (CharacterChoiceObject)selectObjects[currentIndex];
+            
             // 캐릭터가 선택되지 않았을 경우
             if (!isChosen)
             {
-                var choice = (CharacterChoiceObject)selectObjects[currentIndex];
                 if (choice.Character == SystemEnum.Character.None) return;
                 base.OnDecidePressed(context);
                 isChosen = true;
@@ -72,8 +76,7 @@ namespace GamePlay.UI.SelectObjects.Controller
             }
             else
             {
-                // TODO: 이거 나중에 이넘 기반으로 해서 다른 캐릭터도 접근할수 있도록 할것
-                GameManager.Instance.Scene.StartNovelScene("Karen_beforeText");
+                GameManager.Instance.Scene.StartCharacterNovel(choice.Character, SystemEnum.NovelScriptType.before);
             }
         }
 

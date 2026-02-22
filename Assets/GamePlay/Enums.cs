@@ -22,7 +22,8 @@ namespace GamePlay
             Start,
             Choice,
             Ingame,
-            Novel
+            Novel,
+            None,
         }
 
         public enum Character
@@ -32,10 +33,25 @@ namespace GamePlay
 
         }
 
+        public enum NovelScriptType
+        {
+            None,
+            before,
+            after,
+            heaven,
+            hell
+        }
         public enum Language
         {
             KOR,
             ENG
+        }
+
+        public enum Judge
+        {
+            Before,
+            Heaven,
+            Hell
         }
     }
 }

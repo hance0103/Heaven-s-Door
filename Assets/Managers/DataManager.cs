@@ -27,6 +27,9 @@ namespace Managers
             }
         }
 
+
+        #region GetData
+
         public string GetCharacterName(SystemEnum.Character character, SystemEnum.Language language = SystemEnum.Language.KOR)
         {
             var name = "";
@@ -59,5 +62,26 @@ namespace Managers
             }
             return infoText;
         }
+
+        public SystemEnum.Judge GetCharacterJudged(SystemEnum.Character character)
+        {
+            return charSO.CharacterInfos.Where(info => info.name == character).Select(info => info.judge).FirstOrDefault();
+        }
+
+        public float GetCharacterPercentage(SystemEnum.Character character)
+        {
+            return charSO.CharacterInfos.Where(info => info.name == character).Select(info => info.percentage).FirstOrDefault();
+        }
+
+        #endregion
+
+        #region SetData
+
+        public void SetCharacterJudge()
+        {
+            
+        }
+
+        #endregion
     }
 }

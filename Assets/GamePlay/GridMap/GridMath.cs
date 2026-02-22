@@ -17,16 +17,16 @@ namespace GamePlay.GridMap
         public static Vector2Int WorldToCell(Vector2 world, Vector3 origin, float cellWorldSize)
         {
             var local = world - (Vector2)origin;
-            int x = Mathf.FloorToInt(local.x / cellWorldSize);
-            int y = Mathf.FloorToInt(local.y / cellWorldSize);
+            var x = Mathf.FloorToInt(local.x / cellWorldSize);
+            var y = Mathf.FloorToInt(local.y / cellWorldSize);
             return new Vector2Int(x, y);
         }
 
         public static Vector2Int WorldToNode(Vector2 world, Vector3 origin, float cellWorldSize)
         {
             var local = world - (Vector2)origin;
-            int x = Mathf.RoundToInt(local.x / cellWorldSize);
-            int y = Mathf.RoundToInt(local.y / cellWorldSize);
+            var x = Mathf.RoundToInt(local.x / cellWorldSize);
+            var y = Mathf.RoundToInt(local.y / cellWorldSize);
             return new Vector2Int(x, y);
         }
     }

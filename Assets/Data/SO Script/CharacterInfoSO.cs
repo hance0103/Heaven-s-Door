@@ -19,5 +19,22 @@ namespace Data.SO_Script
         public SystemEnum.Character name;
         public string name_KOR;
         public string info;
+
+        public SystemEnum.Judge judge;
+        public float percentage;
+    }
+
+    [Serializable]
+    public class CharacterSaveEntry
+    {
+        public SystemEnum.Character character;
+        public SystemEnum.Judge judge;
+        public float percentage;
+    }
+    
+    [Serializable]
+    public class CharacterSaveData
+    {
+        public List<CharacterSaveEntry> entries = new();
     }
 }

@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
   m_GUID: a2073cab7ba847a4eb3270cc3a16c098
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 1dafcaf60b8aace43a5398d47aa63b56
+    m_Address: JudgeCanvas
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 81276c7676f68ac4489721641018052a, type: 2}
   m_SchemaSet:

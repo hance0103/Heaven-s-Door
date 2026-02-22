@@ -9,9 +9,6 @@ namespace GamePlay.UI.SelectObjects.CharacterChoice
 
         public override void Execute()
         {
-            // 해당하는 캐릭터 대화
-            //GameManager.Instance.StartNovelScene("Karen_beforeText");
-            // 캐릭터 정보 보여줌
         }
     
     }

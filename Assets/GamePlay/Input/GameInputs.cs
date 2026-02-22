@@ -385,6 +385,109 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Judge"",
+            ""id"": ""8f0a3fba-6dcf-4b9e-80f7-2968ffa5a1c2"",
+            ""actions"": [
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Value"",
+                    ""id"": ""6eb4605f-0aa2-4270-acdb-6ef144b6cf50"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Decide"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a4d8670-1954-4150-b883-32753dd83436"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""f3a48f20-5a8a-419b-a56e-fe6719b87963"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""26bf151c-3385-4cb9-82a2-812f1659028e"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""97ed1793-7298-4bea-b7ac-a70752829a0d"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""a30fda80-93e3-4afc-bd3d-41aab8e6ba67"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""23864376-31cd-4101-8a8d-2396d8985009"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7db0c785-b0c1-4db3-91cc-68f1ceda4834"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Decide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""79e9700b-691d-471a-a745-c4be882436e4"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""Decide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -413,6 +516,10 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         // Novel
         m_Novel = asset.FindActionMap("Novel", throwIfNotFound: true);
         m_Novel_NextScript = m_Novel.FindAction("NextScript", throwIfNotFound: true);
+        // Judge
+        m_Judge = asset.FindActionMap("Judge", throwIfNotFound: true);
+        m_Judge_Select = m_Judge.FindAction("Select", throwIfNotFound: true);
+        m_Judge_Decide = m_Judge.FindAction("Decide", throwIfNotFound: true);
     }
 
     ~@GameInputs()
@@ -420,6 +527,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, GameInputs.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, GameInputs.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Novel.enabled, "This will cause a leak and performance issues, GameInputs.Novel.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Judge.enabled, "This will cause a leak and performance issues, GameInputs.Judge.Disable() has not been called.");
     }
 
     /// <summary>
@@ -812,6 +920,113 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="NovelActions" /> instance referencing this action map.
     /// </summary>
     public NovelActions @Novel => new NovelActions(this);
+
+    // Judge
+    private readonly InputActionMap m_Judge;
+    private List<IJudgeActions> m_JudgeActionsCallbackInterfaces = new List<IJudgeActions>();
+    private readonly InputAction m_Judge_Select;
+    private readonly InputAction m_Judge_Decide;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Judge".
+    /// </summary>
+    public struct JudgeActions
+    {
+        private @GameInputs m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public JudgeActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Judge/Select".
+        /// </summary>
+        public InputAction @Select => m_Wrapper.m_Judge_Select;
+        /// <summary>
+        /// Provides access to the underlying input action "Judge/Decide".
+        /// </summary>
+        public InputAction @Decide => m_Wrapper.m_Judge_Decide;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Judge; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="JudgeActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(JudgeActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="JudgeActions" />
+        public void AddCallbacks(IJudgeActions instance)
+        {
+            if (instance == null || m_Wrapper.m_JudgeActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_JudgeActionsCallbackInterfaces.Add(instance);
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
+            @Decide.started += instance.OnDecide;
+            @Decide.performed += instance.OnDecide;
+            @Decide.canceled += instance.OnDecide;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="JudgeActions" />
+        private void UnregisterCallbacks(IJudgeActions instance)
+        {
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
+            @Decide.started -= instance.OnDecide;
+            @Decide.performed -= instance.OnDecide;
+            @Decide.canceled -= instance.OnDecide;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="JudgeActions.UnregisterCallbacks(IJudgeActions)" />.
+        /// </summary>
+        /// <seealso cref="JudgeActions.UnregisterCallbacks(IJudgeActions)" />
+        public void RemoveCallbacks(IJudgeActions instance)
+        {
+            if (m_Wrapper.m_JudgeActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="JudgeActions.AddCallbacks(IJudgeActions)" />
+        /// <seealso cref="JudgeActions.RemoveCallbacks(IJudgeActions)" />
+        /// <seealso cref="JudgeActions.UnregisterCallbacks(IJudgeActions)" />
+        public void SetCallbacks(IJudgeActions instance)
+        {
+            foreach (var item in m_Wrapper.m_JudgeActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_JudgeActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="JudgeActions" /> instance referencing this action map.
+    /// </summary>
+    public JudgeActions @Judge => new JudgeActions(this);
     private int m_PCSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -890,5 +1105,27 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnNextScript(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Judge" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="JudgeActions.AddCallbacks(IJudgeActions)" />
+    /// <seealso cref="JudgeActions.RemoveCallbacks(IJudgeActions)" />
+    public interface IJudgeActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Select" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelect(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Decide" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDecide(InputAction.CallbackContext context);
     }
 }

@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using GamePlay.FX.SpriteMask;
 using Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace GamePlay.Ingame
 {
@@ -30,13 +32,33 @@ namespace GamePlay.Ingame
         
         private bool isDying = false;
         private bool isGameEnd = false;
+        
+        [Header("게임 패배 UI")]
         [SerializeField] private GameObject gameOverPanel;
+
+        [Header("게임 승리 UI")] 
+        
+        [Tooltip("게임 승리시 스탠딩 일러스트 채워지는 시간")]
+        [SerializeField] private float maskFillingTime = 1f;
+
+
+        [SerializeField] private GameObject maskPanel;
+        [SerializeField] private SpriteMaskDown spriteMask;
+        [SerializeField] private GameObject stageClearPanel;
+        [SerializeField] private TMP_Text clearPercentageText;
+        [SerializeField] private TMP_Text clearScoreText;
+        
         
         private int totalScore = 0;
 
         private Timer timer;
         private bool isTimerShakeStart = false;
         private Tween shakeTween;
+
+        private void Awake()
+        {
+            GameManager.Instance.inGameManager = this;
+        }
 
         private void Start()
         {
@@ -104,7 +126,7 @@ namespace GamePlay.Ingame
         public void RenewPercentage(int percent)
         {
             percentageText.text = $"{percent.ToString()}%";
-            JudgeGameEnd(percent);
+            JudgeStageClear(percent);
         }
 
         public void IncreaseScore(int increasedPercentage)
@@ -138,6 +160,12 @@ namespace GamePlay.Ingame
             totalScore += score;
             scoreText.text = totalScore.ToString();
         }
+
+        public void OnCapture(int currentPercentage, int increasedPercentage)
+        {
+            RenewPercentage(currentPercentage);
+            IncreaseScore(increasedPercentage);
+        }
         
         [ContextMenu("라이프 하나 깎기")]
         public async void MinusLife()
@@ -154,7 +182,6 @@ namespace GamePlay.Ingame
                 // TODO : 죽는 모션
                 
                 life--;
-                // TODO : 라이프 깎기 (UI)
                 lifeObjects[life].SetActive(false);
                 
                 player.SetCanMove(false);
@@ -180,51 +207,50 @@ namespace GamePlay.Ingame
             }
         }
         
+
+        private void JudgeStageClear(int percent)
+        {
+            if (percent < normalPercentage) return;
+            
+            GameWin(percent);
+        }
+
+        private void GameEnd()
+        {
+            if (isGameEnd) return;
+            isGameEnd = true;
+            
+            GameManager.Instance.playerController.GetComponent<PlayerInput>().enabled = false;
+            GameManager.Instance.OnStageEnd();
+            
+            timer.StopTimer();
+            StopShake();
+
+
+        }
+        
+        private async void GameWin(int percent)
+        {
+            GameEnd();
+            
+            // 보스 사망 연출
+            
+            // 일러 채워지는 연출
+            maskPanel.SetActive(true);
+            await spriteMask.StartMove(maskFillingTime);
+            
+            
+            stageClearPanel.SetActive(true);
+            clearPercentageText.text = $"{percent.ToString()}%";
+            clearScoreText.text = $"Score : {totalScore}";
+            
+            
+        }
         private void GameOver()
         {
-            if (isGameEnd) return;
-            isGameEnd = true;
-            
-            timer.StopTimer();
-            StopShake();
-
-            GameManager.Instance.playerController.gameObject.SetActive(false);
+            GameEnd();
             gameOverPanel.SetActive(true);
         }
-
-        private void JudgeGameEnd(int percent)
-        {
-            if (percent >= normalPercentage && percent < showtimePercentage)
-            {
-                NormalGameWin();
-            }
-            else if (percent >= showtimePercentage)
-            {
-                ShowTimeWin();
-            }
-        }
         
-        // 게임 승리시 공통적으로 해야할 작업
-        private void GameWin()
-        {
-            Debug.Log("게임 승리");
-            
-            if (isGameEnd) return;
-            isGameEnd = true;
-            
-            timer.StopTimer();
-            StopShake();
-            GameManager.Instance.playerController.SetCanMove(false);
-        }
-        
-        private void NormalGameWin()
-        {
-            GameWin();
-        }
-
-        private void ShowTimeWin()
-        {
-            GameWin();
-        }
     }
 }

@@ -1,7 +1,9 @@
 using System;
+using Cysharp.Threading.Tasks;
 using GamePlay;
 using Managers;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class NovelStarter : MonoBehaviour
 {
@@ -31,9 +33,46 @@ public class NovelStarter : MonoBehaviour
         NovelManager.Instance.OnScriptEndEvent -= OnScriptEnd;
     }
 
-    private void OnScriptEnd()
+    private async void OnScriptEnd()
     {
-        // TODO: 어떤 캐릭터 시작 스토리였는지 구분해서 해당하는 스테이지 옮길것
-        GameManager.Instance.Scene.LoadScene(SystemEnum.eScenes.Ingame);
+        // TODO: 어떤 캐릭터의 스테이지인지는 IngameScene 시작할때 설정해줄것
+        
+
+        switch (GameManager.Instance.scriptType)
+        {
+            case SystemEnum.NovelScriptType.before:
+            {
+                GameManager.Instance.Scene.LoadScene(SystemEnum.eScenes.Ingame);
+                break;
+            }
+            case SystemEnum.NovelScriptType.after:
+            {
+                try
+                {
+                    var canvasPrefab =
+                        await Addressables.LoadAssetAsync<GameObject>("JudgeCanvas");
+
+                    Instantiate(canvasPrefab);
+                    
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e.Message);
+                }
+
+                break;
+            }
+            case SystemEnum.NovelScriptType.heaven:
+            case SystemEnum.NovelScriptType.hell:
+            {
+                GameManager.Instance.Scene.LoadScene(SystemEnum.eScenes.Choice);
+                break;
+            }
+            case SystemEnum.NovelScriptType.None:
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+        
+
     }
 }

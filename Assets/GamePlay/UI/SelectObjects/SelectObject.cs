@@ -18,7 +18,6 @@ namespace GamePlay.UI.SelectObjects
 
         public void Select()
         {
-            if (outline == null) Debug.Log("널");
             outline.effectColor = Color.yellow;
         }
 

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: CharacterInfoSO
   m_EditorClassIdentifier: 
   characterInfos:
+  - name: 0
+    name_KOR: "\uC720\uC7AC\uC601"
+    info: "\uC0AC\uD615"
   - name: 1
     name_KOR: "\uCE74\uB80C"
     info: "\uCE74\uB80C \uC124\uBA85"
