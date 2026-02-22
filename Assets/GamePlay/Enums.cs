@@ -39,7 +39,8 @@ namespace GamePlay
             before,
             after,
             heaven,
-            hell
+            hell,
+            Prolog
         }
         public enum Language
         {

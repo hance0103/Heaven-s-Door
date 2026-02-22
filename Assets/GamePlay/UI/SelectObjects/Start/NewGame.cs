@@ -6,7 +6,9 @@ namespace GamePlay.UI.SelectObjects.Start
     {
         public override void Execute()
         {
-            GameManager.Instance.Scene.LoadScene(SystemEnum.eScenes.Choice);
+            GameManager.Instance.scriptType = SystemEnum.NovelScriptType.Prolog;
+            GameManager.Instance.Scene.StartNovelScene("prologue");
+            //GameManager.Instance.Scene.LoadScene(SystemEnum.eScenes.Choice);
         }
     }
 }

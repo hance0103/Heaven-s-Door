@@ -64,11 +64,13 @@ public class NovelStarter : MonoBehaviour
             }
             case SystemEnum.NovelScriptType.heaven:
             case SystemEnum.NovelScriptType.hell:
+            case SystemEnum.NovelScriptType.Prolog:
             {
                 GameManager.Instance.Scene.LoadScene(SystemEnum.eScenes.Choice);
                 break;
             }
             case SystemEnum.NovelScriptType.None:
+
             default:
                 throw new ArgumentOutOfRangeException();
         }
