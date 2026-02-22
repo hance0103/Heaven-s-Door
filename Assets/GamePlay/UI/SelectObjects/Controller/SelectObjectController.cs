@@ -2,31 +2,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace GamePlay.UI.SelectObjects
+namespace GamePlay.UI.SelectObjects.Controller
 {
     public class SelectObjectController : MonoBehaviour
     {
         //TODO : 나중에 행/열 추가해서 위 아래로도 이동 가능하도록 만들것
         
-        [SerializeField] private List<SelectObject> selectObjects = new List<SelectObject>();
-        [SerializeField] private PlayerInput playerInput;
+        [SerializeField] protected List<SelectObject> selectObjects = new List<SelectObject>();
+        [SerializeField] protected PlayerInput playerInput;
 
-        // [SerializeField] private int selectedFontSize;
-        // [SerializeField] private int nonselectedFontSize;
+        private InputAction selectAction;
+        private InputAction decideAction;
         
-        private InputAction _selectAction;
-        private InputAction _decideAction;
-        
-        [SerializeField] private int currentIndex = 0;
+        [SerializeField] protected int currentIndex = 0;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             playerInput = GetComponent<PlayerInput>();
-            _selectAction =  playerInput.actions["Select"];
-            _decideAction = playerInput.actions["Decide"];
+            selectAction =  playerInput.actions["Select"];
+            decideAction = playerInput.actions["Decide"];
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             for (var i = 0; i < selectObjects.Count; i++)
             {
@@ -42,35 +39,38 @@ namespace GamePlay.UI.SelectObjects
 
         }
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             currentIndex = 0;
 
             
-            _selectAction.performed += OnSelectPressed;
-            _decideAction.performed += OnDecidePressed;
+            selectAction.performed += OnSelectPressed;
+            decideAction.performed += OnDecidePressed;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
-            _selectAction.performed -= OnSelectPressed;
-            _decideAction.performed -= OnDecidePressed;
+            selectAction.performed -= OnSelectPressed;
+            decideAction.performed -= OnDecidePressed;
         }
-
-        private void OnSelectPressed(InputAction.CallbackContext context)
+        
+        
+        // 좌우 이동
+        protected virtual void OnSelectPressed(InputAction.CallbackContext context)
         {
             var select = context.action.ReadValue<float>();
             MoveSelect(select);
         }
-
-        private void OnDecidePressed(InputAction.CallbackContext context)
+        
+        
+        // 엔터/스페이스바
+        protected virtual void OnDecidePressed(InputAction.CallbackContext context)
         {
             selectObjects[currentIndex].Execute();
         }
 
         private void MoveSelect(float axis)
         {
-            Debug.Log(axis);
             switch (axis)
             {
                 case > 0:

@@ -1,5 +1,6 @@
 using System;
 using GamePlay;
+using Managers;
 using UnityEngine;
 
 public class NovelStarter : MonoBehaviour
@@ -13,7 +14,7 @@ public class NovelStarter : MonoBehaviour
         try
         {
             await NovelManager.InitAsync();
-            await NovelManager.Instance.PlayScript(GameManager.Instance.NovelName);
+            await NovelManager.Instance.PlayScript(GameManager.Instance.Scene.NovelName);
             
             NovelManager.Instance.OnScriptEndEvent += OnScriptEnd;
         }
@@ -33,6 +34,6 @@ public class NovelStarter : MonoBehaviour
     private void OnScriptEnd()
     {
         // TODO: 어떤 캐릭터 시작 스토리였는지 구분해서 해당하는 스테이지 옮길것
-        GameManager.Instance.LoadScene(SystemEnum.eScenes.Ingame);
+        GameManager.Instance.Scene.LoadScene(SystemEnum.eScenes.Ingame);
     }
 }

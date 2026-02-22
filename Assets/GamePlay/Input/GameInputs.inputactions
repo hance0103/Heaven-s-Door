@@ -159,6 +159,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "eb0c10c4-b98b-4814-979d-fc83260da1b8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -236,6 +245,17 @@
                     "processors": "",
                     "groups": ";PC",
                     "action": "Decide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "65e617c8-d1db-4667-baf2-ed4be3cd73f9",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

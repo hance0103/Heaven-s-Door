@@ -1,14 +1,18 @@
-using GamePlay;
-using GamePlay.UI.SelectObjects;
 using UnityEngine;
 
-public class CharacterChoice : SelectObject
+namespace GamePlay.UI.SelectObjects.CharacterChoice
 {
-    [SerializeField] private SystemEnum.Character character;
-    
-    public override void Execute()
+    public class CharacterChoiceObject : SelectObject
     {
-        // 해당하는 캐릭터 대화
-        GameManager.Instance.StartNovelScene("Karen_beforeText");
+        [SerializeField] private SystemEnum.Character character;
+        public SystemEnum.Character Character => character;
+
+        public override void Execute()
+        {
+            // 해당하는 캐릭터 대화
+            //GameManager.Instance.StartNovelScene("Karen_beforeText");
+            // 캐릭터 정보 보여줌
+        }
+    
     }
 }

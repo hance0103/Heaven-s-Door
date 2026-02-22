@@ -27,8 +27,15 @@ namespace GamePlay
 
         public enum Character
         {
+            None,
             Karen,
-            None
+
+        }
+
+        public enum Language
+        {
+            KOR,
+            ENG
         }
     }
 }

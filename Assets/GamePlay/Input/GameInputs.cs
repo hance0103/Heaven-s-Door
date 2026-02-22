@@ -245,6 +245,15 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""eb0c10c4-b98b-4814-979d-fc83260da1b8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -324,6 +333,17 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Decide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65e617c8-d1db-4667-baf2-ed4be3cd73f9"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -389,6 +409,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Select = m_UI.FindAction("Select", throwIfNotFound: true);
         m_UI_Decide = m_UI.FindAction("Decide", throwIfNotFound: true);
+        m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
         // Novel
         m_Novel = asset.FindActionMap("Novel", throwIfNotFound: true);
         m_Novel_NextScript = m_Novel.FindAction("NextScript", throwIfNotFound: true);
@@ -583,6 +604,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Select;
     private readonly InputAction m_UI_Decide;
+    private readonly InputAction m_UI_Cancel;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -602,6 +624,10 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/Decide".
         /// </summary>
         public InputAction @Decide => m_Wrapper.m_UI_Decide;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/Cancel".
+        /// </summary>
+        public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -634,6 +660,9 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
             @Decide.started += instance.OnDecide;
             @Decide.performed += instance.OnDecide;
             @Decide.canceled += instance.OnDecide;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
         }
 
         /// <summary>
@@ -651,6 +680,9 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
             @Decide.started -= instance.OnDecide;
             @Decide.performed -= instance.OnDecide;
             @Decide.canceled -= instance.OnDecide;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
         }
 
         /// <summary>
@@ -836,6 +868,13 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDecide(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Cancel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCancel(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Novel" which allows adding and removing callbacks.
