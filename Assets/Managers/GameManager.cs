@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using GamePlay;
+using GamePlay.Enemy;
 using GamePlay.GridMap;
 using GamePlay.Ingame;
 using GamePlay.Player;
@@ -63,6 +64,7 @@ namespace Managers
 
         #region Ingame
         public PlayerController playerController;
+        public EnemyController bossController;
         public SystemEnum.Character currentCharacter;
         public SystemEnum.NovelScriptType scriptType;
         
@@ -96,6 +98,7 @@ namespace Managers
             inGameManager = null;
             gridManager = null;
             playerController = null;
+            bossController = null;
         }
     }
 }

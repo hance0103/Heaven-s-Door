@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using GamePlay.Enemy;
 using GamePlay.Ingame;
 using Managers;
 using Random = System.Random;
