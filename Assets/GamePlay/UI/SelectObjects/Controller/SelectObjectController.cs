@@ -7,6 +7,10 @@ namespace GamePlay.UI.SelectObjects.Controller
     public class SelectObjectController : MonoBehaviour
     {
         //TODO : 나중에 행/열 추가해서 위 아래로도 이동 가능하도록 만들것
+        [SerializeField] private Vector2 outlineWeight = new Vector2(10f, 10f);
+        [SerializeField] private Color selectedColor = Color.yellow;
+        [SerializeField] private Color deselectedColor = Color.white;
+        
         
         [SerializeField] protected List<SelectObject> selectObjects = new List<SelectObject>();
         [SerializeField] protected PlayerInput playerInput;
@@ -25,15 +29,20 @@ namespace GamePlay.UI.SelectObjects.Controller
 
         protected virtual void Start()
         {
+            
+            
             for (var i = 0; i < selectObjects.Count; i++)
             {
+                // 선 굵기 동일적용
+                selectObjects[i].SetOutlineWeight(outlineWeight);
+                
                 if (i == 0)
                 {
-                    selectObjects[i].Select();
+                    selectObjects[i].Select(selectedColor);
                 }
                 else
                 {
-                    selectObjects[i].Deselect();
+                    selectObjects[i].Deselect(deselectedColor);
                 }
             }
 

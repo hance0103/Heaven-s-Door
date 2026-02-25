@@ -12,6 +12,10 @@ namespace GamePlay.GridMap
         [SerializeField] private RevealMaskController revealMask;
         [SerializeField] private SpriteRenderer spriteRenderer;
 
+        [Header("점령구역 경계선")] 
+        [SerializeField] private Transform boundaryColliderRoot;
+        private readonly List<GameObject> boundaryColliders = new List<GameObject>();
+        
         [Header("Grid")]
         [SerializeField] public int cellSize = 32;
 
@@ -86,6 +90,7 @@ namespace GamePlay.GridMap
         private void Start()
         {
             GameManager.Instance.inGameManager.RenewPercentage(CountCapturePercentage());
+            RebuildCapturedBoundaryEdgeColliders();
         }
 
         public SystemEnum.eSellState GetCell(int x, int y) => _grid.Cells[x, y];
@@ -285,17 +290,8 @@ namespace GamePlay.GridMap
             foreach (var e in enemies)
             {
                 if (e == null) continue;
-
-                var nodes = e.CurrentNode;
-                if (nodes != null && nodes.Count > 0)
-                {
-                    foreach (var t in nodes)
-                        SeedFromNode(t);
-                }
-                else
-                {
-                    SeedFromNode(EnemyTransformToNode(e));
-                }
+                
+                SeedFromNode(e.CurrentNode);
             }
 
             return;
@@ -341,20 +337,9 @@ namespace GamePlay.GridMap
 
             if (enemies == null) return;
 
-            foreach (var e in enemies)
+            foreach (var e in enemies.Where(e => e != null))
             {
-                if (e == null) continue;
-
-                var nodes = e.CurrentNode;
-                if (nodes is { Count: > 0 })
-                {
-                    foreach (var t in nodes)
-                        MarkByNode(t);
-                }
-                else
-                {
-                    MarkByNode(EnemyTransformToNode(e));
-                }
+                MarkByNode(e.CurrentNode);
             }
 
             return;
@@ -494,8 +479,9 @@ namespace GamePlay.GridMap
                 }
             }
         }
-        
-        // 점령구역 테두리 계산
+
+        #region Boundary
+
         public HashSet<Edge> GetCapturedBoundaryEdges()
         {
             var edges = new HashSet<Edge>();
@@ -544,6 +530,164 @@ namespace GamePlay.GridMap
 
             return segs;
         }
+
+
+        public void RebuildCapturedBoundaryEdgeColliders()
+        {
+            EnsureBoundaryRoot();
+            ClearBoundaryColliders();
+            
+             var boundaryEdges = GetCapturedBoundaryEdges();
+             if (boundaryEdges == null || boundaryEdges.Count == 0) return;
+             
+             var loops = BuildLoopsFromEdges(boundaryEdges);
+             if (loops.Count == 0) return;
+             
+             for (int i = 0; i < loops.Count; i++)
+             {
+                 var nodeLoop = loops[i];
+
+                 // EdgeCollider2D는 Vector2[] (로컬좌표) 필요
+                 var localPoints = new Vector2[nodeLoop.Count + 1]; // 닫기 위해 +1
+                 for (int p = 0; p < nodeLoop.Count; p++)
+                 {
+                     var n = nodeLoop[p];
+                     var world = GetNodeWorld(n.x, n.y);
+                     var local3 = boundaryColliderRoot.InverseTransformPoint(new Vector3(world.x, world.y, 0f));
+                     localPoints[p] = new Vector2(local3.x, local3.y);
+                 }
+                 localPoints[nodeLoop.Count] = localPoints[0]; // 폐곡선 닫기
+
+                 var go = new GameObject($"CapturedBoundaryCollider_{i}");
+                 go.transform.SetParent(boundaryColliderRoot, false);
+
+                 var col = go.AddComponent<EdgeCollider2D>();
+                 col.edgeRadius = 0f;
+                 col.points = localPoints;
+
+                 boundaryColliders.Add(go);
+             }
+        }
+        private void EnsureBoundaryRoot()
+        {
+            if (boundaryColliderRoot != null) return;
+
+            var root = new GameObject("CapturedBoundaryColliders");
+            root.transform.SetParent(transform, false);
+            boundaryColliderRoot = root.transform;
+        }
+        private void ClearBoundaryColliders()
+        {
+            for (int i = 0; i < boundaryColliders.Count; i++)
+            {
+                var go = boundaryColliders[i];
+                if (go == null) continue;
+                Destroy(go);
+            }
+            boundaryColliders.Clear();
+        }
+        // HashSet<Edge> -> 여러 개의 루프(List<Vector2Int>)로 정렬
+        private List<List<Vector2Int>> BuildLoopsFromEdges(HashSet<Edge> edges)
+        {
+            var remaining = new HashSet<Edge>(edges);
+
+            // 인접 리스트
+            var neighbors = new Dictionary<Vector2Int, List<Vector2Int>>(remaining.Count * 2);
+            foreach (var e in remaining)
+            {
+                AddNeighbor(neighbors, e.A, e.B);
+                AddNeighbor(neighbors, e.B, e.A);
+            }
+
+            var loops = new List<List<Vector2Int>>();
+
+            while (remaining.Count > 0)
+            {
+                // 남은 엣지 아무거나 하나 잡고 시작
+                var first = remaining.First();
+                remaining.Remove(first);
+
+                var start = first.A;
+                var prev = first.A;
+                var curr = first.B;
+
+                var loop = new List<Vector2Int>(256) { start, curr };
+
+                // 안전장치 (무한루프 방지)
+                int guard = edges.Count + 10;
+
+                while (guard-- > 0)
+                {
+                    if (curr == start) break;
+
+                    if (!neighbors.TryGetValue(curr, out var nextList) || nextList.Count == 0)
+                        break;
+
+                    Vector2Int next = default;
+                    bool found = false;
+
+                    // 보통 degree=2 라서 "prev가 아닌 쪽"이 다음
+                    for (int i = 0; i < nextList.Count; i++)
+                    {
+                        var cand = nextList[i];
+                        if (cand == prev) continue;
+
+                        var candEdge = new Edge(curr, cand);
+                        if (!remaining.Contains(candEdge)) continue;
+
+                        next = cand;
+                        found = true;
+                        break;
+                    }
+
+                    // 혹시 위에서 못 찾으면(희귀 케이스): prev로도 이어지는지 체크
+                    if (!found)
+                    {
+                        for (int i = 0; i < nextList.Count; i++)
+                        {
+                            var cand = nextList[i];
+                            var candEdge = new Edge(curr, cand);
+                            if (!remaining.Contains(candEdge)) continue;
+
+                            next = cand;
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found) break;
+
+                    remaining.Remove(new Edge(curr, next));
+                    prev = curr;
+                    curr = next;
+                    loop.Add(curr);
+                }
+
+                // 루프가 최소 3점 이상이어야 의미있는 폐곡선
+                if (loop.Count >= 3)
+                {
+                    // 마지막이 start면 중복 start 제거(우린 collider 세팅에서 닫으니까)
+                    if (loop[loop.Count - 1] == start)
+                        loop.RemoveAt(loop.Count - 1);
+
+                    loops.Add(loop);
+                }
+            }
+
+            return loops;
+
+            static void AddNeighbor(Dictionary<Vector2Int, List<Vector2Int>> map, Vector2Int a, Vector2Int b)
+            {
+                if (!map.TryGetValue(a, out var list))
+                {
+                    list = new List<Vector2Int>(2);
+                    map.Add(a, list);
+                }
+                list.Add(b);
+            }
+        }
+        #endregion
+        
         
         private int currentPercentage = 0;
         
@@ -563,15 +707,9 @@ namespace GamePlay.GridMap
             Gizmos.color = Color.green;
             if (enemies == null) return;
 
-            foreach (var enemy in enemies)
+            foreach (var p2 in from enemy in enemies where enemy != null && enemy.CurrentNode != null select enemy.CurrentNode into node select GridMath.NodeToWorld(node.x, node.y, _origin, _cellWorldSize))
             {
-                if (enemy == null || enemy.CurrentNode == null) continue;
-
-                foreach (var node in enemy.CurrentNode)
-                {
-                    var p2 = GridMath.NodeToWorld(node.x, node.y, _origin, _cellWorldSize);
-                    Gizmos.DrawSphere(new Vector3(p2.x, p2.y, 0f), _cellWorldSize * 0.15f);
-                }
+                Gizmos.DrawSphere(new Vector3(p2.x, p2.y, 0f), _cellWorldSize * 0.15f);
             }
         }
     }

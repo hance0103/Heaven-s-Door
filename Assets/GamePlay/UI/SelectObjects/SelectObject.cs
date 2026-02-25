@@ -8,22 +8,25 @@ namespace GamePlay.UI.SelectObjects
     public abstract class SelectObject : MonoBehaviour
     {
         private Outline outline;
-
         protected virtual void Awake()
         {
             outline = GetComponent<Outline>();
-            outline.effectColor = Color.white;
-            outline.effectDistance = new Vector2(5, -5);
+            //outline.effectColor = Color.white;
+            //outline.effectDistance = new Vector2(5, -5);
         }
 
-        public void Select()
+        public void SetOutlineWeight(Vector2 weight)
         {
-            outline.effectColor = Color.yellow;
+            outline.effectDistance = weight;
+        }
+        public void Select(Color color)
+        {
+            outline.effectColor = color;
         }
 
-        public void Deselect()
+        public void Deselect(Color color)
         {
-            outline.effectColor = Color.white;
+            outline.effectColor = color;
         }
         
         public abstract void Execute();
