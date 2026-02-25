@@ -31,8 +31,8 @@ namespace GamePlay.Ingame
         [SerializeField] private List<GameObject> lifeObjects = new();
         
         private bool isDying = false;
-        private bool isGameEnd = false;
-        
+        public bool IsGameEnd { get; private set; } = false;
+
         [Header("게임 패배 UI")]
         [SerializeField] private GameObject gameOverPanel;
 
@@ -217,8 +217,8 @@ namespace GamePlay.Ingame
 
         private void GameEnd()
         {
-            if (isGameEnd) return;
-            isGameEnd = true;
+            if (IsGameEnd) return;
+            IsGameEnd = true;
             
             GameManager.Instance.playerController.GetComponent<PlayerInput>().enabled = false;
             GameManager.Instance.OnStageEnd();
