@@ -97,6 +97,9 @@ public class KarenBossController : EnemyController
     protected override async UniTask MoveToPlayer()
     {
         await base.MoveToPlayer();
+
+        await UniTask.Delay(TimeSpan.FromSeconds(2f));
+        
         SetNextState(bossState);
     }
 

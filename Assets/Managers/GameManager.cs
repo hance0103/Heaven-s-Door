@@ -95,6 +95,8 @@ namespace Managers
         public GridManager gridManager;
         public void OnStageEnd()
         {
+            bossController.SetBossState(EnemyController.BossState.GameEnd);
+            
             inGameManager = null;
             gridManager = null;
             playerController = null;

@@ -18,7 +18,8 @@ namespace GamePlay.Enemy
             Idle,
             Move,
             Attack,
-            Wait
+            Wait,
+            GameEnd
         }
     
         // 보스 중앙 노드 (위치)
@@ -30,6 +31,14 @@ namespace GamePlay.Enemy
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
+        }
+
+        private void Update()
+        {
+            if (bossState == BossState.Move)
+            {
+                RenewBossNode();
+            }
         }
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -45,13 +54,20 @@ namespace GamePlay.Enemy
 
         public abstract void SetNextState(BossState state);
 
-
+        public void SetBossState(BossState state)
+        {
+            bossState = state;
+        }
         protected async UniTask WaitForSeconds(float seconds)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(seconds));
         }
-    
-    
+
+        private void RenewBossNode()
+        {
+            var bossPos = transform.position;
+            currentNode = GameManager.Instance.gridManager.GetWorldToNode(new Vector2(bossPos.x, bossPos.y));
+        }
         protected virtual async UniTask MoveToPlayer()
         {
             bossState = BossState.Move;
@@ -66,7 +82,7 @@ namespace GamePlay.Enemy
             rb.linearVelocity = Vector2.zero;
             
         }
-
+        
         protected virtual void ChangeMoveDir()
         {
             

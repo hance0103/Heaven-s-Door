@@ -101,7 +101,7 @@ namespace GamePlay.GridMap
 
         public Vector2 GetCellCenterWorld(int x, int y) => GridMath.CellCenterToWorld(x, y, _origin, _cellWorldSize);
         public Vector2 GetNodeWorld(int x, int y) => GridMath.NodeToWorld(x, y, _origin, _cellWorldSize);
-
+        public Vector2Int GetWorldToNode(Vector2 pos) => GridMath.WorldToNode(pos, _origin, _cellWorldSize);
         public Vector2Int WorldToCell(Vector2 worldPos) => GridMath.WorldToCell(worldPos, _origin, _cellWorldSize);
         public Vector2Int WorldToNode(Vector2 worldPos) => GridMath.WorldToNode(worldPos, _origin, _cellWorldSize);
 
@@ -447,7 +447,8 @@ namespace GamePlay.GridMap
                 
             var prevPercentage = currentPercentage;
             currentPercentage = CountCapturePercentage();
-                
+            RebuildCapturedBoundaryEdgeColliders();
+            
             var delta = currentPercentage - prevPercentage;
             GameManager.Instance.inGameManager.OnCapture(currentPercentage, delta);
             return;
@@ -716,6 +717,7 @@ namespace GamePlay.GridMap
         #endregion
         
         
+        
         private int currentPercentage = 0;
         
         [ContextMenu("점령도 계산")]
@@ -734,7 +736,7 @@ namespace GamePlay.GridMap
             Gizmos.color = Color.green;
             if (enemies == null) return;
 
-            foreach (var p2 in from enemy in enemies where enemy != null && enemy.CurrentNode != null select enemy.CurrentNode into node select GridMath.NodeToWorld(node.x, node.y, _origin, _cellWorldSize))
+            foreach (var p2 in from enemy in enemies where enemy != null select enemy.CurrentNode into node select GridMath.NodeToWorld(node.x, node.y, _origin, _cellWorldSize))
             {
                 Gizmos.DrawSphere(new Vector3(p2.x, p2.y, 0f), _cellWorldSize * 0.15f);
             }
