@@ -3500,7 +3500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7d76b02f4124a4cb84cb91decaf548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentNode: {x: 0, y: 0}
+  currentNode: {x: 20, y: 20}
   bossState: 0
   skill1:
     beforeDelay: 2
@@ -3510,7 +3510,17 @@ MonoBehaviour:
     shootCount: 8
     shootDelay: 0.5
     shootAngle: 15
-    projectilePrefab: {fileID: 238634571310732959, guid: 9fa698f260e00dd4a9628986f3b25ec7, type: 3}
+    projectilePrefab: {fileID: 238634571310732959, guid: eb14bf232bd46b44abec9dcb512124f3, type: 3}
+  skill2:
+    beforeDelay: 2
+    afterDelay: 2
+    projectileSpeed: 3
+    shootCount: 8
+    creatDelay: 0.2
+    shootDelay: 0.2
+    createDistanceFromBoss: 1
+    createDistanceBetweenProjectiles: 0.5
+    projectilePrefab: {fileID: 238634571310732959, guid: 838c41bb581c48b49a3ebc0270b0e0aa, type: 3}
 --- !u!1 &1502307688
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ namespace GamePlay.Enemy
             rb = GetComponent<Rigidbody2D>();
         }
 
-        public void SettingProjectile(float speed, Vector2 moveVec, bool pierce)
+        public void ShootProjectile(float speed, Vector2 moveVec, bool pierce)
         {
             // 해당하는 속도 및 방향으로 직진시키기
             rb.linearVelocity = moveVec * speed;

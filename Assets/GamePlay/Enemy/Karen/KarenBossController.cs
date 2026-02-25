@@ -10,8 +10,8 @@ using UnityEngine.Assertions.Must;
 public class KarenBossController : EnemyController
 {
 
-    [Header("스킬 1")] [SerializeField] private KarenSkill1 skill1;
-    
+    [SerializeField] private KarenSkill1 skill1;
+    [SerializeField] private KarenSkill2 skill2;
     protected override void Start()
     {
         base.Start();
@@ -74,7 +74,8 @@ public class KarenBossController : EnemyController
 
             // 어떤 스킬 사용할지 정하는 코드
             // TODO: 일단 스킬1만 박아둠
-            await skill1.UseSKill(token);
+            //await skill1.UseSKill(token);
+            await skill2.UseSKill(token);
 
 
         }

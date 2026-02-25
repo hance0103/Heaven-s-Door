@@ -45,7 +45,7 @@ namespace GamePlay.Enemy.Karen.Skills
                 var dir = BossSkill.Rotate(centerDir, angle);
 
                 var projectile = Object.Instantiate(projectilePrefab, bossPos, Quaternion.identity);
-                projectile.SettingProjectile(projectileSpeed, dir, false);
+                projectile.ShootProjectile(projectileSpeed, dir, false);
             }
             // 다음 발사까지 기다리기
             await UniTask.Delay(TimeSpan.FromSeconds(shootDelay));
