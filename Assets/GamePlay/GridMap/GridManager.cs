@@ -494,6 +494,57 @@ namespace GamePlay.GridMap
                 }
             }
         }
+        
+        // 점령구역 테두리 계산
+        public HashSet<Edge> GetCapturedBoundaryEdges()
+        {
+            var edges = new HashSet<Edge>();
+
+            for (int x = 0; x < _cellW; x++)
+            for (int y = 0; y < _cellH; y++)
+            {
+                if (_grid.Cells[x, y] != SystemEnum.eSellState.Filled) continue;
+
+                // left
+                if (IsNotFilledOrOut(x - 1, y))
+                    edges.Add(new Edge(new Vector2Int(x, y), new Vector2Int(x, y + 1)));
+
+                // right
+                if (IsNotFilledOrOut(x + 1, y))
+                    edges.Add(new Edge(new Vector2Int(x + 1, y), new Vector2Int(x + 1, y + 1)));
+
+                // bottom
+                if (IsNotFilledOrOut(x, y - 1))
+                    edges.Add(new Edge(new Vector2Int(x, y), new Vector2Int(x + 1, y)));
+
+                // top
+                if (IsNotFilledOrOut(x, y + 1))
+                    edges.Add(new Edge(new Vector2Int(x, y + 1), new Vector2Int(x + 1, y + 1)));
+            }
+
+            return edges;
+        }
+        private bool IsNotFilledOrOut(int x, int y)
+        {
+            if (x < 0 || y < 0 || x >= _cellW || y >= _cellH) return true;
+            return _grid.Cells[x, y] != SystemEnum.eSellState.Filled;
+        }
+        // 점령구역의 테두리 선분 계산
+        public List<(Vector2 a, Vector2 b)> GetCapturedBoundaryWorldSegments()
+        {
+            var edges = GetCapturedBoundaryEdges();
+            var segs = new List<(Vector2 a, Vector2 b)>(edges.Count);
+
+            foreach (var e in edges)
+            {
+                var a = GetNodeWorld(e.A.x, e.A.y);
+                var b = GetNodeWorld(e.B.x, e.B.y);
+                segs.Add((a, b));
+            }
+
+            return segs;
+        }
+        
         private int currentPercentage = 0;
         
         [ContextMenu("점령도 계산")]
