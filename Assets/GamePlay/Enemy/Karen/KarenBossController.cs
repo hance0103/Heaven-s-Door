@@ -27,11 +27,15 @@ public class KarenBossController : EnemyController
         {
             case BossState.Idle:
             {
-                UseSkill();
+                _ = MoveToPlayer();
+                //UseSkill();
                 break;
             }
             case BossState.Move:
+            {
+                _ = MoveToPlayer();
                 break;
+            }
             case BossState.Attack:
             {
                 // 공격 후 어떤 동작할지 정하기
@@ -89,6 +93,13 @@ public class KarenBossController : EnemyController
             SetNextState(bossState);
         }
     }
+
+    protected override async UniTask MoveToPlayer()
+    {
+        await base.MoveToPlayer();
+        SetNextState(bossState);
+    }
+
     public void StateCheck()
     {
         

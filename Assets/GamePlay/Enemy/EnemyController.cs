@@ -9,6 +9,10 @@ namespace GamePlay.Enemy
 {
     public abstract class EnemyController : MonoBehaviour
     {
+        [SerializeField] protected float moveSpeed;
+
+        [SerializeField] protected float moveDuration;
+        protected Rigidbody2D rb;
         public enum BossState
         {
             Idle,
@@ -22,8 +26,12 @@ namespace GamePlay.Enemy
         public Vector2Int CurrentNode => currentNode;
     
         [SerializeField] protected BossState bossState;
-        
-        
+
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
+
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         protected virtual void Start()
         {
@@ -44,11 +52,25 @@ namespace GamePlay.Enemy
         }
     
     
-        private async UniTask MoveToNode(Vector2Int node)
+        protected virtual async UniTask MoveToPlayer()
         {
-        
+            bossState = BossState.Move;
+            
+            var playerPos = GameManager.Instance.playerController.transform.position;
+            var bossPos = transform.position;
+            
+            var moveDir = (playerPos - bossPos).normalized;
+            rb.linearVelocity = moveDir * moveSpeed;
+            await UniTask.Delay(TimeSpan.FromSeconds(moveDuration));
+            
+            rb.linearVelocity = Vector2.zero;
+            
         }
 
+        protected virtual void ChangeMoveDir()
+        {
+            
+        }
         public void OnBossDead()
         {
             
@@ -61,6 +83,12 @@ namespace GamePlay.Enemy
             if (GameManager.Instance.playerController.Mode != TraverseMode.Border)
                 GameManager.Instance.inGameManager.MinusLife();
         
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (!other.gameObject.CompareTag("CapturedBoundary")) return;
+
         }
     }
 }

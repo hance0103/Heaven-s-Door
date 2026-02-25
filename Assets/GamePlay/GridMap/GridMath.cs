@@ -9,6 +9,10 @@ namespace GamePlay.GridMap
             return origin + new Vector3((x + 0.5f) * cellWorldSize, (y + 0.5f) * cellWorldSize, 0f);
         }
 
+        public static Vector2 CellZeroPointToWorld(int x, int y, Vector3 origin, float cellWorldSize)
+        {
+            return origin + new Vector3(x * cellWorldSize, y * cellWorldSize, 0f);
+        }
         public static Vector2 NodeToWorld(int x, int y, Vector3 origin, float cellWorldSize)
         {
             return origin + new Vector3(x * cellWorldSize, y * cellWorldSize, 0f);

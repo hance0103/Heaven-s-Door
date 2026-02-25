@@ -16,6 +16,8 @@ namespace GamePlay.GridMap
         [Header("점령구역 경계선")] 
         [SerializeField] private Transform boundaryColliderRoot;
         private readonly List<GameObject> boundaryColliders = new List<GameObject>();
+
+        [SerializeField] private Transform wallColliderRoot;
         
         [Header("Grid")]
         [SerializeField] public int cellSize = 32;
@@ -92,6 +94,7 @@ namespace GamePlay.GridMap
         {
             GameManager.Instance.inGameManager.RenewPercentage(CountCapturePercentage());
             RebuildCapturedBoundaryEdgeColliders();
+            SettingWallEdgeCollider();
         }
 
         public SystemEnum.eSellState GetCell(int x, int y) => _grid.Cells[x, y];
@@ -686,6 +689,29 @@ namespace GamePlay.GridMap
                 }
                 list.Add(b);
             }
+        }
+
+        private void SettingWallEdgeCollider()
+        {
+            var p0 = GetNodeWorld(0, 0);
+            var p1 = GetNodeWorld(_cellW, 0);
+            var p2 = GetNodeWorld(_cellW, _cellH);
+            var p3 = GetNodeWorld(0, _cellH);
+            
+            Vector2 ToLocal(Vector2 w)
+            {
+                var v3 = wallColliderRoot.InverseTransformPoint(new Vector3(w.x, w.y, 0f));
+                return new Vector2(v3.x, v3.y);
+            }
+            var col = wallColliderRoot.GetComponent<EdgeCollider2D>();
+            col.points = new[]
+            {
+                ToLocal(p0),
+                ToLocal(p1),
+                ToLocal(p2),
+                ToLocal(p3),
+                ToLocal(p0) // 닫아주기
+            };
         }
         #endregion
         
