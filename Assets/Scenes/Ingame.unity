@@ -4167,9 +4167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd843ab2801fb1f419e63e6155f31eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineBold: {x: 5, y: 5}
-  selectedColor: {r: 1, g: 1, b: 1, a: 1}
-  deselectedColor: {r: 0.9622642, g: 0.82214546, b: 0.19517623, a: 1}
+  outlineWeight: {x: 10, y: 10}
+  selectedColor: {r: 1, g: 0.7088325, b: 0, a: 1}
+  deselectedColor: {r: 1, g: 1, b: 1, a: 1}
   selectObjects:
   - {fileID: 1342633263}
   - {fileID: 1463627928}
@@ -4223,7 +4223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1975717124
 MonoBehaviour:
   m_ObjectHideFlags: 0
