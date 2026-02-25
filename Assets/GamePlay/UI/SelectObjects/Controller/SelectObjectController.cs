@@ -8,8 +8,8 @@ namespace GamePlay.UI.SelectObjects.Controller
     {
         //TODO : 나중에 행/열 추가해서 위 아래로도 이동 가능하도록 만들것
         [SerializeField] private Vector2 outlineWeight = new Vector2(10f, 10f);
-        [SerializeField] private Color selectedColor = Color.yellow;
-        [SerializeField] private Color deselectedColor = Color.white;
+        [SerializeField] protected Color selectedColor = Color.yellow;
+        [SerializeField] protected Color deselectedColor = Color.white;
         
         
         [SerializeField] protected List<SelectObject> selectObjects = new List<SelectObject>();
@@ -86,9 +86,9 @@ namespace GamePlay.UI.SelectObjects.Controller
                 {
                     if (currentIndex < selectObjects.Count - 1)
                     {
-                        selectObjects[currentIndex].Deselect();
+                        selectObjects[currentIndex].Deselect(deselectedColor);
                         currentIndex++;
-                        selectObjects[currentIndex].Select();
+                        selectObjects[currentIndex].Select(selectedColor);
                     }
                 }
                 break;
@@ -96,9 +96,9 @@ namespace GamePlay.UI.SelectObjects.Controller
                 {
                     if (currentIndex > 0)
                     {
-                        selectObjects[currentIndex].Deselect();
+                        selectObjects[currentIndex].Deselect(deselectedColor);
                         currentIndex--;
-                        selectObjects[currentIndex].Select();
+                        selectObjects[currentIndex].Select(selectedColor);
                     }
                 }
                 break;

@@ -32,7 +32,6 @@ namespace GamePlay.UI.SelectObjects.Controller
             SettingCharacterInfoUI(characterObject.Character);
             
             
-            
         }
 
         protected override void OnEnable()
@@ -72,7 +71,7 @@ namespace GamePlay.UI.SelectObjects.Controller
                 base.OnDecidePressed(context);
                 isChosen = true;
                 selectedCharacter = choice.Character;
-                select.Select();
+                select.Select(selectedColor);
             }
             else
             {
@@ -86,7 +85,7 @@ namespace GamePlay.UI.SelectObjects.Controller
             
             isChosen = false;
             selectedCharacter = SystemEnum.Character.None;
-            select.Deselect();
+            select.Deselect(deselectedColor);
         }
 
         private void SettingCharacterInfoUI(SystemEnum.Character character)
