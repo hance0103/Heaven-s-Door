@@ -15,11 +15,12 @@ MonoBehaviour:
   characterInfos:
   - name: 0
     name_KOR: "\uC720\uC7AC\uC601"
-    info: "\uC0AC\uD615"
+    info: "\uBB34\uC8C4"
     judge: 0
     percentage: 0
   - name: 1
     name_KOR: "\uCE74\uB80C"
-    info: "\uD788\uD788\uC5C9\uB369\uC774\\n \uC88B\uC544"
+    info: "17\uC138, \uD560\uBA38\uB2C8\uC640 \uB2E8\uB458\uC774 \uC0B4\uC558\uB358
+      \uD6A8\uB140\uC774\uC790 \uBAA8\uBC94\uC0DD"
     judge: 0
     percentage: 0
