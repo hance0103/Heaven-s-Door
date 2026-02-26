@@ -12,6 +12,9 @@ namespace GamePlay.Enemy
         [SerializeField] protected float moveSpeed;
 
         [SerializeField] protected float moveDuration;
+        
+        [SerializeField] protected Vector2 moveDirection;
+        
         protected Rigidbody2D rb;
         public enum BossState
         {
@@ -75,8 +78,8 @@ namespace GamePlay.Enemy
             var playerPos = GameManager.Instance.playerController.transform.position;
             var bossPos = transform.position;
             
-            var moveDir = (playerPos - bossPos).normalized;
-            rb.linearVelocity = moveDir * moveSpeed;
+            moveDirection = (playerPos - bossPos).normalized;
+            rb.linearVelocity = moveDirection * moveSpeed;
             await UniTask.Delay(TimeSpan.FromSeconds(moveDuration));
             
             rb.linearVelocity = Vector2.zero;
@@ -103,7 +106,17 @@ namespace GamePlay.Enemy
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (!other.gameObject.CompareTag("CapturedBoundary")) return;
+            if (!other.gameObject.CompareTag("CapturedBoundary") || bossState != BossState.Move) return;
+            
+            var contact = other.GetContact(0);
+            
+            var inDir = moveDirection;   // 입사 방향
+            var normal = contact.normal;           // 충돌면 법선
+
+            var reflectDir = Vector2.Reflect(inDir, normal);
+
+            moveDirection = reflectDir;
+            rb.linearVelocity = moveDirection * moveSpeed;
 
         }
     }

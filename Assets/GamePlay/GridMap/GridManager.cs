@@ -565,7 +565,7 @@ namespace GamePlay.GridMap
 
                  var go = new GameObject($"CapturedBoundaryCollider_{i}");
                  go.transform.SetParent(boundaryColliderRoot, false);
-
+                 go.tag = "CapturedBoundary";
                  var col = go.AddComponent<EdgeCollider2D>();
                  col.edgeRadius = 0f;
                  col.points = localPoints;
