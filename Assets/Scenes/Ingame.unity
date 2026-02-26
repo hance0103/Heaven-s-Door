@@ -3533,7 +3533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f7d76b02f4124a4cb84cb91decaf548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 5
   moveDuration: 5
   currentNode: {x: 20, y: 20}
   bossState: 0

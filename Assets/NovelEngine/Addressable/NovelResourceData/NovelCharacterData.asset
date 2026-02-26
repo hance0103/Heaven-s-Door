@@ -40,7 +40,9 @@ MonoBehaviour:
       value: {fileID: 11400000, guid: a011f2bda936cf84bb614e619f7f5332, type: 2}
     - _key: hell
       value: {fileID: 11400000, guid: 281190651769ddd4f9c00e1f60ce51a1, type: 2}
-    - _key: NewCharacter
+    - _key: Door
       value: {fileID: 11400000, guid: 89597c1bc1a12f44c8153c3ce04fcef0, type: 2}
+    - _key: NewCharacter2
+      value: {fileID: 11400000, guid: f161d3d34295e6e4e81bfb7ab125ece0, type: 2}
     keys: []
     values: []
