@@ -26,5 +26,13 @@ MonoBehaviour:
       value: {fileID: 2800000, guid: 13fb67ae4e1310549aa04cf3f8d7265c, type: 3}
     - _key: Yokaigol
       value: {fileID: 2800000, guid: 170e8391cb2fa544d844da692e06d852, type: 3}
+    - _key: BluePattern
+      value: {fileID: 2800000, guid: b1a59e9d22d8dbb499c40bbc00da403f, type: 3}
+    - _key: RedPattern
+      value: {fileID: 2800000, guid: c8f81d86bff70604490771a9a4275f82, type: 3}
+    - _key: BluePattern1
+      value: {fileID: 2800000, guid: ab071877e37a91c4990ea96aafa5a5e6, type: 3}
+    - _key: RedPattern2
+      value: {fileID: 2800000, guid: 615966a0fad273f46ba6c200ff1dd0ee, type: 3}
     keys: []
     values: []
