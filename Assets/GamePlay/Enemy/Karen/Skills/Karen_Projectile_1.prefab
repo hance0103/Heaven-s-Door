@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 238634571310732959}
   - component: {fileID: -4886541198498529210}
   - component: {fileID: -553819589006407220}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Karen_Projectile_1
   m_TagString: BossAttack
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

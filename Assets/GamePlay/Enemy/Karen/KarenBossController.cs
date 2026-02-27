@@ -9,14 +9,32 @@ using UnityEngine.Assertions.Must;
 
 public class KarenBossController : EnemyController
 {
-
+    [SerializeField] private string skillUsePattern;
+    private int currentSkillIndex;
+    [SerializeField] private float firstStopTime;
+    [SerializeField] private Vector2 skillUseCoolTime;
     [SerializeField] private KarenSkill1 skill1;
     [SerializeField] private KarenSkill2 skill2;
-    protected override void Start()
-    {
-        base.Start();
+    [SerializeField] private KarenSkill3 skill3;
 
-        SetNextState(bossState);
+    private bool canUseSkill = true;
+    
+    protected override async void Start()
+    {
+        try
+        {
+            base.Start();
+            await UniTask.Delay(TimeSpan.FromSeconds(firstStopTime));
+            
+            currentSkillIndex = UnityEngine.Random.Range(0, skillUsePattern.Length);
+            
+            
+            SetNextState(bossState);
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+        }
     }
 
     public override void SetNextState(BossState state)
@@ -27,59 +45,49 @@ public class KarenBossController : EnemyController
         {
             case BossState.Idle:
             {
-                _ = MoveToPlayer();
-                //UseSkill();
+                _ = UseSkill(this.GetCancellationTokenOnDestroy());
                 break;
             }
             case BossState.Move:
             {
-                _ = MoveToPlayer();
+                _ = UseSkill(this.GetCancellationTokenOnDestroy());
                 break;
             }
             case BossState.Attack:
             {
-                // 공격 후 어떤 동작할지 정하기
-                OnIdle();
-                break;
-            }
-            case BossState.Wait:
-            {
+                
+                _ = MoveToPlayer();
                 break;
             }
             default:
                 throw new ArgumentOutOfRangeException();
         }
     }
-
-    private async void OnIdle()
-    {
-        try
-        {
-            bossState = BossState.Idle;
-
-            await UniTask.Delay(1000);
-
-
-        }
-        catch (Exception e)
-        {
-            Debug.LogError(e);
-        }
-        finally
-        {
-            SetNextState(bossState);
-        }
-    }
-    private async void UseSkill(CancellationToken token = default)
+    private async UniTask UseSkill(CancellationToken token = default)
     {
         try
         {
             bossState = BossState.Attack;
 
-            // 어떤 스킬 사용할지 정하는 코드
-            // TODO: 일단 스킬1만 박아둠
-            //await skill1.UseSKill(token);
-            await skill2.UseSKill(token);
+            switch (skillUsePattern[currentSkillIndex] - '0')
+            {
+                case 1:
+                {
+                    await skill1.UseSKill(token);
+                    break;
+                }
+                case 2:
+                {
+                    await skill2.UseSKill(token);
+                    break;
+                }
+                case 3:
+                {
+                    await skill3.UseSKill(token);
+                    break;
+                }
+            }
+            
 
 
         }
@@ -91,14 +99,23 @@ public class KarenBossController : EnemyController
         {
             // 최종적으로 다음 state로 진행
             SetNextState(bossState);
+            _ = SkillUseCool(token);
         }
     }
 
+    private async UniTask SkillUseCool(CancellationToken token = default)
+    {
+        canUseSkill = false;
+        var coolTime = UnityEngine.Random.Range(skillUseCoolTime.x, skillUseCoolTime.y);
+        await UniTask.Delay(TimeSpan.FromSeconds(coolTime), cancellationToken: token);
+        canUseSkill = true;
+    }
+    
     protected override async UniTask MoveToPlayer()
     {
         await base.MoveToPlayer();
 
-        await UniTask.Delay(TimeSpan.FromSeconds(2f));
+        await UniTask.WaitUntil(() => canUseSkill);
         
         SetNextState(bossState);
     }

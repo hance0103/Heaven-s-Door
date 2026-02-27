@@ -21,7 +21,6 @@ namespace GamePlay.Enemy
             Idle,
             Move,
             Attack,
-            Wait,
             GameEnd
         }
     

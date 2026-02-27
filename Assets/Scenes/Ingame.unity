@@ -1647,7 +1647,7 @@ GameObject:
   m_Component:
   - component: {fileID: 901325672}
   m_Layer: 0
-  m_Name: ProjectileColletor
+  m_Name: ProjectileCollector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3474,7 +3474,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -3535,8 +3535,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   moveDuration: 5
+  moveDirection: {x: 0, y: 0}
   currentNode: {x: 20, y: 20}
   bossState: 0
+  firstStopTime: 1
+  skillUseCoolTime: {x: 7, y: 12}
   skill1:
     beforeDelay: 2
     afterDelay: 2
@@ -3556,6 +3559,14 @@ MonoBehaviour:
     createDistanceFromBoss: 1
     createDistanceBetweenProjectiles: 0.5
     projectilePrefab: {fileID: 238634571310732959, guid: 838c41bb581c48b49a3ebc0270b0e0aa, type: 3}
+  skill3:
+    beforeDelay: 0
+    afterDelay: 3
+    speed: 1
+    duration: 5
+    distanceFromBoss: 1
+    delayBetweenSpawn: 0.5
+    spawnObjectPrefab: {fileID: 6082888764632632453, guid: 1657c366c0de85f40bcb796571209d1c, type: 3}
 --- !u!1 &1502307688
 GameObject:
   m_ObjectHideFlags: 0
