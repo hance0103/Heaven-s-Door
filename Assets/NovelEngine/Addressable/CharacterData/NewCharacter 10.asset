@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NewCharacter 10
   m_EditorClassIdentifier: 
   characterName: Karen
-  body: {fileID: -5423640865119175647, guid: f5445b51ae8f6dd4f9f526d99b4fa165, type: 3}
+  body: {fileID: 21300000, guid: c4f87590da148444ebb545499c976422, type: 3}
   faceDict:
     pairs:
     - _key: sad

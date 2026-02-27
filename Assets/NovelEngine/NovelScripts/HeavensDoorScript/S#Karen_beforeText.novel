@@ -7,10 +7,12 @@
 ???: 그들의 마지막 행선지도.
 ???: … 내가 갈 곳도.
 
-@back RedPattern
+@back RedPattern4
 
-@char Karen pos: 50, 50 scale: 1
+@char ???.karen pos: 20, 55 scale: 1.6
 ???: 심판관님? 듣고 있어요?
+
+@char Door pos: 65, 55 scale: 1.6
 Door: 듣고 있어. 지금부터 하고 싶은 말을 전부 하면 된다.
 ???: 안 듣고 있었던 거 같은데… 
 ???: 뭐! 별로 중요한 건 아니죠!
@@ -18,10 +20,12 @@ Door: 듣고 있어. 지금부터 하고 싶은 말을 전부 하면 된다.
 
 @wait 1
 
+@hide ???
+@char Karen pos: 50, 55 scale: 1.6
+
 Karen: 음. 어디서부터 말해야 할까요?
 Karen: 보기와는 다르게, 어른들에게 전 모범생이었어요. 안그래 보이죠?
 
-@char Karen.sad scale: 0.5
 Karen: 학생이 거짓말을 하면 안돼, 할머니는 네가 지켜야 한단다.
 Karen: 어른들이 말하는 건 당연히 지키는 거였죠.
 Karen: 그러다 어느 날, 눈에 들어와버린 거에요.

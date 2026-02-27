@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NewCharacter 11
   m_EditorClassIdentifier: 
   characterName: heaven
-  body: {fileID: 6168656939851052518, guid: e68c64e0a5455bc41ab008684efaad0f, type: 3}
+  body: {fileID: -2874090291202518726, guid: b9a2b002d3e88584ca01268434ccd039, type: 3}
   faceDict:
     pairs: []
     keys: []

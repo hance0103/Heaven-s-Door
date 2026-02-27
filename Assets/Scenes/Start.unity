@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
+  bossController: {fileID: 0}
   currentCharacter: 0
   scriptType: 0
   language: 0
@@ -844,6 +845,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd843ab2801fb1f419e63e6155f31eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  outlineWeight: {x: 10, y: 10}
+  selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  deselectedColor: {r: 1, g: 1, b: 1, a: 1}
   selectObjects:
   - {fileID: 1593074521}
   - {fileID: 1486036969}

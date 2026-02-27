@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NewCharacter 12
   m_EditorClassIdentifier: 
   characterName: hell
-  body: {fileID: -9187042258422408454, guid: 87ec3300e602e7b40bcac6ffcff5ca13, type: 3}
+  body: {fileID: 8814271242847927269, guid: 92c619a81394b8745a4dd6efb1aff602, type: 3}
   faceDict:
     pairs: []
     keys: []
