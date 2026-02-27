@@ -24,11 +24,13 @@ namespace GamePlay.Enemy
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log(other.gameObject.name);
-            
             if (other.gameObject.CompareTag("Collector")) Destroy(gameObject);
             
             if (!other.gameObject.CompareTag("Player")) return;
+            
+            var player = GameManager.Instance.playerController;
+            
+            if (player.IsInvincible) return;
             
             // 관통이 가능하다면
             if (canPierce)
@@ -37,7 +39,7 @@ namespace GamePlay.Enemy
                 return;
             }
 
-            if (GameManager.Instance.playerController.Mode == TraverseMode.Border) return;
+            if (player.Mode == TraverseMode.Border) return;
             
             GameManager.Instance.inGameManager.MinusLife();
         }

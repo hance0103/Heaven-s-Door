@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -24,8 +25,7 @@ namespace GamePlay.Player
         [Header("Draw Outline")]
         [SerializeField] private bool useLineRenderer = true;
         [SerializeField] private LineRenderer lineRenderer;
-        [SerializeField] private float lineWidth = 0.03f;
-        [SerializeField] private int lineSortingOrder = 50;
+        [SerializeField] private EdgeCollider2D edgeCollider;
 
         [SerializeField] private Vector2Int currentNode;
         public Vector2Int CurrentNode => currentNode;
@@ -53,6 +53,8 @@ namespace GamePlay.Player
 
         private bool _diagPreferX = true;
 
+
+
         private void Awake()
         {
             GameManager.Instance.playerController = this;
@@ -60,18 +62,7 @@ namespace GamePlay.Player
             _playerInput = GetComponent<PlayerInput>();
             _moveAction = _playerInput.actions["Move"];
             _occupyAction = _playerInput.actions["Occupy"];
-
-            if (useLineRenderer && lineRenderer == null)
-            {
-                var go = new GameObject("DrawLine");
-                go.transform.SetParent(transform, false);
-                lineRenderer = go.AddComponent<LineRenderer>();
-                lineRenderer.useWorldSpace = true;
-                lineRenderer.positionCount = 0;
-                lineRenderer.startWidth = lineWidth;
-                lineRenderer.endWidth = lineWidth;
-                lineRenderer.sortingOrder = lineSortingOrder;
-            }
+            
         }
 
         private void Start()
@@ -550,6 +541,9 @@ namespace GamePlay.Player
             _drawPoints.Clear();
             if (!useLineRenderer || lineRenderer == null) return;
             lineRenderer.positionCount = 0;
+            
+            if (edgeCollider != null)
+                edgeCollider.points = new Vector2[0];
         }
 
         private void AddDrawPoint(Vector2Int node)
@@ -564,6 +558,8 @@ namespace GamePlay.Player
             int idx = _drawPoints.Count - 1;
             lineRenderer.positionCount = _drawPoints.Count;
             lineRenderer.SetPosition(idx, p);
+            
+            UpdateEdgeCollider();
         }
 
         private void RemoveLastDrawPoint()
@@ -575,6 +571,8 @@ namespace GamePlay.Player
             if (!useLineRenderer || lineRenderer == null) return;
 
             lineRenderer.positionCount = _drawPoints.Count;
+            
+            UpdateEdgeCollider();
         }
         
         
@@ -592,6 +590,25 @@ namespace GamePlay.Player
             DisposeReturnCts();
             ClearDrawLine();
             
+        }
+        
+        private void UpdateEdgeCollider()
+        {
+            if (edgeCollider == null) return;
+            if (_drawPoints.Count < 2)
+            {
+                edgeCollider.points = new Vector2[0];
+                return;
+            }
+
+            Vector2[] points = new Vector2[_drawPoints.Count];
+
+            for (int i = 0; i < _drawPoints.Count; i++)
+            {
+                points[i] = new Vector2(_drawPoints[i].x, _drawPoints[i].y);
+            }
+
+            edgeCollider.points = points;
         }
         #endregion
         
@@ -614,8 +631,16 @@ namespace GamePlay.Player
         }
 
         #endregion
-        
 
+        [SerializeField] private float invincibleTime;
+        public bool IsInvincible
+        {
+            get => isInvincible;
+            set => isInvincible = value;
+        }
+
+        private bool isInvincible = false;
+        
         public void SetPositionWhenRevive()
         {
             var targetNode = (_mode == TraverseMode.Border) ? currentNode : _drawStartNode;
@@ -627,6 +652,13 @@ namespace GamePlay.Player
 
             var p2 = gridManager.GetNodeWorld(targetNode.x, targetNode.y);
             transform.position = new Vector3(p2.x, p2.y, 0f);
+        }
+        
+        private async UniTask StartInvincible()
+        {
+            isInvincible = true;
+            await UniTask.Delay(TimeSpan.FromSeconds(invincibleTime));
+            isInvincible = false;
         }
         
         public void SetCanMove(bool canMove)

@@ -94,8 +94,12 @@ namespace GamePlay.Enemy
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.CompareTag("Player")) return;
-        
-            if (GameManager.Instance.playerController.Mode != TraverseMode.Border)
+            
+            var player = GameManager.Instance.playerController;
+            
+            if (player.IsInvincible) return;
+            
+            if (player.Mode != TraverseMode.Border)
                 GameManager.Instance.inGameManager.MinusLife();
         
         }

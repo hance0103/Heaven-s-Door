@@ -55,6 +55,8 @@ namespace GamePlay.Ingame
         private bool isTimerShakeStart = false;
         private Tween shakeTween;
 
+
+        
         private void Awake()
         {
             GameManager.Instance.inGameManager = this;
@@ -167,6 +169,7 @@ namespace GamePlay.Ingame
             IncreaseScore(increasedPercentage);
         }
         
+        
         [ContextMenu("라이프 하나 깎기")]
         public async void MinusLife()
         {
@@ -219,7 +222,8 @@ namespace GamePlay.Ingame
         {
             if (IsGameEnd) return;
             IsGameEnd = true;
-            
+
+            GameManager.Instance.playerController.IsInvincible = true;
             GameManager.Instance.playerController.GetComponent<PlayerInput>().enabled = false;
             GameManager.Instance.OnStageEnd();
             

@@ -1,5 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
+using GamePlay.Player;
+using Managers;
 using UnityEngine;
 
 public class SpawnObject : MonoBehaviour
@@ -32,10 +34,22 @@ public class SpawnObject : MonoBehaviour
         );
         Destroy(gameObject);
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.gameObject.CompareTag("Player")) return;
+        var player = GameManager.Instance.playerController;
+        if (player.IsInvincible) return;
+        
+        if (player.Mode != TraverseMode.Border)
+            GameManager.Instance.inGameManager.MinusLife();
+        
+    }
     
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (!other.gameObject.CompareTag("CapturedBoundary")) return;
+        
         var contact = other.GetContact(0);
             
         var inDir = moveDirection;   // 입사 방향
@@ -45,8 +59,6 @@ public class SpawnObject : MonoBehaviour
 
         moveDirection = reflectDir;
         rb.linearVelocity = moveDirection * moveSpeed;
-
-
 
     }
 }
