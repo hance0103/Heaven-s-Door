@@ -2631,7 +2631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1255255411
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3526,23 +3526,23 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0}
   currentNode: {x: 20, y: 20}
   bossState: 0
-  skillUsePattern: 
+  skillUsePattern: 3212121212121232131231212121212132131213121212
   firstStopTime: 1
   skillUseCoolTime: {x: 7, y: 12}
   skill1:
     beforeDelay: 2
     afterDelay: 2
     projectileSpeed: 3
-    projectileCountOneShot: 5
+    projectileCountOneShot: 30
     shootCount: 8
     shootDelay: 0.5
-    shootAngle: 15
+    shootAngle: 360
     projectilePrefab: {fileID: 238634571310732959, guid: eb14bf232bd46b44abec9dcb512124f3, type: 3}
   skill2:
     beforeDelay: 2
     afterDelay: 2
     projectileSpeed: 3
-    shootCount: 8
+    shootCount: 6
     creatDelay: 0.2
     shootDelay: 0.2
     createDistanceFromBoss: 1
@@ -3552,7 +3552,7 @@ MonoBehaviour:
     beforeDelay: 0
     afterDelay: 3
     speed: 1
-    duration: 5
+    duration: 20
     distanceFromBoss: 1
     delayBetweenSpawn: 0.5
     spawnObjectPrefab: {fileID: 6082888764632632453, guid: 1657c366c0de85f40bcb796571209d1c, type: 3}
