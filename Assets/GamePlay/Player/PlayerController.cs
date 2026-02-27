@@ -542,8 +542,19 @@ namespace GamePlay.Player
             if (!useLineRenderer || lineRenderer == null) return;
             lineRenderer.positionCount = 0;
             
+
+
             if (edgeCollider != null)
-                edgeCollider.points = new Vector2[0];
+            {
+                edgeCollider.points = new Vector2[2]
+                {
+                    Vector2.zero,
+                    Vector2.zero
+                };
+            }
+
+            
+
         }
 
         private void AddDrawPoint(Vector2Int node)
@@ -643,6 +654,9 @@ namespace GamePlay.Player
         
         public void SetPositionWhenRevive()
         {
+            _ = StartInvincible();
+            
+            
             var targetNode = (_mode == TraverseMode.Border) ? currentNode : _drawStartNode;
             
             if (_mode != TraverseMode.Border)

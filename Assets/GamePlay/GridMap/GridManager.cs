@@ -449,6 +449,9 @@ namespace GamePlay.GridMap
             currentPercentage = CountCapturePercentage();
             RebuildCapturedBoundaryEdgeColliders();
             
+            
+            
+            
             var delta = currentPercentage - prevPercentage;
             GameManager.Instance.inGameManager.OnCapture(currentPercentage, delta);
             return;
