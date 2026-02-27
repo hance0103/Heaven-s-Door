@@ -70,7 +70,7 @@ namespace GamePlay.Enemy
             var bossPos = transform.position;
             currentNode = GameManager.Instance.gridManager.GetWorldToNode(new Vector2(bossPos.x, bossPos.y));
         }
-        protected virtual async UniTask MoveToPlayer()
+        protected virtual void MoveToPlayer()
         {
             bossState = BossState.Move;
             
@@ -79,9 +79,6 @@ namespace GamePlay.Enemy
             
             moveDirection = (playerPos - bossPos).normalized;
             rb.linearVelocity = moveDirection * moveSpeed;
-            await UniTask.Delay(TimeSpan.FromSeconds(moveDuration));
-            
-            rb.linearVelocity = Vector2.zero;
             
         }
         
