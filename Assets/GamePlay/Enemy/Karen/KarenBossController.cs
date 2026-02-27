@@ -56,7 +56,7 @@ public class KarenBossController : EnemyController
             case BossState.Attack:
             {
                 
-                _ = MoveToPlayer();
+                MoveToPlayer();
                 break;
             }
             default:
@@ -87,9 +87,6 @@ public class KarenBossController : EnemyController
                     break;
                 }
             }
-            
-
-
         }
         catch (Exception e)
         {
@@ -97,6 +94,10 @@ public class KarenBossController : EnemyController
         }
         finally
         {
+
+            currentSkillIndex++;
+            if (currentSkillIndex >= skillUsePattern.Length)
+                currentSkillIndex = 0;
             // 최종적으로 다음 state로 진행
             SetNextState(bossState);
             _ = SkillUseCool(token);
@@ -111,12 +112,13 @@ public class KarenBossController : EnemyController
         canUseSkill = true;
     }
     
-    protected override async UniTask MoveToPlayer()
+    protected override async void MoveToPlayer()
     {
-        await base.MoveToPlayer();
+        base.MoveToPlayer();
 
         await UniTask.WaitUntil(() => canUseSkill);
         
+        rb.linearVelocity = Vector3.zero;
         SetNextState(bossState);
     }
 
