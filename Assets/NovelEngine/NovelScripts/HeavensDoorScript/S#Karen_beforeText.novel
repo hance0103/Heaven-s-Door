@@ -12,9 +12,11 @@
 @char ???.karen pos: 20, 55 scale: 1.6
 ???: 심판관님? 듣고 있어요?
 
-@char Door pos: 65, 55 scale: 1.6
+@char Door pos: 67, 55 scale: 1.6
 Door: 듣고 있어. 지금부터 하고 싶은 말을 전부 하면 된다.
+@char ???.karenangry pos: 20, 55 scale: 1.6
 ???: 안 듣고 있었던 거 같은데… 
+@char ???.karen pos: 20, 55 scale: 1.6
 ???: 뭐! 별로 중요한 건 아니죠!
 ???: 제 이름은 카렌이고, 17살이에요.
 

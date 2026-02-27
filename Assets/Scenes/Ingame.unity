@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eea3f561bce4fd4a86a8e74b8f178ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTime: 120
+  gameTime: 150
   normalPercentage: 80
   showtimePercentage: 100
   shakeAngle: 10
@@ -1626,7 +1626,7 @@ LineRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766297014}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -1673,7 +1673,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.33333248
+        value: 0.02731809
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1718,7 +1718,7 @@ LineRenderer:
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
-    shadowBias: 0.5
+    shadowBias: 0.2
     generateLightingData: 0
   m_MaskInteraction: 0
   m_UseWorldSpace: 1
@@ -5158,7 +5158,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: -6061045066583438505, guid: f7de75e28dcaa7041b058fefacc23526, type: 3}
-  m_Color: {r: 0.28930807, g: 0.28669742, b: 0.2592855, a: 1}
+  m_Color: {r: 0.6415094, g: 0.54137444, b: 0.3409279, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
