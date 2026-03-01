@@ -38,5 +38,7 @@ MonoBehaviour:
       value: {fileID: 2800000, guid: 3b3d1ae3daa0f3642a9dfb532e30f84a, type: 3}
     - _key: RedPattern4
       value: {fileID: 2800000, guid: bb356ffc014d3904fae756bc25fbf6c5, type: 3}
+    - _key: blackPattern
+      value: {fileID: 2800000, guid: 32343516f97a3fd4c80c1eca1fc05d0c, type: 3}
     keys: []
     values: []
