@@ -241,6 +241,8 @@ namespace GamePlay.Ingame
 
         }
         
+        
+        [ContextMenu("게임 승리")]
         private async void GameWin(int percent)
         {
             GameEnd();
