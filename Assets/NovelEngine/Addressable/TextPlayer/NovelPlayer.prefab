@@ -359,7 +359,7 @@ MonoBehaviour:
     pairs: []
     keys: []
     values: []
-  typingSpeed: 0.025
+  typingSpeed: 0.012
   references:
     version: 2
     RefIds: []
@@ -429,7 +429,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -33.5}
-  m_SizeDelta: {x: 1458.8341, y: 119.6744}
+  m_SizeDelta: {x: 1800, y: 119.6744}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &885744767571306011
 CanvasRenderer:
