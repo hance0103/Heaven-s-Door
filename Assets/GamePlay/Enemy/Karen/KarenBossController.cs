@@ -122,7 +122,7 @@ public class KarenBossController : EnemyController
 
         await UniTask.WaitUntil(() => canUseSkill);
         
-        rb.linearVelocity = Vector3.zero;
+        Rigidbody.linearVelocity = Vector3.zero;
         SetNextState(bossState);
     }
 

@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using GamePlay.GridMap;
 using GamePlay.Player;
@@ -15,7 +17,8 @@ namespace GamePlay.Enemy
         
         [SerializeField] protected Vector2 moveDirection;
         
-        protected Rigidbody2D rb;
+        protected Rigidbody2D Rigidbody;
+        protected SpriteRenderer Sprite;
         public enum BossState
         {
             Idle,
@@ -31,8 +34,9 @@ namespace GamePlay.Enemy
         [SerializeField] protected BossState bossState;
 
         private void Awake()
-        {
-            rb = GetComponent<Rigidbody2D>();
+        {  
+            Sprite =  GetComponent<SpriteRenderer>();
+            Rigidbody = GetComponent<Rigidbody2D>();
         }
 
         private void Update()
@@ -85,7 +89,7 @@ namespace GamePlay.Enemy
             var bossPos = transform.position;
             
             moveDirection = (playerPos - bossPos).normalized;
-            rb.linearVelocity = moveDirection * moveSpeed;
+            Rigidbody.linearVelocity = moveDirection * moveSpeed;
             
         }
         
@@ -93,9 +97,43 @@ namespace GamePlay.Enemy
         {
             
         }
-        public void OnBossDead()
+
+        [Header("보스 사망")]
+        [SerializeField] private GameObject bossDeathEffectPrefab;
+        [SerializeField] private float effectScale;
+        [SerializeField] private List<Vector2> bossEffectPostion;
+        
+        [SerializeField] private float timeBetweenEffect;
+        private List<GameObject> effectObejcts = new();
+        public async UniTask OnBossDead()
         {
+
+
+            for (var i = 0; i < bossEffectPostion.Count; i++)
+            {
+                var localPos = transform.position + new Vector3(bossEffectPostion[i].x, bossEffectPostion[i].y, 0);
+                
+                var effectObject = Instantiate(bossDeathEffectPrefab, localPos, Quaternion.identity, transform);
+                effectObject.transform.localScale = Vector3.one * effectScale;
+                effectObejcts.Add(effectObject);
+
+                if (i == bossEffectPostion.Count - 1)
+                {
+                    Sprite.color = new Color(1, 1, 1, 0);
+                }
+                else
+                {
+                    await UniTask.Delay(TimeSpan.FromSeconds(timeBetweenEffect));
+                }
+
+            }
             
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f));
+
+            foreach (var obj in effectObejcts)
+            {
+                Destroy(obj);
+            }
         }
         
         private void OnTriggerEnter2D(Collider2D other)
@@ -124,7 +162,7 @@ namespace GamePlay.Enemy
             var reflectDir = Vector2.Reflect(inDir, normal);
 
             moveDirection = reflectDir;
-            rb.linearVelocity = moveDirection * moveSpeed;
+            Rigidbody.linearVelocity = moveDirection * moveSpeed;
 
         }
     }

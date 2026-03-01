@@ -251,6 +251,7 @@ namespace GamePlay.Ingame
             
         public async void GameWin(int percent)
         {
+            _ = GameManager.Instance.bossController.OnBossDead();
             GameEnd();
             
             // 보스 사망 연출

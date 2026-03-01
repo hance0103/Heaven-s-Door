@@ -3944,6 +3944,7 @@ GameObject:
   - component: {fileID: 1474665175}
   - component: {fileID: 1474665177}
   - component: {fileID: 1474665176}
+  - component: {fileID: 1474665179}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Boss
@@ -4101,6 +4102,20 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0}
   currentNode: {x: 20, y: 20}
   bossState: 0
+  bossDeathEffectPrefab: {fileID: 468658221666880951, guid: e17c240d00724fb48a0401188920c8bf, type: 3}
+  effectScale: 0.5
+  bossEffectPostion:
+  - {x: 0, y: 0}
+  - {x: 1, y: 0}
+  - {x: -1, y: 0}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  - {x: 1, y: 0}
+  - {x: -1, y: 0}
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  - {x: 0, y: 0}
+  timeBetweenEffect: 0.3
   skillUsePattern: 3212121212121232131231212121212132131213121212
   firstStopTime: 1
   skillUseCoolTime: {x: 7, y: 12}
@@ -4131,6 +4146,28 @@ MonoBehaviour:
     distanceFromBoss: 1
     delayBetweenSpawn: 0.5
     spawnObjectPrefab: {fileID: 6082888764632632453, guid: 1657c366c0de85f40bcb796571209d1c, type: 3}
+--- !u!95 &1474665179
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474665172}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3fb347f672baa4b43a54c18f2b956a00, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1502307688
 GameObject:
   m_ObjectHideFlags: 0
