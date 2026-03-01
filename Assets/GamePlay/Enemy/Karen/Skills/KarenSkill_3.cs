@@ -24,10 +24,13 @@ namespace GamePlay.Enemy.Karen.Skills
 
         private void CreateAndReleaseSpawnObject()
         {
+            var player = GameManager.Instance.playerController;
+            if (player == null) return;
+            
             var createPos = SelectCreatePosition().normalized * distanceFromBoss + 
                             GameManager.Instance.bossController.transform.position;
             
-            var playerPos = GameManager.Instance.playerController.transform.position;
+            var playerPos = player.transform.position;
             var spawnObject = Object.Instantiate(spawnObjectPrefab, createPos, Quaternion.identity);
             spawnObject.SpawnObjectSetting(playerPos - createPos, speed, duration);
             _ = spawnObject.ReleaseSpawnObject();

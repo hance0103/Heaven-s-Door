@@ -39,7 +39,7 @@ public class SpawnObject : MonoBehaviour
     {
         if (!other.gameObject.CompareTag("Player")) return;
         var player = GameManager.Instance.playerController;
-        if (player.IsInvincible) return;
+        if (player == null || player.IsInvincible) return;
         
         if (player.Mode != TraverseMode.Border)
             GameManager.Instance.inGameManager.MinusLife();

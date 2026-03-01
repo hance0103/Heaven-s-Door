@@ -39,7 +39,8 @@ public class KarenBossController : EnemyController
 
     public override void SetNextState(BossState state)
     {
-        if (GameManager.Instance.inGameManager.IsGameEnd) return;
+        var ingameManager = GameManager.Instance.inGameManager;
+        if (ingameManager == null || ingameManager.IsGameEnd) return;
         
         switch (bossState)
         {
@@ -65,6 +66,9 @@ public class KarenBossController : EnemyController
     }
     private async UniTask UseSkill(CancellationToken token = default)
     {
+        var ingame = GameManager.Instance.inGameManager;
+        if (ingame == null || ingame.IsGameEnd) return;
+        
         try
         {
             bossState = BossState.Attack;

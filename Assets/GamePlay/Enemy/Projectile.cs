@@ -30,7 +30,7 @@ namespace GamePlay.Enemy
             
             var player = GameManager.Instance.playerController;
             
-            if (player.IsInvincible) return;
+            if (player == null || player.IsInvincible) return;
             
             // 관통이 가능하다면
             if (canPierce)

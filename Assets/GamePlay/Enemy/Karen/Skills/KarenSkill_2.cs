@@ -28,7 +28,10 @@ namespace GamePlay.Enemy.Karen.Skills
 
         private async UniTask CreateAndShootProjectiles()
         {
-            var playerPos = GameManager.Instance.playerController.transform.position;
+            var player = GameManager.Instance.playerController;
+            if (player == null) return;
+            
+            var playerPos = player.transform.position;
             var bossPos = GameManager.Instance.bossController.transform.position;
             
             var toPlayerDir =  (bossPos - playerPos).normalized;

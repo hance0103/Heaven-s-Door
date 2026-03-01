@@ -33,7 +33,11 @@ namespace GamePlay.Enemy.Karen.Skills
         {
             // 발사 각도(중앙) 계산
             // 플레이어 위치(가운데 투사체 발사 벡터)
-            var playerPos = GameManager.Instance.playerController.transform.position;
+            
+            var player = GameManager.Instance.playerController;
+            if (player == null) return;
+            
+            var playerPos = player.transform.position;
             var bossPos = GameManager.Instance.bossController.transform.position;
             var centerDir = (playerPos - bossPos).normalized;
             var halfAngle = shootAngle / 2;

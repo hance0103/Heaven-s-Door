@@ -15,6 +15,7 @@ namespace GamePlay.Player
         Border,
         Drawing,
         Returning,
+        Reviving
     }
 
     public class PlayerController : MonoBehaviour
@@ -39,7 +40,7 @@ namespace GamePlay.Player
 
         private bool _canMove = true;
         public bool CanMove => _canMove;
-        private TraverseMode _mode = TraverseMode.Border;
+        [SerializeField] private TraverseMode _mode = TraverseMode.Border;
         public TraverseMode Mode => _mode;
 
         private readonly HashSet<Edge> _lineEdges = new HashSet<Edge>();
@@ -504,7 +505,7 @@ namespace GamePlay.Player
         
         private async UniTask ReturnToStart()
         {
-            if (_mode != TraverseMode.Drawing) return;
+            if (_mode != TraverseMode.Drawing || _mode == TraverseMode.Reviving) return;
 
             _mode = TraverseMode.Returning;
             _returnRequested = false;
@@ -653,6 +654,28 @@ namespace GamePlay.Player
             set => isInvincible = value;
         }
 
+        public async UniTask StartDying()
+        {
+            CalcReviveNode();
+            _mode = TraverseMode.Reviving;
+            CancelDrawing();
+            ClearDrawLine();
+            
+            _playerInput.enabled = false;
+
+            
+            await DeathEffect();
+        }
+
+        private async UniTask DeathEffect()
+        {
+            await UniTask.Delay(3000);
+        }
+        private Vector2Int reviveNode;
+        private void CalcReviveNode()
+        {
+            reviveNode = (_mode == TraverseMode.Border) ? currentNode : _drawStartNode;
+        }
         [Header("Invincible")] 
         [SerializeField] private float invincibleTime;
         [SerializeField] private float blinkDuration = 0.15f;
@@ -662,18 +685,19 @@ namespace GamePlay.Player
         
         public void SetPositionWhenRevive()
         {
+            _playerInput.enabled = true;
             _ = StartInvincible();
             _ = BlinkAsync(invincibleTime);
             
-            var targetNode = (_mode == TraverseMode.Border) ? currentNode : _drawStartNode;
-            
-            if (_mode != TraverseMode.Border)
-                CancelDrawing();
 
-            currentNode = targetNode;
+            currentNode = reviveNode;
 
-            var p2 = gridManager.GetNodeWorld(targetNode.x, targetNode.y);
+            var p2 = gridManager.GetNodeWorld(reviveNode.x, reviveNode.y);
             transform.position = new Vector3(p2.x, p2.y, 0f);
+
+            _mode = TraverseMode.Border;
+            _canMove = true;
+            
         }
         
         private async UniTask StartInvincible()
@@ -696,11 +720,6 @@ namespace GamePlay.Player
             
             _blinkTween.Kill();
             _sprite.color = Color.white;
-        }
-
-        public void SetCanMove(bool canMove)
-        {
-            _canMove = canMove;
         }
     }
 }

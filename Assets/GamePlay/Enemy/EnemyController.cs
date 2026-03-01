@@ -67,14 +67,21 @@ namespace GamePlay.Enemy
 
         private void RenewBossNode()
         {
+            var girdManager = GameManager.Instance.gridManager;
+            if (girdManager == null) return;
+            
             var bossPos = transform.position;
-            currentNode = GameManager.Instance.gridManager.GetWorldToNode(new Vector2(bossPos.x, bossPos.y));
+            currentNode = girdManager.GetWorldToNode(new Vector2(bossPos.x, bossPos.y));
         }
         protected virtual void MoveToPlayer()
         {
             bossState = BossState.Move;
             
-            var playerPos = GameManager.Instance.playerController.transform.position;
+            var player = GameManager.Instance.playerController;
+            
+            if (player == null) return;
+            
+            var playerPos = player.transform.position;
             var bossPos = transform.position;
             
             moveDirection = (playerPos - bossPos).normalized;
@@ -95,9 +102,10 @@ namespace GamePlay.Enemy
         {
             if (!other.CompareTag("Player")) return;
             
+            
             var player = GameManager.Instance.playerController;
             
-            if (player.IsInvincible) return;
+            if (player == null || player.IsInvincible) return;
             
             if (player.Mode != TraverseMode.Border)
                 GameManager.Instance.inGameManager.MinusLife();

@@ -178,7 +178,7 @@ namespace GamePlay.Ingame
             IncreaseScore(increasedPercentage);
         }
         
-        public void MinusLife()
+        public async void MinusLife()
         {
             if (isDying) return;
             isDying = true;
@@ -189,21 +189,22 @@ namespace GamePlay.Ingame
             {
                 if (player == null) return;
                 
-                // TODO : 죽는 모션
-                
                 life--;
                 lifeObjects[life].SetActive(false);
                 
-                player.SetCanMove(false);
+                // TODO : 죽는 모션
+                await player.StartDying();
                 
-                if (life <= 0)
+                if (life > 0)
                 {
-                    GameOver();
-                    return;
+                    player.SetPositionWhenRevive();
                 }
-                
-                player.SetPositionWhenRevive();
-                player.SetCanMove(true);
+                else
+                {
+                    player.gameObject.SetActive(false);
+                    
+                    GameOver();
+                }
 
             }
             catch (Exception e)
