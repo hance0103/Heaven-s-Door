@@ -237,6 +237,7 @@ public class NovelManager : MonoBehaviour
 
     public void OnScriptEnd()
     {
+        
         OnScriptEndEvent?.Invoke();
     }
     private async UniTask InstantiateNovelPlayerAsync()

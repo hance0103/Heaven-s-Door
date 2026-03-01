@@ -232,6 +232,7 @@ public class NovelPlayer : MonoBehaviour
         NovelManager.Instance.OnScriptEnd();
         NovelManager.Instance.Audio.StopBGM();
 
+        LabelDict.Clear();
         ReleaseObjects();
         
         Addressables.ReleaseInstance(gameObject);
