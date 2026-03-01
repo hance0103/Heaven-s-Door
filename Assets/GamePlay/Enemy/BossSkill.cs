@@ -1,6 +1,8 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using Managers;
 using UnityEngine;
 
 namespace GamePlay.Enemy
@@ -9,16 +11,31 @@ namespace GamePlay.Enemy
     public abstract class BossSkill
     {
         [SerializeField] protected float beforeDelay;
+        [SerializeField] protected Color delayColor1;
+        [SerializeField] protected Color delayColor2;
+        [SerializeField] protected float timeBetweenColors;
         [SerializeField] protected float afterDelay;
 
+
+        private Tween _colorTween;
         public virtual async UniTask UseSKill(CancellationToken token)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(beforeDelay));
+            var bossRender = GameManager.Instance.bossController.sprite;
             
+            var seq = DOTween.Sequence();
+
+            seq.Append(bossRender.DOColor(delayColor1, timeBetweenColors));
+            seq.Append(bossRender.DOColor(delayColor2, timeBetweenColors));
+            seq.SetLoops(-1, LoopType.Yoyo);
+            
+            await UniTask.Delay(TimeSpan.FromSeconds(beforeDelay), cancellationToken: token);
+            seq.Kill();
+            
+            bossRender.color = Color.white;
 
             await ExecuteSkill();
             
-            await UniTask.Delay(TimeSpan.FromSeconds(afterDelay));
+            await UniTask.Delay(TimeSpan.FromSeconds(afterDelay), cancellationToken: token);
 
         }
 

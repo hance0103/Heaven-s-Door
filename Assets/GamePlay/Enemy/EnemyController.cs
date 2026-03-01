@@ -18,7 +18,7 @@ namespace GamePlay.Enemy
         [SerializeField] protected Vector2 moveDirection;
         
         protected Rigidbody2D Rigidbody;
-        protected SpriteRenderer Sprite;
+        public SpriteRenderer sprite;
         public enum BossState
         {
             Idle,
@@ -35,7 +35,7 @@ namespace GamePlay.Enemy
 
         private void Awake()
         {  
-            Sprite =  GetComponent<SpriteRenderer>();
+            sprite =  GetComponent<SpriteRenderer>();
             Rigidbody = GetComponent<Rigidbody2D>();
         }
 
@@ -119,7 +119,7 @@ namespace GamePlay.Enemy
 
                 if (i == bossEffectPostion.Count - 1)
                 {
-                    Sprite.color = new Color(1, 1, 1, 0);
+                    sprite.color = new Color(1, 1, 1, 0);
                 }
                 else
                 {

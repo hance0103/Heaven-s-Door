@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace GamePlay.UI.SelectObjects.Controller
 {
+    [RequireComponent(typeof(AudioSource))]
     public class SelectObjectController : MonoBehaviour
     {
         [SerializeField] private Vector2 outlineWeight = new Vector2(10f, 10f);
@@ -14,6 +17,11 @@ namespace GamePlay.UI.SelectObjects.Controller
         [SerializeField] protected List<SelectObject> selectObjects = new List<SelectObject>();
         [SerializeField] protected PlayerInput playerInput;
 
+        [SerializeField] protected AudioSource audioSource;
+        [SerializeField] protected AudioClip selectSound;
+        [SerializeField] protected AudioClip decideSound;
+        
+        
         private InputAction selectAction;
         private InputAction decideAction;
         
@@ -24,6 +32,8 @@ namespace GamePlay.UI.SelectObjects.Controller
             playerInput = GetComponent<PlayerInput>();
             selectAction =  playerInput.actions["Select"];
             decideAction = playerInput.actions["Decide"];
+            
+            audioSource = GetComponent<AudioSource>();
         }
 
         protected virtual void Start()
@@ -71,12 +81,14 @@ namespace GamePlay.UI.SelectObjects.Controller
         
         
         // 엔터/스페이스바
-        protected virtual void OnDecidePressed(InputAction.CallbackContext context)
+        protected virtual async void OnDecidePressed(InputAction.CallbackContext context)
         {
+            audioSource.PlayOneShot(decideSound);
+            await UniTask.Delay(TimeSpan.FromSeconds(decideSound.length));
             selectObjects[currentIndex].Execute();
         }
 
-        private void MoveSelect(float axis)
+        private async void MoveSelect(float axis)
         {
             switch (axis)
             {
@@ -101,6 +113,12 @@ namespace GamePlay.UI.SelectObjects.Controller
                 }
                 break;
             }
+            
+            
+            // TODO: 이거 일단 강제 종료되도록 박아놨음 추후 수정 해야함
+            audioSource.PlayOneShot(selectSound);
+            await UniTask.Delay(TimeSpan.FromSeconds(1f));
+            audioSource.Stop();
         }
     }
 }
