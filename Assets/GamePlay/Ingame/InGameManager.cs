@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using GamePlay.FX.SpriteMask;
@@ -72,7 +73,7 @@ namespace GamePlay.Ingame
             
             RenewPercentage(0);
             
-            _ = HideTutorialPanel();
+            _ = HideTutorialPanel(this.GetCancellationTokenOnDestroy());
             timer = new Timer();
             _ = timer.StartTimerAsync(gameTime,
             RenewTimer,
@@ -80,9 +81,9 @@ namespace GamePlay.Ingame
 
         }
 
-        private async UniTask HideTutorialPanel()
+        private async UniTask HideTutorialPanel(CancellationToken cancellationTokenOnDestroy)
         {
-            await UniTask.Delay(10000);
+            await UniTask.Delay(10000, cancellationToken: cancellationTokenOnDestroy);
             tutorialPanel.SetActive(false);
         }
 
@@ -240,10 +241,15 @@ namespace GamePlay.Ingame
 
 
         }
-        
-        
+
+
         [ContextMenu("게임 승리")]
-        private async void GameWin(int percent)
+        public void GameWinCheat()
+        {
+            GameWin(100);
+        }
+            
+        public async void GameWin(int percent)
         {
             GameEnd();
             

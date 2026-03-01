@@ -4957,7 +4957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1695108664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5287,6 +5287,9 @@ MonoBehaviour:
   currentNode: {x: 0, y: 0}
   occupying: 0
   _mode: 0
+  deathTime: 0.7
+  deathScale: 0.6
+  deathColor: {r: 1, g: 0.7466958, b: 0, a: 1}
   invincibleTime: 1.5
   blinkDuration: 0.15
 --- !u!212 &1815342243

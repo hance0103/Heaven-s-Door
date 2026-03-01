@@ -57,11 +57,13 @@ namespace GamePlay.Player
 
         private SpriteRenderer _sprite;
 
+        private Animator _animator;
         private void Awake()
         {
             GameManager.Instance.playerController = this;
             
             _sprite = GetComponent<SpriteRenderer>();
+            _animator = GetComponent<Animator>();
             
             _playerInput = GetComponent<PlayerInput>();
             _moveAction = _playerInput.actions["Move"];
@@ -646,14 +648,14 @@ namespace GamePlay.Player
         }
 
         #endregion
-
-
-        public bool IsInvincible
-        {
-            get => isInvincible;
-            set => isInvincible = value;
-        }
-
+        
+        
+        [Header("Death and Revive")]
+        [SerializeField] private float deathTime = 0.7f;
+        
+        [SerializeField] private float deathScale = 1.0f;
+        [SerializeField] private Color deathColor = Color.yellow;
+        
         public async UniTask StartDying()
         {
             CalcReviveNode();
@@ -666,10 +668,13 @@ namespace GamePlay.Player
             
             await DeathEffect();
         }
-
+        
         private async UniTask DeathEffect()
         {
-            await UniTask.Delay(3000);
+            _animator.Play("PlayerDeath");
+            transform.localScale *= deathScale;
+            _sprite.color = deathColor;
+            await UniTask.Delay(TimeSpan.FromSeconds(deathTime));
         }
         private Vector2Int reviveNode;
         private void CalcReviveNode()
@@ -682,14 +687,22 @@ namespace GamePlay.Player
         private Tween _blinkTween;
         
         private bool isInvincible = false;
+        public bool IsInvincible
+        {
+            get => isInvincible;
+            set => isInvincible = value;
+        }
+
         
         public void SetPositionWhenRevive()
         {
             _playerInput.enabled = true;
             _ = StartInvincible();
             _ = BlinkAsync(invincibleTime);
+            _animator.Play("PlayerIdle");
+            transform.localScale /= deathScale;
+            _sprite.color = Color.white;
             
-
             currentNode = reviveNode;
 
             var p2 = gridManager.GetNodeWorld(reviveNode.x, reviveNode.y);

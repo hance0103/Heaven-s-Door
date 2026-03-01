@@ -145,7 +145,7 @@ public static class NovelParser
                     string labelName = labelMatch.Groups["name"].Value;
 
                     NovelManager.Player.LabelDict.Add(labelName, index);
-                    Debug.Log($"Label Name : {labelName}\nIndex : {index}");
+                    //Debug.Log($"Label Name : {labelName}\nIndex : {index}");
                     result = new LabelLine(index, labelName);
                     break;
             }

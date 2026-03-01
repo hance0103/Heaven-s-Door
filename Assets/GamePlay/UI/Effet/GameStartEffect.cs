@@ -41,8 +41,6 @@ public class GameStartEffect : MonoBehaviour
     private Tween _scaleTween;
     private async UniTask EffectOfOneWord(Transform wordTransform)
     {
-        Debug.Log("시작");
-        
         wordTransform.gameObject.SetActive(true);
         wordTransform.localScale *= popScale;
         _scaleTween?.Kill();
