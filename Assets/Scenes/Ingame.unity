@@ -4122,8 +4122,8 @@ MonoBehaviour:
   skillUseCoolTime: {x: 7, y: 12}
   skill1:
     beforeDelay: 2
-    delayColor1: {r: 1, g: 0.26166108, b: 0, a: 1}
-    delayColor2: {r: 0.27906847, g: 0, b: 1, a: 1}
+    delayColor1: {r: 0.24528301, g: 0.09950157, b: 0.09950157, a: 1}
+    delayColor2: {r: 1, g: 0.14496613, b: 0, a: 1}
     timeBetweenColors: 0.2
     afterDelay: 2
     projectileSpeed: 3
@@ -4134,8 +4134,8 @@ MonoBehaviour:
     projectilePrefab: {fileID: 238634571310732959, guid: eb14bf232bd46b44abec9dcb512124f3, type: 3}
   skill2:
     beforeDelay: 2
-    delayColor1: {r: 0.83172905, g: 1, b: 0, a: 1}
-    delayColor2: {r: 0, g: 0.6653924, b: 1, a: 1}
+    delayColor1: {r: 0.24705882, g: 0.09803922, b: 0.09803922, a: 1}
+    delayColor2: {r: 0.9748427, g: 0.18169504, b: 0.16860472, a: 1}
     timeBetweenColors: 0.2
     afterDelay: 2
     projectileSpeed: 3
