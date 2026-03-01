@@ -298,6 +298,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2340745899140042367, guid: 6857c39ff69f6414986953e81b9e9b12, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6274264824491957571, guid: c8f81d86bff70604490771a9a4275f82, type: 3}
+    - target: {fileID: 2340745899140042367, guid: 6857c39ff69f6414986953e81b9e9b12, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2340745899140042367, guid: 6857c39ff69f6414986953e81b9e9b12, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2340745899140042367, guid: 6857c39ff69f6414986953e81b9e9b12, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4288935984703322530, guid: 6857c39ff69f6414986953e81b9e9b12, type: 3}
       propertyPath: m_Name
       value: LoadingCanvas
