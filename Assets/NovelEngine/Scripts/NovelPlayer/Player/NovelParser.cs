@@ -49,13 +49,13 @@ public static class NovelParser
 
     private static readonly Regex VolumePattern = new Regex(@"volume\s*:\s*(?<volume>[\d.]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static readonly Regex LoopPattern = new Regex(@"(?<loop>!loop|loop!)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static  Regex fadePattern = new Regex(@"fade\s*:\s*(?<fade>[\d.]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    //private static  Regex fadePattern = new Regex(@"fade\s*:\s*(?<fade>[\d.]+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     private static readonly Regex TransitionPattern = new Regex(@"transition\s*:\s*(?<transition>\w+)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     private static readonly Regex SubLinePattern = new Regex("^ {4}(?<argument>.*)", RegexOptions.Compiled);
 
-    private static readonly Regex FlipPattern = new Regex(@"flip\s*:\s*(?<isFlip>true|False)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static readonly Regex FlipPattern = new Regex(@"flip\s*:\s*(?<isFlip>true|false)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
     // set 관련 매개변수
     #endregion
     #endregion

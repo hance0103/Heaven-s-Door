@@ -493,33 +493,45 @@ public class NovelPlayer : MonoBehaviour
     private async UniTask TypeTextAsync(string fullText, CancellationToken token)
     {
         isTyping = true;
-        _novelText.text = "";
+
+        // 1) 텍스트는 한 번에 넣어서 TMP 리치텍스트를 즉시 파싱하게 만들기
+        _novelText.richText = true;
+        _novelText.text = fullText;
+
+        // 2) 메쉬/텍스트 정보 갱신 (characterCount 얻으려면 필요)
+        _novelText.ForceMeshUpdate();
+
+        // 3) 타이핑은 "보이는 글자 수"로 처리
+        var totalVisible = _novelText.textInfo.characterCount;
+        _novelText.maxVisibleCharacters = 0;
+
         if (typingSpeed <= 0f)
         {
-            _novelText.text = fullText;
+            _novelText.maxVisibleCharacters = totalVisible;
             isTyping = false;
             return;
         }
-        StringBuilder stringBuilder = new StringBuilder(fullText.Length);
 
-        foreach (char t in fullText.TakeWhile(t => !token.IsCancellationRequested))
+        try
         {
-            stringBuilder.Append(t);
-            _novelText.text = stringBuilder.ToString();
-
-            try
+            for (var i = 1; i <= totalVisible; i++)
             {
+                if (token.IsCancellationRequested) break;
+
+                _novelText.maxVisibleCharacters = i;
                 await UniTask.Delay(TimeSpan.FromSeconds(typingSpeed), cancellationToken: token);
             }
-            catch (OperationCanceledException)
-            {
-                break;
-            }
         }
-
-        // 스킵/완료 모두 최종 전체 출력 보장
-        _novelText.text = fullText;
-        isTyping = false;
+        catch (OperationCanceledException)
+        {
+            // 스킵 시 여기로 올 수 있음
+        }
+        finally
+        {
+            // 스킵/완료 모두 최종 전체 출력 보장
+            _novelText.maxVisibleCharacters = totalVisible;
+            isTyping = false;
+        }
     }
     
     private void OnDestroy()
