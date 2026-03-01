@@ -44,5 +44,11 @@ MonoBehaviour:
       value: {fileID: 11400000, guid: 89597c1bc1a12f44c8153c3ce04fcef0, type: 2}
     - _key: NewCharacter2
       value: {fileID: 11400000, guid: f161d3d34295e6e4e81bfb7ab125ece0, type: 2}
+    - _key: Q1
+      value: {fileID: 11400000, guid: bb94944414094cc4fb31a36bc161d1d6, type: 2}
+    - _key: Q2
+      value: {fileID: 11400000, guid: 01326b0cc14409a4087638c5ab5877cf, type: 2}
+    - _key: Q3
+      value: {fileID: 11400000, guid: 8cbd0e06cc90de6438154ff6fa4950d8, type: 2}
     keys: []
     values: []
