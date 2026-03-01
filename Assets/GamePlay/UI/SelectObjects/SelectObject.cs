@@ -19,12 +19,12 @@ namespace GamePlay.UI.SelectObjects
         {
             outline.effectDistance = weight;
         }
-        public void Select(Color color)
+        public virtual void Select(Color color)
         {
             outline.effectColor = color;
         }
 
-        public void Deselect(Color color)
+        public virtual void Deselect(Color color)
         {
             outline.effectColor = color;
         }

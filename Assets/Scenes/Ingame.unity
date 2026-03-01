@@ -3788,7 +3788,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PC
-  m_DefaultActionMap: UI
+  m_DefaultActionMap: 8f0a3fba-6dcf-4b9e-80f7-2968ffa5a1c2
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &1502307691
@@ -4976,7 +4976,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PC
-  m_DefaultActionMap: UI
+  m_DefaultActionMap: 8f0a3fba-6dcf-4b9e-80f7-2968ffa5a1c2
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &1975717123

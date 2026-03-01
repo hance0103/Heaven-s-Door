@@ -45,7 +45,6 @@ namespace novel
                     Debug.LogError("[NovelResources] A null ScriptableObject was loaded by label.");
                 }
             }
-            Debug.Log("데이터 불러오기 완료");
         }
         public void OnNovelEnd()
         {

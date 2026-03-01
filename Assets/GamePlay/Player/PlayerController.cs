@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using GamePlay.GridMap;
 using Managers;
 using UnityEngine;
@@ -53,11 +54,13 @@ namespace GamePlay.Player
 
         private bool _diagPreferX = true;
 
-
+        private SpriteRenderer _sprite;
 
         private void Awake()
         {
             GameManager.Instance.playerController = this;
+            
+            _sprite = GetComponent<SpriteRenderer>();
             
             _playerInput = GetComponent<PlayerInput>();
             _moveAction = _playerInput.actions["Move"];
@@ -643,19 +646,24 @@ namespace GamePlay.Player
 
         #endregion
 
-        [SerializeField] private float invincibleTime;
+
         public bool IsInvincible
         {
             get => isInvincible;
             set => isInvincible = value;
         }
 
+        [Header("Invincible")] 
+        [SerializeField] private float invincibleTime;
+        [SerializeField] private float blinkDuration = 0.15f;
+        private Tween _blinkTween;
+        
         private bool isInvincible = false;
         
         public void SetPositionWhenRevive()
         {
             _ = StartInvincible();
-            
+            _ = BlinkAsync(invincibleTime);
             
             var targetNode = (_mode == TraverseMode.Border) ? currentNode : _drawStartNode;
             
@@ -674,7 +682,22 @@ namespace GamePlay.Player
             await UniTask.Delay(TimeSpan.FromSeconds(invincibleTime));
             isInvincible = false;
         }
-        
+
+        private async UniTask BlinkAsync(float time)
+        {
+            _blinkTween?.Kill();
+
+            _blinkTween = _sprite.DOFade(0, blinkDuration)
+                .SetLoops(-1, LoopType.Yoyo)
+                .SetEase(Ease.Linear)
+                .SetLink(gameObject);
+            
+            await UniTask.Delay(TimeSpan.FromSeconds(time));
+            
+            _blinkTween.Kill();
+            _sprite.color = Color.white;
+        }
+
         public void SetCanMove(bool canMove)
         {
             _canMove = canMove;

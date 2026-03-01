@@ -50,7 +50,7 @@ public class NovelManager : MonoBehaviour
 
     public static async UniTask<NovelManager> InitAsync()
     {
-        Debug.Log("Init Async");
+        Debug.Log("Novel Engine : Initialize Start");
         if (instance == null)
         {
             // NovelManager가 이미 씬에 존재하는지 확인
@@ -114,7 +114,6 @@ public class NovelManager : MonoBehaviour
         await Audio.AudioManagerInitAsync();
 
         isReady = true;
-        Debug.Log("Novel Engine 초기화 완료");
     }
     public static async UniTask ShutdownAsync()
     {
@@ -167,12 +166,8 @@ public class NovelManager : MonoBehaviour
                 return;
             }
             
-            Debug.Log(Player);
-            
-            
             Player.SetScript(script);
             
-            Debug.Log("플레이 함수 실행");
             
             // 플레이 해줌
             Player.Play();
@@ -274,14 +269,14 @@ public class NovelManager : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError($"[NovelManager] Failed to load prefab: {NovelPlayerPrefabPath}");
+                    Debug.LogError($"NovelEngine : Failed to load prefab: {NovelPlayerPrefabPath}");
                 }
             }
 
         }
         catch (System.Exception ex)
         {
-            Debug.LogError($"[NovelManager] Error while checking for existing NovelPlayer: {ex.Message}");
+            Debug.LogError($"NovelEngine : Error while checking for existing NovelPlayer: {ex.Message}");
             return;
         }
         finally
@@ -289,7 +284,7 @@ public class NovelManager : MonoBehaviour
             
             NovelPlayerGate.Release();
         }
-        Debug.Log(" [NovelManager] NovelPlayer instantiated.");
+        Debug.Log("NovelEngine : NovelPlayer instantiated successfully.");
     }
 
     public void ReleaseNovelPlayer()

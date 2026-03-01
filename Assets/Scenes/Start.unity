@@ -765,6 +765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b9b791cf8761a4e88e93cf0f3b504d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tmp: {fileID: 105100710}
 --- !u!1 &847364844
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,8 +776,8 @@ GameObject:
   m_Component:
   - component: {fileID: 847364845}
   - component: {fileID: 847364846}
-  - component: {fileID: 847364847}
   - component: {fileID: 847364848}
+  - component: {fileID: 847364849}
   m_Layer: 0
   m_Name: MenuChoice
   m_TagString: Untagged
@@ -833,28 +834,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &847364847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 847364844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd843ab2801fb1f419e63e6155f31eb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineWeight: {x: 10, y: 10}
-  selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  deselectedColor: {r: 1, g: 1, b: 1, a: 1}
-  selectObjects:
-  - {fileID: 1593074521}
-  - {fileID: 1486036969}
-  - {fileID: 1682582597}
-  - {fileID: 801733920}
-  playerInput: {fileID: 847364848}
-  currentIndex: 0
 --- !u!114 &847364848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -882,9 +861,31 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: PC
-  m_DefaultActionMap: UI
+  m_DefaultActionMap: UI_Vertical
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &847364849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847364844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca98215074b42ba44b86a1e00f35ee4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineWeight: {x: 10, y: 10}
+  selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  deselectedColor: {r: 1, g: 1, b: 1, a: 1}
+  selectObjects:
+  - {fileID: 1593074521}
+  - {fileID: 1486036969}
+  - {fileID: 1682582597}
+  - {fileID: 801733920}
+  playerInput: {fileID: 847364848}
+  currentIndex: 0
 --- !u!1 &850428796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1323,6 +1324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b9b791cf8761a4e88e93cf0f3b504d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tmp: {fileID: 1821670793}
 --- !u!1 &1546629465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,6 +1505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b9b791cf8761a4e88e93cf0f3b504d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tmp: {fileID: 552738358}
 --- !u!1 &1682582592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1608,6 +1611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b9b791cf8761a4e88e93cf0f3b504d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tmp: {fileID: 207816292}
 --- !u!1 &1821670791
 GameObject:
   m_ObjectHideFlags: 0

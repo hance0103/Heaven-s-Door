@@ -78,7 +78,7 @@ public static class NovelParser
 
         }
         act.novelLines = novelLines;
-        Debug.Log("파싱 끝");
+        Debug.Log("NovelEngine : Script Parse End");
         return act; 
     }
     private static DialogoueType LineType(string line)

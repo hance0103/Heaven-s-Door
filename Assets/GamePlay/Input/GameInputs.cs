@@ -225,7 +225,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""UI"",
+            ""name"": ""UI_Horizontal"",
             ""id"": ""78edf5c4-73a7-4db3-a7ad-bdbd3af0ea75"",
             ""actions"": [
                 {
@@ -348,46 +348,7 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""Novel"",
-            ""id"": ""e3c92e78-3067-4602-8864-1319dff59c26"",
-            ""actions"": [
-                {
-                    ""name"": ""NextScript"",
-                    ""type"": ""Button"",
-                    ""id"": ""168d6d68-37f6-4cb1-9533-ff233520f58e"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""8da1fe35-a1bf-4ad0-a8e4-45ba368b77d8"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";PC"",
-                    ""action"": ""NextScript"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3b29eb5f-f2ca-4be4-a989-45bee998bc94"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";PC"",
-                    ""action"": ""NextScript"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Judge"",
+            ""name"": ""UI_Vertical"",
             ""id"": ""8f0a3fba-6dcf-4b9e-80f7-2968ffa5a1c2"",
             ""actions"": [
                 {
@@ -488,6 +449,45 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Novel"",
+            ""id"": ""e3c92e78-3067-4602-8864-1319dff59c26"",
+            ""actions"": [
+                {
+                    ""name"": ""NextScript"",
+                    ""type"": ""Button"",
+                    ""id"": ""168d6d68-37f6-4cb1-9533-ff233520f58e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8da1fe35-a1bf-4ad0-a8e4-45ba368b77d8"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""NextScript"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b29eb5f-f2ca-4be4-a989-45bee998bc94"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";PC"",
+                    ""action"": ""NextScript"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -508,26 +508,26 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Occupy = m_Player.FindAction("Occupy", throwIfNotFound: true);
-        // UI
-        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-        m_UI_Select = m_UI.FindAction("Select", throwIfNotFound: true);
-        m_UI_Decide = m_UI.FindAction("Decide", throwIfNotFound: true);
-        m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
+        // UI_Horizontal
+        m_UI_Horizontal = asset.FindActionMap("UI_Horizontal", throwIfNotFound: true);
+        m_UI_Horizontal_Select = m_UI_Horizontal.FindAction("Select", throwIfNotFound: true);
+        m_UI_Horizontal_Decide = m_UI_Horizontal.FindAction("Decide", throwIfNotFound: true);
+        m_UI_Horizontal_Cancel = m_UI_Horizontal.FindAction("Cancel", throwIfNotFound: true);
+        // UI_Vertical
+        m_UI_Vertical = asset.FindActionMap("UI_Vertical", throwIfNotFound: true);
+        m_UI_Vertical_Select = m_UI_Vertical.FindAction("Select", throwIfNotFound: true);
+        m_UI_Vertical_Decide = m_UI_Vertical.FindAction("Decide", throwIfNotFound: true);
         // Novel
         m_Novel = asset.FindActionMap("Novel", throwIfNotFound: true);
         m_Novel_NextScript = m_Novel.FindAction("NextScript", throwIfNotFound: true);
-        // Judge
-        m_Judge = asset.FindActionMap("Judge", throwIfNotFound: true);
-        m_Judge_Select = m_Judge.FindAction("Select", throwIfNotFound: true);
-        m_Judge_Decide = m_Judge.FindAction("Decide", throwIfNotFound: true);
     }
 
     ~@GameInputs()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, GameInputs.Player.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, GameInputs.UI.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_UI_Horizontal.enabled, "This will cause a leak and performance issues, GameInputs.UI_Horizontal.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_UI_Vertical.enabled, "This will cause a leak and performance issues, GameInputs.UI_Vertical.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Novel.enabled, "This will cause a leak and performance issues, GameInputs.Novel.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Judge.enabled, "This will cause a leak and performance issues, GameInputs.Judge.Disable() has not been called.");
     }
 
     /// <summary>
@@ -707,39 +707,39 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
     /// </summary>
     public PlayerActions @Player => new PlayerActions(this);
 
-    // UI
-    private readonly InputActionMap m_UI;
-    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
-    private readonly InputAction m_UI_Select;
-    private readonly InputAction m_UI_Decide;
-    private readonly InputAction m_UI_Cancel;
+    // UI_Horizontal
+    private readonly InputActionMap m_UI_Horizontal;
+    private List<IUI_HorizontalActions> m_UI_HorizontalActionsCallbackInterfaces = new List<IUI_HorizontalActions>();
+    private readonly InputAction m_UI_Horizontal_Select;
+    private readonly InputAction m_UI_Horizontal_Decide;
+    private readonly InputAction m_UI_Horizontal_Cancel;
     /// <summary>
-    /// Provides access to input actions defined in input action map "UI".
+    /// Provides access to input actions defined in input action map "UI_Horizontal".
     /// </summary>
-    public struct UIActions
+    public struct UI_HorizontalActions
     {
         private @GameInputs m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public UIActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
+        public UI_HorizontalActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "UI/Select".
+        /// Provides access to the underlying input action "UI_Horizontal/Select".
         /// </summary>
-        public InputAction @Select => m_Wrapper.m_UI_Select;
+        public InputAction @Select => m_Wrapper.m_UI_Horizontal_Select;
         /// <summary>
-        /// Provides access to the underlying input action "UI/Decide".
+        /// Provides access to the underlying input action "UI_Horizontal/Decide".
         /// </summary>
-        public InputAction @Decide => m_Wrapper.m_UI_Decide;
+        public InputAction @Decide => m_Wrapper.m_UI_Horizontal_Decide;
         /// <summary>
-        /// Provides access to the underlying input action "UI/Cancel".
+        /// Provides access to the underlying input action "UI_Horizontal/Cancel".
         /// </summary>
-        public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
+        public InputAction @Cancel => m_Wrapper.m_UI_Horizontal_Cancel;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public InputActionMap Get() { return m_Wrapper.m_UI_Horizontal; }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
         public void Enable() { Get().Enable(); }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -747,9 +747,9 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
         public bool enabled => Get().enabled;
         /// <summary>
-        /// Implicitly converts an <see ref="UIActions" /> to an <see ref="InputActionMap" /> instance.
+        /// Implicitly converts an <see ref="UI_HorizontalActions" /> to an <see ref="InputActionMap" /> instance.
         /// </summary>
-        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public static implicit operator InputActionMap(UI_HorizontalActions set) { return set.Get(); }
         /// <summary>
         /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
@@ -757,11 +757,11 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
         /// </remarks>
-        /// <seealso cref="UIActions" />
-        public void AddCallbacks(IUIActions instance)
+        /// <seealso cref="UI_HorizontalActions" />
+        public void AddCallbacks(IUI_HorizontalActions instance)
         {
-            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_UI_HorizontalActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UI_HorizontalActionsCallbackInterfaces.Add(instance);
             @Select.started += instance.OnSelect;
             @Select.performed += instance.OnSelect;
             @Select.canceled += instance.OnSelect;
@@ -779,8 +779,8 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         /// <remarks>
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
         /// </remarks>
-        /// <seealso cref="UIActions" />
-        private void UnregisterCallbacks(IUIActions instance)
+        /// <seealso cref="UI_HorizontalActions" />
+        private void UnregisterCallbacks(IUI_HorizontalActions instance)
         {
             @Select.started -= instance.OnSelect;
             @Select.performed -= instance.OnSelect;
@@ -794,12 +794,12 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         }
 
         /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="UIActions.UnregisterCallbacks(IUIActions)" />.
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="UI_HorizontalActions.UnregisterCallbacks(IUI_HorizontalActions)" />.
         /// </summary>
-        /// <seealso cref="UIActions.UnregisterCallbacks(IUIActions)" />
-        public void RemoveCallbacks(IUIActions instance)
+        /// <seealso cref="UI_HorizontalActions.UnregisterCallbacks(IUI_HorizontalActions)" />
+        public void RemoveCallbacks(IUI_HorizontalActions instance)
         {
-            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_UI_HorizontalActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
@@ -809,21 +809,128 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
         /// </remarks>
-        /// <seealso cref="UIActions.AddCallbacks(IUIActions)" />
-        /// <seealso cref="UIActions.RemoveCallbacks(IUIActions)" />
-        /// <seealso cref="UIActions.UnregisterCallbacks(IUIActions)" />
-        public void SetCallbacks(IUIActions instance)
+        /// <seealso cref="UI_HorizontalActions.AddCallbacks(IUI_HorizontalActions)" />
+        /// <seealso cref="UI_HorizontalActions.RemoveCallbacks(IUI_HorizontalActions)" />
+        /// <seealso cref="UI_HorizontalActions.UnregisterCallbacks(IUI_HorizontalActions)" />
+        public void SetCallbacks(IUI_HorizontalActions instance)
         {
-            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_UI_HorizontalActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_UI_HorizontalActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
     /// <summary>
-    /// Provides a new <see cref="UIActions" /> instance referencing this action map.
+    /// Provides a new <see cref="UI_HorizontalActions" /> instance referencing this action map.
     /// </summary>
-    public UIActions @UI => new UIActions(this);
+    public UI_HorizontalActions @UI_Horizontal => new UI_HorizontalActions(this);
+
+    // UI_Vertical
+    private readonly InputActionMap m_UI_Vertical;
+    private List<IUI_VerticalActions> m_UI_VerticalActionsCallbackInterfaces = new List<IUI_VerticalActions>();
+    private readonly InputAction m_UI_Vertical_Select;
+    private readonly InputAction m_UI_Vertical_Decide;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "UI_Vertical".
+    /// </summary>
+    public struct UI_VerticalActions
+    {
+        private @GameInputs m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public UI_VerticalActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "UI_Vertical/Select".
+        /// </summary>
+        public InputAction @Select => m_Wrapper.m_UI_Vertical_Select;
+        /// <summary>
+        /// Provides access to the underlying input action "UI_Vertical/Decide".
+        /// </summary>
+        public InputAction @Decide => m_Wrapper.m_UI_Vertical_Decide;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_UI_Vertical; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="UI_VerticalActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(UI_VerticalActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="UI_VerticalActions" />
+        public void AddCallbacks(IUI_VerticalActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UI_VerticalActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UI_VerticalActionsCallbackInterfaces.Add(instance);
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
+            @Decide.started += instance.OnDecide;
+            @Decide.performed += instance.OnDecide;
+            @Decide.canceled += instance.OnDecide;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="UI_VerticalActions" />
+        private void UnregisterCallbacks(IUI_VerticalActions instance)
+        {
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
+            @Decide.started -= instance.OnDecide;
+            @Decide.performed -= instance.OnDecide;
+            @Decide.canceled -= instance.OnDecide;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="UI_VerticalActions.UnregisterCallbacks(IUI_VerticalActions)" />.
+        /// </summary>
+        /// <seealso cref="UI_VerticalActions.UnregisterCallbacks(IUI_VerticalActions)" />
+        public void RemoveCallbacks(IUI_VerticalActions instance)
+        {
+            if (m_Wrapper.m_UI_VerticalActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="UI_VerticalActions.AddCallbacks(IUI_VerticalActions)" />
+        /// <seealso cref="UI_VerticalActions.RemoveCallbacks(IUI_VerticalActions)" />
+        /// <seealso cref="UI_VerticalActions.UnregisterCallbacks(IUI_VerticalActions)" />
+        public void SetCallbacks(IUI_VerticalActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UI_VerticalActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UI_VerticalActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="UI_VerticalActions" /> instance referencing this action map.
+    /// </summary>
+    public UI_VerticalActions @UI_Vertical => new UI_VerticalActions(this);
 
     // Novel
     private readonly InputActionMap m_Novel;
@@ -920,113 +1027,6 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="NovelActions" /> instance referencing this action map.
     /// </summary>
     public NovelActions @Novel => new NovelActions(this);
-
-    // Judge
-    private readonly InputActionMap m_Judge;
-    private List<IJudgeActions> m_JudgeActionsCallbackInterfaces = new List<IJudgeActions>();
-    private readonly InputAction m_Judge_Select;
-    private readonly InputAction m_Judge_Decide;
-    /// <summary>
-    /// Provides access to input actions defined in input action map "Judge".
-    /// </summary>
-    public struct JudgeActions
-    {
-        private @GameInputs m_Wrapper;
-
-        /// <summary>
-        /// Construct a new instance of the input action map wrapper class.
-        /// </summary>
-        public JudgeActions(@GameInputs wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "Judge/Select".
-        /// </summary>
-        public InputAction @Select => m_Wrapper.m_Judge_Select;
-        /// <summary>
-        /// Provides access to the underlying input action "Judge/Decide".
-        /// </summary>
-        public InputAction @Decide => m_Wrapper.m_Judge_Decide;
-        /// <summary>
-        /// Provides access to the underlying input action map instance.
-        /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_Judge; }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
-        public void Enable() { Get().Enable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
-        public void Disable() { Get().Disable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
-        public bool enabled => Get().enabled;
-        /// <summary>
-        /// Implicitly converts an <see ref="JudgeActions" /> to an <see ref="InputActionMap" /> instance.
-        /// </summary>
-        public static implicit operator InputActionMap(JudgeActions set) { return set.Get(); }
-        /// <summary>
-        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <param name="instance">Callback instance.</param>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
-        /// </remarks>
-        /// <seealso cref="JudgeActions" />
-        public void AddCallbacks(IJudgeActions instance)
-        {
-            if (instance == null || m_Wrapper.m_JudgeActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_JudgeActionsCallbackInterfaces.Add(instance);
-            @Select.started += instance.OnSelect;
-            @Select.performed += instance.OnSelect;
-            @Select.canceled += instance.OnSelect;
-            @Decide.started += instance.OnDecide;
-            @Decide.performed += instance.OnDecide;
-            @Decide.canceled += instance.OnDecide;
-        }
-
-        /// <summary>
-        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <remarks>
-        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
-        /// </remarks>
-        /// <seealso cref="JudgeActions" />
-        private void UnregisterCallbacks(IJudgeActions instance)
-        {
-            @Select.started -= instance.OnSelect;
-            @Select.performed -= instance.OnSelect;
-            @Select.canceled -= instance.OnSelect;
-            @Decide.started -= instance.OnDecide;
-            @Decide.performed -= instance.OnDecide;
-            @Decide.canceled -= instance.OnDecide;
-        }
-
-        /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="JudgeActions.UnregisterCallbacks(IJudgeActions)" />.
-        /// </summary>
-        /// <seealso cref="JudgeActions.UnregisterCallbacks(IJudgeActions)" />
-        public void RemoveCallbacks(IJudgeActions instance)
-        {
-            if (m_Wrapper.m_JudgeActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        /// <summary>
-        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
-        /// </remarks>
-        /// <seealso cref="JudgeActions.AddCallbacks(IJudgeActions)" />
-        /// <seealso cref="JudgeActions.RemoveCallbacks(IJudgeActions)" />
-        /// <seealso cref="JudgeActions.UnregisterCallbacks(IJudgeActions)" />
-        public void SetCallbacks(IJudgeActions instance)
-        {
-            foreach (var item in m_Wrapper.m_JudgeActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_JudgeActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    /// <summary>
-    /// Provides a new <see cref="JudgeActions" /> instance referencing this action map.
-    /// </summary>
-    public JudgeActions @Judge => new JudgeActions(this);
     private int m_PCSchemeIndex = -1;
     /// <summary>
     /// Provides access to the input control scheme.
@@ -1063,11 +1063,11 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         void OnOccupy(InputAction.CallbackContext context);
     }
     /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI_Horizontal" which allows adding and removing callbacks.
     /// </summary>
-    /// <seealso cref="UIActions.AddCallbacks(IUIActions)" />
-    /// <seealso cref="UIActions.RemoveCallbacks(IUIActions)" />
-    public interface IUIActions
+    /// <seealso cref="UI_HorizontalActions.AddCallbacks(IUI_HorizontalActions)" />
+    /// <seealso cref="UI_HorizontalActions.RemoveCallbacks(IUI_HorizontalActions)" />
+    public interface IUI_HorizontalActions
     {
         /// <summary>
         /// Method invoked when associated input action "Select" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
@@ -1092,26 +1092,11 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         void OnCancel(InputAction.CallbackContext context);
     }
     /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Novel" which allows adding and removing callbacks.
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI_Vertical" which allows adding and removing callbacks.
     /// </summary>
-    /// <seealso cref="NovelActions.AddCallbacks(INovelActions)" />
-    /// <seealso cref="NovelActions.RemoveCallbacks(INovelActions)" />
-    public interface INovelActions
-    {
-        /// <summary>
-        /// Method invoked when associated input action "NextScript" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnNextScript(InputAction.CallbackContext context);
-    }
-    /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Judge" which allows adding and removing callbacks.
-    /// </summary>
-    /// <seealso cref="JudgeActions.AddCallbacks(IJudgeActions)" />
-    /// <seealso cref="JudgeActions.RemoveCallbacks(IJudgeActions)" />
-    public interface IJudgeActions
+    /// <seealso cref="UI_VerticalActions.AddCallbacks(IUI_VerticalActions)" />
+    /// <seealso cref="UI_VerticalActions.RemoveCallbacks(IUI_VerticalActions)" />
+    public interface IUI_VerticalActions
     {
         /// <summary>
         /// Method invoked when associated input action "Select" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
@@ -1127,5 +1112,20 @@ public partial class @GameInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDecide(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Novel" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="NovelActions.AddCallbacks(INovelActions)" />
+    /// <seealso cref="NovelActions.RemoveCallbacks(INovelActions)" />
+    public interface INovelActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "NextScript" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnNextScript(InputAction.CallbackContext context);
     }
 }
