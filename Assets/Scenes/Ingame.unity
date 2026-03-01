@@ -2886,9 +2886,9 @@ MonoBehaviour:
   boundaryColliderRoot: {fileID: 764607449}
   wallColliderRoot: {fileID: 883651442}
   cellSize: 8
-  startPosXRange: {x: 60, y: 30}
-  startPosYRange: {x: 180, y: 100}
-  startFillSizeXRange: {x: 2, y: 15}
+  startPosXRange: {x: 60, y: 180}
+  startPosYRange: {x: 30, y: 100}
+  startFillSizeXRange: {x: 3, y: 15}
   startFillSizeYRange: {x: 2, y: 10}
   enemies:
   - {fileID: 1474665178}
