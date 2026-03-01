@@ -1,0 +1,251 @@
+fileFormatVersion: 2
+guid: 1a8a6bc47ae54b448bb024e4abe127d3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1838193489747069268
+    second: TUTORIAL-Sheet-export_0
+  - first:
+      213: -7670428971667183616
+    second: TUTORIAL-Sheet-export_1
+  - first:
+      213: 725736505300073606
+    second: TUTORIAL-Sheet-export_2
+  - first:
+      213: 7324287633145686463
+    second: TUTORIAL-Sheet-export_3
+  - first:
+      213: 1305044277093187872
+    second: TUTORIAL-Sheet-export_4
+  - first:
+      213: 3929997385102920696
+    second: TUTORIAL-Sheet-export_5
+  - first:
+      213: -5727538929977878389
+    second: TUTORIAL-Sheet-export_6
+  - first:
+      213: 191873316437458946
+    second: TUTORIAL-Sheet-export_7
+  - first:
+      213: -6721757011981475042
+    second: TUTORIAL-Sheet-export_8
+  - first:
+      213: 318638972682179855
+    second: TUTORIAL-Sheet-export_9
+  - first:
+      213: 4609985319536026924
+    second: TUTORIAL-Sheet-export_10
+  - first:
+      213: 452823152582972875
+    second: TUTORIAL-Sheet-export_11
+  - first:
+      213: -7425310402871962476
+    second: TUTORIAL-Sheet-export_12
+  - first:
+      213: 674052726041446359
+    second: TUTORIAL-Sheet-export_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TUTORIAL-Sheet-export_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 157
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca6b03f92cc6d76e0800000000000000
+      internalID: -1838193489747069268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUTORIAL-Sheet-export_1
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 0
+        width: 157
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 008a9ec6d792d8590800000000000000
+      internalID: -7670428971667183616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUTORIAL-Sheet-export_2
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 0
+        width: 157
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68cb1f6a185521a00800000000000000
+      internalID: 725736505300073606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUTORIAL-Sheet-export_3
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 0
+        width: 157
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb96f6eebc815a560800000000000000
+      internalID: 7324287633145686463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 93b53d003c2333c4994180015cf0b2aa
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TUTORIAL-Sheet-export_0: -1838193489747069268
+      TUTORIAL-Sheet-export_1: -7670428971667183616
+      TUTORIAL-Sheet-export_2: 725736505300073606
+      TUTORIAL-Sheet-export_3: 7324287633145686463
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
