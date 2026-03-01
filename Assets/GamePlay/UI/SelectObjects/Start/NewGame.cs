@@ -2,7 +2,7 @@ using Managers;
 
 namespace GamePlay.UI.SelectObjects.Start
 {
-    public class NewGame : SelectObject
+    public class NewGame : StartSelectObject
     {
         public override void Execute()
         {

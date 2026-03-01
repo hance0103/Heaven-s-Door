@@ -285,7 +285,7 @@ public class NovelPlayer : MonoBehaviour
 
         if (line == null)
         {
-            Debug.Log("스크립트 끝까지 플레이");
+            Debug.Log("Novel Engine : Script End");
             return LineResult.Finished;
         }
 
