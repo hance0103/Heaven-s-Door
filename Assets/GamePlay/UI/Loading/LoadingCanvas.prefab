@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6833cbdf1f82c1498d3385e2e0e82bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadingCanvas: {fileID: 1454640688098290956}
+  minLoadingTime: 1
   loadingIcon: {fileID: 5943307609590026303}
 --- !u!225 &1454640688098290956
 CanvasGroup:

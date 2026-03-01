@@ -8,7 +8,7 @@ public class LoadingUI : MonoBehaviour
 {
     private static LoadingUI _instance;
     private static AsyncOperationHandle<GameObject>? _handle;
-
+    
     public static async UniTask<LoadingUI> GetInstance()
     {
         if (_instance != null)
@@ -22,6 +22,8 @@ public class LoadingUI : MonoBehaviour
         return _instance;
     }
 
+    [SerializeField] private float minLoadingTime = 0f;
+    public float MinLoadingTime => minLoadingTime;
     [SerializeField] private Transform loadingIcon;
     private Tween _rotateTween;
 

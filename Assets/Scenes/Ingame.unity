@@ -4633,7 +4633,7 @@ MonoBehaviour:
   edgeCollider: {fileID: 766297016}
   currentNode: {x: 0, y: 0}
   occupying: 0
-  invincibleTime: 0
+  invincibleTime: 1.5
 --- !u!212 &1815342243
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -8,7 +8,6 @@ namespace Managers
 {
     public class SceneLoadManager
     {
-        private const float MinLoadingTime = 2f;
 
         public void ReloadScene()
         {
@@ -58,7 +57,7 @@ namespace Managers
             await UniTask.WaitUntil(() => op.progress >= 0.9f);
 
             var elapsed = Time.realtimeSinceStartup - startTime;
-            var remain = MinLoadingTime - elapsed;
+            var remain = loadingUI.MinLoadingTime - elapsed;
 
             if (remain > 0f)
                 await UniTask.Delay(TimeSpan.FromSeconds(remain));
