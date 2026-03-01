@@ -1,43 +1,72 @@
-using System;
 using Cysharp.Threading.Tasks;
-using GamePlay;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
+using GamePlay;
 
 namespace Managers
 {
     public class SceneLoadManager
     {
-        public async UniTask Init()
-        {
-        
-        }
-        
+        private const float MinLoadingTime = 2f;
+
         public void ReloadScene()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            LoadSceneAsync(SceneManager.GetActiveScene().buildIndex).Forget();
         }
-        
+
         public void LoadScene(SystemEnum.eScenes scene)
         {
-            SceneManager.LoadScene(scene.ToString());
+            LoadSceneAsync(scene.ToString()).Forget();
         }
-    
-        // TODO : 뭐 나중에 캐릭터별로 이넘으로 다루던지 바꿀거임
-        private string _novelName;
-        public string NovelName;
-        
+
+        public string NovelName { get; private set; }
+
         public void StartNovelScene(string novelName)
         {
             NovelName = novelName;
             LoadScene(SystemEnum.eScenes.Novel);
         }
-        
+
         public void StartCharacterNovel(SystemEnum.Character charName, SystemEnum.NovelScriptType scriptType)
         {
-
             GameManager.Instance.currentCharacter = charName;
             GameManager.Instance.scriptType = scriptType;
-            StartNovelScene($"{charName.ToString()}_{scriptType}Text");
+            StartNovelScene($"{charName}_{scriptType}Text");
+        }
+
+        private async UniTask LoadSceneAsync(int buildIndex)
+        {
+            await LoadSceneInternal(() => SceneManager.LoadSceneAsync(buildIndex));
+        }
+
+        private async UniTask LoadSceneAsync(string sceneName)
+        {
+            await LoadSceneInternal(() => SceneManager.LoadSceneAsync(sceneName));
+        }
+
+        private async UniTask LoadSceneInternal(Func<AsyncOperation> loadFunc)
+        {
+            var loadingUI = await LoadingUI.GetInstance();
+            loadingUI.Show();
+
+            var startTime = Time.realtimeSinceStartup;
+
+            var op = loadFunc();
+            op.allowSceneActivation = false;
+
+            await UniTask.WaitUntil(() => op.progress >= 0.9f);
+
+            var elapsed = Time.realtimeSinceStartup - startTime;
+            var remain = MinLoadingTime - elapsed;
+
+            if (remain > 0f)
+                await UniTask.Delay(TimeSpan.FromSeconds(remain));
+
+            op.allowSceneActivation = true;
+            await UniTask.WaitUntil(() => op.isDone);
+
+            loadingUI.Hide();
         }
     }
 }

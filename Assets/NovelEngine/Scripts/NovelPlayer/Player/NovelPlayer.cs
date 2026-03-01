@@ -32,6 +32,8 @@ public class NovelPlayer : MonoBehaviour
     public GameObject StandingPanel { get; private set; }
     public GameObject ChoicePanel { get; private set; }
     
+    public GameObject OnTypingEndPanel { get; private set; }
+    
     public GameObject DialoguePanel => _dialoguePanel;
 
     [Header("Input")] 
@@ -144,6 +146,11 @@ public class NovelPlayer : MonoBehaviour
                 case NovelObjectType.ChoicePanel:
                     ChoicePanel = obj.gameObject;
                     break;
+                case NovelObjectType.OnTypingEndPanel:
+                    OnTypingEndPanel = obj.gameObject;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }
@@ -428,7 +435,8 @@ public class NovelPlayer : MonoBehaviour
     private void PlayLine(NovelLine line)
     {
         _dialoguePanel.SetActive(true);
-
+        OnTypingEndPanel.SetActive(false);
+        
         _typingCts?.Cancel();
         _typingCts?.Dispose();
         _typingCts = CancellationTokenSource.CreateLinkedTokenSource(_destroyToken);
@@ -531,6 +539,9 @@ public class NovelPlayer : MonoBehaviour
             // 스킵/완료 모두 최종 전체 출력 보장
             _novelText.maxVisibleCharacters = totalVisible;
             isTyping = false;
+            
+            OnTypingEndPanel.SetActive(true);
+            
         }
     }
     

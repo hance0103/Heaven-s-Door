@@ -7,6 +7,7 @@ using UnityEngine.AddressableAssets;
 
 public class NovelStarter : MonoBehaviour
 {
+    private bool _endingHandled;
     void Start()
     {
         PlayScript();
@@ -16,9 +17,12 @@ public class NovelStarter : MonoBehaviour
         try
         {
             await NovelManager.InitAsync();
-            await NovelManager.Instance.PlayScript(GameManager.Instance.Scene.NovelName);
+
             
+            NovelManager.Instance.OnScriptEndEvent -= OnScriptEnd;
             NovelManager.Instance.OnScriptEndEvent += OnScriptEnd;
+            
+            await NovelManager.Instance.PlayScript(GameManager.Instance.Scene.NovelName);
         }
         catch (Exception e)
         {
@@ -27,54 +31,52 @@ public class NovelStarter : MonoBehaviour
         
         
     }
-
     private void OnDisable()
     {
-        NovelManager.Instance.OnScriptEndEvent -= OnScriptEnd;
+        if (NovelManager.Instance != null)
+            NovelManager.Instance.OnScriptEndEvent -= OnScriptEnd;
     }
-
-    private async void OnScriptEnd()
+    
+    private void OnScriptEnd()
     {
-        // TODO: 어떤 캐릭터의 스테이지인지는 IngameScene 시작할때 설정해줄것
-        
+        if (_endingHandled) return;
+        _endingHandled = true;
 
+        HandleScriptEndAsync().Forget();
+    }
+    
+    private async UniTaskVoid HandleScriptEndAsync()
+    {
         switch (GameManager.Instance.scriptType)
         {
             case SystemEnum.NovelScriptType.before:
-            {
                 GameManager.Instance.Scene.LoadScene(SystemEnum.eScenes.Ingame);
                 break;
-            }
+
             case SystemEnum.NovelScriptType.after:
-            {
                 try
                 {
-                    var canvasPrefab =
-                        await Addressables.LoadAssetAsync<GameObject>("JudgeCanvas");
-
-                    Instantiate(canvasPrefab);
-                    
+                    var prefab = await Addressables.LoadAssetAsync<GameObject>("JudgeCanvas");
+                    Instantiate(prefab);
                 }
                 catch (Exception e)
                 {
-                    Debug.Log(e.Message);
+                    Debug.LogException(e);
                 }
-
                 break;
-            }
+
             case SystemEnum.NovelScriptType.heaven:
             case SystemEnum.NovelScriptType.hell:
             case SystemEnum.NovelScriptType.Prolog:
-            {
                 GameManager.Instance.Scene.LoadScene(SystemEnum.eScenes.Choice);
                 break;
-            }
+
             case SystemEnum.NovelScriptType.None:
-
             default:
-                throw new ArgumentOutOfRangeException();
+                Debug.LogError($"Invalid scriptType: {GameManager.Instance.scriptType}");
+                break;
         }
-        
-
     }
+    
+
 }

@@ -23,6 +23,7 @@ namespace novel
         NamePanel,
         NameText,
         NextButton,
-        ChoicePanel
+        ChoicePanel,
+        OnTypingEndPanel,
     }
 }

@@ -86,8 +86,8 @@ namespace Managers
         private async void Init()
         {
             await UniTask.WhenAll(
-                Data.Init(),
-                Scene.Init()
+                Data.Init()
+                //Scene.Init()
             );
         }
 
