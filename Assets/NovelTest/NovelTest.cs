@@ -1,18 +1,25 @@
+using System;
 using UnityEngine;
 
 public class NovelTest : MonoBehaviour
 {
     public string scriptName;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
         PlayTutorial_1();
     }
     private async void PlayTutorial_1()
     {
-        await NovelManager.InitAsync();
-        NovelManager.Instance.PlayScript(scriptName);
-
+        try
+        {
+            await NovelManager.InitAsync();
+            await NovelManager.Instance.PlayScript(scriptName);
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+        }
     }
 
 }

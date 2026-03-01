@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eea3f561bce4fd4a86a8e74b8f178ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTime: 150
+  gameTime: 151
   normalPercentage: 80
   showtimePercentage: 100
   shakeAngle: 10
@@ -184,6 +184,7 @@ MonoBehaviour:
   stageClearPanel: {fileID: 1515103320}
   clearPercentageText: {fileID: 1120966894}
   clearScoreText: {fileID: 1081288035}
+  tutorialPanel: {fileID: 2035405201}
 --- !u!1 &48399506
 GameObject:
   m_ObjectHideFlags: 0

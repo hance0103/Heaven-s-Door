@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using GamePlay.FX.SpriteMask;
 using Managers;
@@ -55,8 +56,8 @@ namespace GamePlay.Ingame
         private bool isTimerShakeStart = false;
         private Tween shakeTween;
 
-
-        
+        [SerializeField] private GameObject tutorialPanel;
+            
         private void Awake()
         {
             GameManager.Instance.inGameManager = this;
@@ -67,15 +68,23 @@ namespace GamePlay.Ingame
             life = 3;
             totalScore = 0;
             isDying = false;
+            RenewTimer(gameTime);
             
             RenewPercentage(0);
             
+            _ = HideTutorialPanel();
             timer = new Timer();
             _ = timer.StartTimerAsync(gameTime,
             RenewTimer,
             GameOver);
+
         }
 
+        private async UniTask HideTutorialPanel()
+        {
+            await UniTask.Delay(10000);
+            tutorialPanel.SetActive(false);
+        }
 
         private void RenewTimer(float leftTime)
         {
@@ -169,9 +178,7 @@ namespace GamePlay.Ingame
             IncreaseScore(increasedPercentage);
         }
         
-        
-        [ContextMenu("라이프 하나 깎기")]
-        public async void MinusLife()
+        public void MinusLife()
         {
             if (isDying) return;
             isDying = true;
@@ -255,6 +262,7 @@ namespace GamePlay.Ingame
             GameEnd();
             gameOverPanel.SetActive(true);
         }
+        
         
     }
 }
