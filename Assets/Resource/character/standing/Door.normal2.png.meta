@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: bc8425491e155d84e9430d40c823cc3d
+guid: 55e0f64096821ba42ae0870943abc88d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2128784664773178961
-    second: Karen..angryl_0
+      213: 7512784572316062193
+    second: Door.normal2_0
+  - first:
+      213: -6088396492586834258
+    second: Door.normal2_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Karen..angryl_0
+      name: Door.normal2_0
       rect:
         serializedVersion: 2
-        x: 246
+        x: 4
         y: 0
-        width: 339
-        height: 359
+        width: 814
+        height: 390
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 156ba13bf56fa8d10800000000000000
-      internalID: 2128784664773178961
+      spriteID: 1f11fea93c5c24860800000000000000
+      internalID: 7512784572316062193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door.normal2_1
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 353
+        width: 107
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea6a0afc5aba18ba0800000000000000
+      internalID: -6088396492586834258
       vertices: []
       indices: 
       edges: []
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Karen..angryl_0: 2128784664773178961
+      Door.normal2_0: 7512784572316062193
+      Door.normal2_1: -6088396492586834258
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

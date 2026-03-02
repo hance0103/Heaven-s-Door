@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c4f87590da148444ebb545499c976422
+guid: bfd90b749e5d6af4a99f8348797c2135
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7813389415525484986
-    second: Karen..normal 1_0
+      213: -6210360081685597719
+    second: Karen.angry_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Karen..normal 1_0
+      name: Karen.angry_0
       rect:
         serializedVersion: 2
         x: 246
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6467ec349b3419390800000000000000
-      internalID: -7813389415525484986
+      spriteID: 9e13ddbd86e50d9a0800000000000000
+      internalID: -6210360081685597719
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Karen..normal 1_0: -7813389415525484986
+      Karen.angry_0: -6210360081685597719
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

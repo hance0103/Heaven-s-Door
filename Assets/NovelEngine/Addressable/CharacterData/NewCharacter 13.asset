@@ -13,9 +13,17 @@ MonoBehaviour:
   m_Name: NewCharacter 13
   m_EditorClassIdentifier: 
   characterName: Door
-  body: {fileID: 21300000, guid: 14da53ca222450d4e9bf58631c3656a0, type: 3}
+  body: {fileID: 0}
   faceDict:
-    pairs: []
+    pairs:
+    - _key: angry
+      value: {fileID: 21300000, guid: 2cac3933dfb05d94591f5a279563f484, type: 3}
+    - _key: normal
+      value: {fileID: 21300000, guid: 25d509de9d2cd1f4a82ef66f1d955a8c, type: 3}
+    - _key: normal2
+      value: {fileID: 21300000, guid: 55e0f64096821ba42ae0870943abc88d, type: 3}
+    - _key: normal3
+      value: {fileID: 21300000, guid: c869f44d7ea6a1b48a2f5079f87da779, type: 3}
     keys: []
     values: []
   headOffset: {x: 0, y: 0}

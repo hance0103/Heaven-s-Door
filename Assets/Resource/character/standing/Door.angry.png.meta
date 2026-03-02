@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 14da53ca222450d4e9bf58631c3656a0
+guid: 2cac3933dfb05d94591f5a279563f484
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4491258511774967838
-    second: door 1_0
+      213: -7889003929814148126
+    second: Door.angry_0
   - first:
-      213: 7867968416308646262
-    second: door 1_1
+      213: -2745180862091528899
+    second: Door.angry_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,12 +103,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: door 1_0
+      name: Door.angry_0
       rect:
         serializedVersion: 2
         x: 4
         y: 0
-        width: 805
+        width: 814
         height: 390
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -118,14 +118,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e18ebcc12d7245e30800000000000000
-      internalID: 4491258511774967838
+      spriteID: 2eb54cb39b0a48290800000000000000
+      internalID: -7889003929814148126
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: door 1_1
+      name: Door.angry_1
       rect:
         serializedVersion: 2
         x: 370
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 671d11e9693a03d60800000000000000
-      internalID: 7867968416308646262
+      spriteID: d3575deec8827e9d0800000000000000
+      internalID: -2745180862091528899
       vertices: []
       indices: 
       edges: []
@@ -160,8 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      door 1_0: 4491258511774967838
-      door 1_1: 7867968416308646262
+      Door.angry_0: -7889003929814148126
+      Door.angry_1: -2745180862091528899
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -17,15 +17,17 @@ MonoBehaviour:
   faceDict:
     pairs:
     - _key: angry
-      value: {fileID: 21300000, guid: bc8425491e155d84e9430d40c823cc3d, type: 3}
+      value: {fileID: 21300000, guid: bfd90b749e5d6af4a99f8348797c2135, type: 3}
     - _key: think
       value: {fileID: 21300000, guid: 9e0b0a2f88b744045bf6b321cce5b634, type: 3}
     - _key: sad
-      value: {fileID: -5825101898750524849, guid: f17c5357ee75bea44bd99820514c310d, type: 3}
+      value: {fileID: 21300000, guid: f17c5357ee75bea44bd99820514c310d, type: 3}
     - _key: surprise
       value: {fileID: 21300000, guid: 1a91e6f2513d4d64e9908587c5ee22b0, type: 3}
     - _key: normal
-      value: {fileID: 21300000, guid: c4f87590da148444ebb545499c976422, type: 3}
+      value: {fileID: 21300000, guid: 4592db150ec1f6f41acc90a3d522737e, type: 3}
+    - _key: normal2
+      value: {fileID: 21300000, guid: 3e1acc20f7cbcab4fbe5cb3508228910, type: 3}
     keys: []
     values: []
   headOffset: {x: 0, y: 0}

@@ -1,16 +1,13 @@
 fileFormatVersion: 2
-guid: c39f525a4d354a04f93a49261ef7a111
+guid: c869f44d7ea6a1b48a2f5079f87da779
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2018478249512088343
-    second: Karen.exclamation_0
+      213: -2496789352633937476
+    second: Door.normal3_0
   - first:
-      213: 3983594318458682939
-    second: Karen.exclamation_1
-  - first:
-      213: -4304729371199864492
-    second: Karen.exclamation_2
+      213: 8848304016439763334
+    second: Door.normal3_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Karen.exclamation_0
+      name: Door.normal3_0
       rect:
         serializedVersion: 2
-        x: 246
+        x: 4
         y: 0
-        width: 339
-        height: 359
+        width: 814
+        height: 390
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,20 +118,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 71335090643130c10800000000000000
-      internalID: 2018478249512088343
+      spriteID: cb1d645ff4f995dd0800000000000000
+      internalID: -2496789352633937476
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Karen.exclamation_1
+      name: Door.normal3_1
       rect:
         serializedVersion: 2
-        x: 564
-        y: 252
-        width: 55
-        height: 44
+        x: 370
+        y: 353
+        width: 107
+        height: 45
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,30 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b3e7ef83de1984730800000000000000
-      internalID: 3983594318458682939
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Karen.exclamation_2
-      rect:
-        serializedVersion: 2
-        x: 583
-        y: 290
-        width: 98
-        height: 97
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 451017fb1778244c0800000000000000
-      internalID: -4304729371199864492
+      spriteID: 681ed846f9d7bca70800000000000000
+      internalID: 8848304016439763334
       vertices: []
       indices: 
       edges: []
@@ -185,9 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Karen.exclamation_0: 2018478249512088343
-      Karen.exclamation_1: 3983594318458682939
-      Karen.exclamation_2: -4304729371199864492
+      Door.normal3_0: -2496789352633937476
+      Door.normal3_1: 8848304016439763334
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
