@@ -185,6 +185,57 @@ MonoBehaviour:
   clearPercentageText: {fileID: 1120966894}
   clearScoreText: {fileID: 1081288035}
   tutorialPanel: {fileID: 2035405201}
+--- !u!1 &31093072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 31093074}
+  - component: {fileID: 31093073}
+  m_Layer: 0
+  m_Name: '@GameManager'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &31093073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31093072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4cd7755fba988f42a46becdce6923dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
+  bossController: {fileID: 0}
+  currentCharacter: 0
+  scriptType: 0
+  language: 0
+  inGameManager: {fileID: 0}
+  gridManager: {fileID: 0}
+--- !u!4 &31093074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31093072}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &48399506
 GameObject:
   m_ObjectHideFlags: 0
@@ -4138,21 +4189,21 @@ MonoBehaviour:
     delayColor2: {r: 0.9748427, g: 0.18169504, b: 0.16860472, a: 1}
     timeBetweenColors: 0.2
     afterDelay: 2
-    projectileSpeed: 0.75
+    projectileSpeed: 0.7
     shootCount: 3
     creatDelay: 0.2
-    shootDelay: 0.2
+    shootDelay: 1.2
     createDistanceFromBoss: 1
     createDistanceBetweenProjectiles: 0.5
     projectilePrefab: {fileID: 238634571310732959, guid: 838c41bb581c48b49a3ebc0270b0e0aa, type: 3}
   skill3:
-    beforeDelay: 0.2
+    beforeDelay: 2
     delayColor1: {r: 0.3254902, g: 0.2392157, b: 0.16862746, a: 1}
     delayColor2: {r: 0.97647065, g: 0.18039216, b: 0.16862746, a: 1}
-    timeBetweenColors: 0
+    timeBetweenColors: 0.2
     afterDelay: 3
     speed: 1
-    duration: 1.4
+    duration: 30
     distanceFromBoss: 1
     delayBetweenSpawn: 0.5
     spawnObjectPrefab: {fileID: 6082888764632632453, guid: 1657c366c0de85f40bcb796571209d1c, type: 3}
@@ -6394,3 +6445,4 @@ SceneRoots:
   - {fileID: 1695108667}
   - {fileID: 1975717127}
   - {fileID: 1515103324}
+  - {fileID: 31093074}
