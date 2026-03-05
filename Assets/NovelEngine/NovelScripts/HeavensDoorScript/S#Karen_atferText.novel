@@ -1,6 +1,10 @@
 #karen_afterText
 
-@back BlackScreen
+@back Redpattern4
+
+@char Door pos: 50, 55 scale: 1.6
+Door: 준비된 프로토타입은 여기까지입니다.
+
 
 @char Karen pos: 50, 50 scale: 1
 Karen: 일상으로 돌아간 뒤, 빨간 구두가 춤추기 시작했어요.

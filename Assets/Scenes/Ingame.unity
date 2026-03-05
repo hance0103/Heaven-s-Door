@@ -2950,7 +2950,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1184723984}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -4168,9 +4168,9 @@ MonoBehaviour:
   - {x: 0, y: -1}
   - {x: 0, y: 0}
   timeBetweenEffect: 0.3
-  skillUsePattern: 3212121212121232131231212121212132131213121212
+  skillUsePattern: 21212121222212111121212121222121121212
   firstStopTime: 1
-  skillUseCoolTime: {x: 7, y: 12}
+  skillUseCoolTime: {x: 15, y: 25}
   skill1:
     beforeDelay: 2
     delayColor1: {r: 0.32704395, g: 0.23821385, b: 0.16763571, a: 1}
@@ -5377,7 +5377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  moveDelay: 0.03
+  moveDelay: 0.02
   gridManager: {fileID: 1184723986}
   useLineRenderer: 1
   lineRenderer: {fileID: 766297017}

@@ -2,6 +2,9 @@
 
 @back BluePattern1
 
+@char ???.angel transition: fadeIn time: 0.7 pos 50, 100 scale: 10
+@wait 0.7
+
 ???: … 끝까지 당신에게는 부담만 주고 가네요.
 ???: 그래도, 가장 일반적인 사람인 당신이라면, 정할 수 있을 거야.
 ???: 그들의 마지막 행선지도.
@@ -10,6 +13,7 @@
 
 @back RedPattern4
 
+@hide ???
 
 @char ???.karen transition: fadeIn time: 0.5 pos: 20, 55 scale: 1.6 
 ???: ...심판관님? 듣고 있어요?

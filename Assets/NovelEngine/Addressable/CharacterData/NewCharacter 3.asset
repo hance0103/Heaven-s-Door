@@ -21,7 +21,7 @@ MonoBehaviour:
     - _key: don
       value: {fileID: 420220554, guid: 9ddc87e44a4d3cd4bb832e036230faaa, type: 3}
     - _key: door
-      value: {fileID: 21300000, guid: 14da53ca222450d4e9bf58631c3656a0, type: 3}
+      value: {fileID: 21300000, guid: c869f44d7ea6a1b48a2f5079f87da779, type: 3}
     - _key: karen
       value: {fileID: 21300000, guid: 4592db150ec1f6f41acc90a3d522737e, type: 3}
     - _key: karenangry
@@ -34,6 +34,8 @@ MonoBehaviour:
       value: {fileID: 21300000, guid: 1a91e6f2513d4d64e9908587c5ee22b0, type: 3}
     - _key: karenthink
       value: {fileID: 21300000, guid: 9e0b0a2f88b744045bf6b321cce5b634, type: 3}
+    - _key: angel
+      value: {fileID: 8447583196584597403, guid: 0fddca5b5d1077a4cb35c7e3bc5e5a92, type: 3}
     keys: []
     values: []
   headOffset: {x: 0, y: 0}

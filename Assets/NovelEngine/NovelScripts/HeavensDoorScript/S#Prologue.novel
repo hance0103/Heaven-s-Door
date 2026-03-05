@@ -1,7 +1,7 @@
 #karen_beforeText
 
 @back RedPattern4
-@char Door transition: fadeIn time: 1.5 pos: 50, 55 scale: 1.6
+@char Door.normal transition: fadeIn time: 1.5 pos: 50, 55 scale: 1.6
 
 ???: 도어, 천국의 문지기인 당신은 이제부터 인간들을 판결해야 합니다.
 
