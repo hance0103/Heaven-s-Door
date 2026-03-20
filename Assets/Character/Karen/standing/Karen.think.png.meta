@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 253d1612293fd88478b86410ed63b1eb
+guid: 9e0b0a2f88b744045bf6b321cce5b634
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8080218219963888074
-    second: Karen.surprise_0
+      213: -6256417810901760826
+    second: Karen.think_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -101,7 +101,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Karen.surprise_0
+      name: Karen.think_0
       rect:
         serializedVersion: 2
         x: 246
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 63ec96bf65c4ddf80800000000000000
-      internalID: -8080218219963888074
+      spriteID: 6c406ce162dbc29a0800000000000000
+      internalID: -6256417810901760826
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Karen.surprise_0: -8080218219963888074
+      Karen.think_0: -6256417810901760826
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

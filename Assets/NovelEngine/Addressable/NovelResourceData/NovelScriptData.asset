@@ -26,5 +26,7 @@ MonoBehaviour:
       value: {fileID: 2811297602134710623, guid: b8148b78ab9d6314494423aa706ed9a7, type: 3}
     - _key: Karen_hellText
       value: {fileID: 2811297602134710623, guid: b8148b78ab9d6314494423aa706ed9a7, type: 3}
+    - _key: Alice_beforeText
+      value: {fileID: 2811297602134710623, guid: 41f8c86eae563744c97cdaa63853875c, type: 3}
     keys: []
     values: []

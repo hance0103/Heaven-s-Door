@@ -50,5 +50,7 @@ MonoBehaviour:
       value: {fileID: 11400000, guid: 01326b0cc14409a4087638c5ab5877cf, type: 2}
     - _key: Q3
       value: {fileID: 11400000, guid: 8cbd0e06cc90de6438154ff6fa4950d8, type: 2}
+    - _key: alice
+      value: {fileID: 11400000, guid: c3d6ba121b062ba4c873dec10e9dd6f9, type: 2}
     keys: []
     values: []

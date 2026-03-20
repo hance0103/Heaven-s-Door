@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 253d1612293fd88478b86410ed63b1eb
+guid: 14da53ca222450d4e9bf58631c3656a0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8080218219963888074
-    second: Karen.surprise_0
+      213: 4491258511774967838
+    second: door 1_0
+  - first:
+      213: 7867968416308646262
+    second: door 1_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -75,7 +78,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -101,7 +104,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Karen.surprise_0
+      name: door 1_0
       rect:
         serializedVersion: 2
-        x: 246
+        x: 4
         y: 0
-        width: 339
-        height: 359
+        width: 805
+        height: 390
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 63ec96bf65c4ddf80800000000000000
-      internalID: -8080218219963888074
+      spriteID: e18ebcc12d7245e30800000000000000
+      internalID: 4491258511774967838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: door 1_1
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 353
+        width: 107
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 671d11e9693a03d60800000000000000
+      internalID: 7867968416308646262
       vertices: []
       indices: 
       edges: []
@@ -138,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Karen.surprise_0: -8080218219963888074
+      door 1_0: 4491258511774967838
+      door 1_1: 7867968416308646262
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

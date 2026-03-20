@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 96b293b1016a202428c9f554c7b7041c
+guid: c4f87590da148444ebb545499c976422
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7889003929814148126
-    second: Door.angry_0
-  - first:
-      213: -2745180862091528899
-    second: Door.angry_1
+      213: -7813389415525484986
+    second: Karen..normal 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -99,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Door.angry_0
+      name: Karen..normal 1_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 246
         y: 0
-        width: 805
-        height: 390
+        width: 339
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,30 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2eb54cb39b0a48290800000000000000
-      internalID: -7889003929814148126
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Door.angry_1
-      rect:
-        serializedVersion: 2
-        x: 370
-        y: 353
-        width: 107
-        height: 45
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d3575deec8827e9d0800000000000000
-      internalID: -2745180862091528899
+      spriteID: 6467ec349b3419390800000000000000
+      internalID: -7813389415525484986
       vertices: []
       indices: 
       edges: []
@@ -160,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Door.angry_0: -7889003929814148126
-      Door.angry_1: -2745180862091528899
+      Karen..normal 1_0: -7813389415525484986
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 253d1612293fd88478b86410ed63b1eb
+guid: c39f525a4d354a04f93a49261ef7a111
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8080218219963888074
-    second: Karen.surprise_0
+      213: 2018478249512088343
+    second: Karen.exclamation_0
+  - first:
+      213: 3983594318458682939
+    second: Karen.exclamation_1
+  - first:
+      213: -4304729371199864492
+    second: Karen.exclamation_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -75,7 +81,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -101,7 +107,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,7 +119,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Karen.surprise_0
+      name: Karen.exclamation_0
       rect:
         serializedVersion: 2
         x: 246
@@ -128,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 63ec96bf65c4ddf80800000000000000
-      internalID: -8080218219963888074
+      spriteID: 71335090643130c10800000000000000
+      internalID: 2018478249512088343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Karen.exclamation_1
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 252
+        width: 55
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3e7ef83de1984730800000000000000
+      internalID: 3983594318458682939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Karen.exclamation_2
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 290
+        width: 98
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 451017fb1778244c0800000000000000
+      internalID: -4304729371199864492
       vertices: []
       indices: 
       edges: []
@@ -138,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Karen.surprise_0: -8080218219963888074
+      Karen.exclamation_0: 2018478249512088343
+      Karen.exclamation_1: 3983594318458682939
+      Karen.exclamation_2: -4304729371199864492
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
